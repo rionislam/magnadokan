@@ -1,0 +1,232 @@
+/** @format */
+body {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+nav {
+  width: 20%;
+  background: var(--dark-color);
+  color: white;
+  padding: 2rem 0;
+  text-align: center;
+  height: 100vh;
+  font-family: 'Ubuntu', sans-serif;
+  overflow: hidden;
+}
+
+nav header {
+  padding: 0 3rem;
+}
+
+nav hr {
+  height: 1px;
+  background: white;
+  border: none;
+  margin: 2rem 3rem;
+}
+
+nav ul {
+  list-style: none;
+  margin-left: 3rem;
+}
+
+nav ul li {
+  position: relative;
+  font-size: 1.5rem;
+  height: auto;
+  width: 100%;
+  float: left;
+  cursor: pointer;
+  transition: all;
+  min-height: max-content;
+}
+
+nav ul li a {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0.7rem 0;
+  color: white;
+  float: left;
+  transition: 0.4s;
+}
+
+nav ul li a svg {
+  height: 1em;
+  padding: 0 0.3rem;
+  fill: white;
+  transition: 0.4s;
+}
+
+.active {
+  background: white;
+  border-top-left-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+}
+
+.active a {
+  color: black;
+}
+
+.active svg {
+  fill: var(--accent-1);
+}
+
+.active a::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: 35px -35px 0 10px white;
+}
+
+.active a::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: 35px 35px 0 10px white;
+}
+
+main {
+  width: 80%;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+main section,
+main header,
+main hr {
+  margin: 1rem 2rem;
+}
+
+main header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+main header .right {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+
+main header .right .search-bar {
+  display: flex;
+  align-items: center;
+  border-radius: 3px;
+  background: white;
+  border: 1px solid var(--title-color);
+}
+
+main header .right .search-bar input {
+  font-size: 1rem;
+  font-family: Arial;
+  outline: 0;
+  border: 0;
+  padding: 0.2rem 0;
+  padding-left: 0.5rem;
+}
+
+main header .right input[type='image'] {
+  background: var(--accent-1);
+  padding-right: 0.5rem;
+  border-radius: 0px 3px 3px 0;
+  height: 1.7em;
+  border: 1px solid var(--accent-1);
+}
+
+#addNewBtn,
+#save,
+#update {
+  background: var(--accent-1);
+  padding: 0.3rem 0.5rem;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1rem;
+  margin: 0 2rem;
+}
+
+#back {
+  display: flex;
+  align-items: center;
+  background: none;
+  color: var(--title-color);
+  padding: 0.3rem 0.5rem;
+  border: 1px solid gray;
+  border-radius: 3px;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1rem;
+}
+
+#back svg {
+  height: 1em;
+  width: 1em;
+  fill: var(--title-color);
+}
+
+main section .row {
+  display: flex;
+  justify-content: space-between;
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+  margin: 1rem 0;
+  align-items: center;
+  cursor: pointer;
+}
+
+main section .row .name,
+main section .row .writter {
+  width: 30%;
+}
+
+main section .row .downloads,
+main section .row .clicks,
+main section .row .details,
+main section .row .icon {
+  width: 13.33%;
+  text-align: center;
+}
+
+main section .row svg {
+  height: 1em;
+  fill: var(--dark-color);
+}
+
+main section .row .icon img {
+  height: 48px;
+  width: 48px;
+  object-fit: cover;
+  object-position: center;
+}
+
+main section .header-row {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+main section hr {
+  margin-left: 0;
+  margin-right: 0;
+  border: none;
+  background: gray;
+  height: 1px;
+}

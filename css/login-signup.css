@@ -1,0 +1,63 @@
+/** @format */
+.login_signup {
+  height: 80vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login_signup .login_signup-form_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--title-color);
+  padding: 1rem 1.2rem;
+  border-radius: 5px;
+  color: white;
+  box-shadow: 20px 15px 20px hsla(228, 66%, 45%, 0.1);
+}
+
+.login_signup .login_signup-form_container form {
+  margin: 0 2rem;
+}
+
+.login_signup .login_signup-form_container form input[type='submit'] {
+  background: var(--accent-1);
+  border: none;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1.2rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: 3px;
+  margin-top: 1rem;
+  margin-bottom: 0.3rem;
+  color: white;
+  width: 100%;
+  cursor: pointer;
+}
+
+.login_signup .login_signup-form_container form .login_singup-link {
+  padding: 0.4rem 0;
+  font-size: 0.8rem;
+  width: 100%;
+  text-align: right;
+  color: white;
+  font-family: Ubuntu, sans-serif;
+}
+
+.login_signup .login_signup-form_container form .login_singup-link a {
+  color: var(--dim-text);
+  text-decoration: underline;
+}
+
+.checkbox-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.checkbox-container input {
+  margin: 0.5rem 0;
+  margin-right: 0.5rem;
+}

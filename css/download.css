@@ -1,0 +1,26 @@
+/** @format */
+.right .download_text {
+  height: 80%;
+  display: flex;
+  align-items: center;
+}
+
+.right .download_text-container {
+  padding: 0.5rem 0.8rem;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1.2rem;
+  background: var(--accent-1);
+  color: white;
+  border: none;
+  border-radius: 3px;
+  text-align: center;
+}
+
+.right .download_text span {
+  font-size: 1.2rem;
+}
+
+.right .download_text span a {
+  color: var(--dim-text);
+  text-decoration: underline;
+}

@@ -1,0 +1,15 @@
+/** @format */
+
+:root {
+  --title-color: #141f2c;
+  --dark-color: #0f0f0f;
+  --accent-1: #679bdd;
+  --shadow-color: hsla(228, 66%, 45%, 0.1);
+  --dim-text: #91a3b0;
+  --danger: #ff2400;
+  --green: #50c878;
+}
+
+.accent-1 {
+  color: var(--accent-1);
+}

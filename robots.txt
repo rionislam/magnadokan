@@ -1,0 +1,7 @@
+User-Agent: DMCA.com Page Protection Crawling Service
+Allow: /
+
+User-Agent: Googlebot
+Allow: /
+
+Sitemap: https://magnadokan.com/allsitemap
