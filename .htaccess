@@ -27,3 +27,17 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
 </IfModule>
+
+<FilesMatch "\.(?i:gif|jpe?g|png|ico|svg)$">
+  <IfModule mod_headers.c>
+    Header set Cache-Control "max-age=86400, public, must-revalidate"
+  </IfModule>
+</FilesMatch>
+
+<FilesMatch swiper.min.css|swiper.min.js>
+  <IfModule mod_headers.c>
+    Header set Cache-Control "max-age=1296000, public, must-revalidate"
+  </IfModule>
+</FilesMatch>
+
+

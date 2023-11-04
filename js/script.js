@@ -136,6 +136,8 @@ window.addEventListener('load', () => {
   //------ SWIPER POPULAR ------//
   try {
     let swiper = new Swiper('.books-container', {
+      preloadImages: false,
+      lazy: true,
       spaceBetween: 0,
       grabCursor: true,
       centeredSlides: false,
@@ -158,3 +160,20 @@ window.addEventListener('load', () => {
     }
   });
 });
+
+// const box = document.getElementsByClassName('swiper-slide')[0];
+// const box_wrapper = document.getElementsByClassName('books-wrapper')[0];
+
+// box_wrapper.addEventListener(
+//   'scroll',
+//   function () {
+//     const messageText = isInViewport(box)
+//       ? 'The box is visible in the viewport'
+//       : 'The box is not visible in the viewport';
+
+//     console.log(messageText);
+//   },
+//   {
+//     passive: true,
+//   },
+// );

@@ -2,6 +2,7 @@
 require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
 new App\Application;
 $writter = new App\Writter;
+$book = new App\Book;
 ?>
 <link rel="stylesheet" href="css/dashboard.css">
 <header>
@@ -18,7 +19,7 @@ $writter = new App\Writter;
         <div class="preview-cart">
             <div class="left">
                 <div class="icon">
-                    <?php include App\Application::$HOST."/imgs/dashboard.svg";?>
+                    <?php include App\Application::$HOST."/imgs/books.svg";?>
                 </div>
             </div>
             <div class="middle">
@@ -43,7 +44,7 @@ $writter = new App\Writter;
         <div class="preview-cart">
             <div class="left">
                 <div class="icon">
-                    <?php include App\Application::$HOST."/imgs/dashboard.svg";?>
+                    <?php include App\Application::$HOST."/imgs/account_circle.svg";?>
                 </div>
             </div>
             <div class="middle">
@@ -68,7 +69,7 @@ $writter = new App\Writter;
         <div class="preview-cart">
             <div class="left">
                 <div class="icon">
-                    <?php include App\Application::$HOST."/imgs/dashboard.svg";?>
+                    <?php include App\Application::$HOST."/imgs/download.svg";?>
                 </div>
             </div>
             <div class="middle">
@@ -126,49 +127,10 @@ $writter = new App\Writter;
         <div class="top_book header">
             <div class="top_book-cover">Cover</div>
             <div class="top_book-name">Name</div>
-            <div class="top_book-impressions">Impressions</div>
+            <div class="top_book-impressions">Clicks</div>
             <div class="top_book-downloads">Downloads</div>
         </div>
-        <div class="top_book">
-                <div class="top_book-cover">
-                    <img src="http://localhost/uploads/Clrs4.jpeg">
-                </div>
-                <div class="top_book-name">Introduction to Algorithms</div>
-                <div class="top_book-impressions">500</div>
-                <div class="top_book-downloads">120</div>
-        </div>
-        <div class="top_book">
-                <div class="top_book-cover">
-                    <img src="http://localhost/uploads/Clrs4.jpeg">
-                </div>
-                <div class="top_book-name">Introduction to Algorithms</div>
-                <div class="top_book-impressions">500</div>
-                <div class="top_book-downloads">120</div>
-        </div>
-        <div class="top_book">
-                <div class="top_book-cover">
-                    <img src="http://localhost/uploads/Clrs4.jpeg">
-                </div>
-                <div class="top_book-name">Introduction to Algorithms</div>
-                <div class="top_book-impressions">500</div>
-                <div class="top_book-downloads">120</div>
-        </div>
-        <div class="top_book">
-                <div class="top_book-cover">
-                    <img src="http://localhost/uploads/Clrs4.jpeg">
-                </div>
-                <div class="top_book-name">Introduction to Algorithms</div>
-                <div class="top_book-impressions">500</div>
-                <div class="top_book-downloads">120</div>
-        </div>
-        <div class="top_book">
-                <div class="top_book-cover">
-                    <img src="http://localhost/uploads/Clrs4.jpeg">
-                </div>
-                <div class="top_book-name">Introduction to Algorithms</div>
-                <div class="top_book-impressions">500</div>
-                <div class="top_book-downloads">120</div>
-        </div>
+        <?=$book->loadPopular(5)?>
     </div>
  </div>
  <div class="right">

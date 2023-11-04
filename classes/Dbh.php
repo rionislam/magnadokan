@@ -13,6 +13,8 @@ class Dbh{
         if($mysqli->connect_errno){
             return $mysqli->connect_error;
         }else{
+            $mysqli->query('SET CHARACTER SET utf8');
+            $mysqli->query("SET SESSION collation_connection ='utf8_general_ci'");
             return $mysqli;
         }
     }
@@ -41,7 +43,7 @@ class Dbh{
         
     }
 
-    protected function createRow($table, $columns, $dataTypes, ...$data){
+    protected function createRow(string $table, array $columns, string $dataTypes, ...$data){
         $columnsString = '';
         $valuesString = '';
         foreach($columns as $colum){

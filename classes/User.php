@@ -10,6 +10,7 @@ class User extends Dbh{
         $this->dbConn = $this->connect();
     }
 
+
     private function check($userUsername, $userEmail){
         $sql = "SELECT * FROM `users` WHERE userUsername = ? OR userEmail = ? ;";
         $stmt = $this->dbConn->stmt_init();
@@ -31,6 +32,14 @@ class User extends Dbh{
             return false;
         }
         $stmt->close();
+    }
+
+    public function logedIn(){
+        if(isset($_SESSION['userId'])){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function login($userLogin, $userPassword){

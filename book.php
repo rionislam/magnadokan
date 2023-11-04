@@ -4,8 +4,8 @@
 require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
 new App\Application;
 $book = new App\Book;
-$row = $book->get($_GET['name']);
-$book->click($_GET['name']);
+$row = $book->getByName($_GET['name']);
+$book->click($row['bookId']);
 $category = new App\Category;
 $category->click($row['bookCategory']);
 ?>

@@ -1,6 +1,6 @@
 <?php
 @session_start();
-require_once($_SERVER['DOCUMENT_ROOT'].'/includes/classAutoloader.inc.php');
+require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
 use App\Application;
 $application = new Application;
 ?>

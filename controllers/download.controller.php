@@ -13,7 +13,7 @@ if(!isset($_SESSION['userId'])){
     exit();
 }
 $row = $file->get($fileUniqueId);
-$row1 = $book->get($row['bookName']);
+$row1 = $book->getByName($row['bookName']);
 $book->download($row['bookName']);
 $category->download($row1['bookCategory']);
 $file->download($fileUniqueId);

@@ -58,7 +58,7 @@ class Book extends Dbh{
     }
 
     //NOTE - Get a book's details by it's name
-    public function get($bookName){
+    public function getByName($bookName){
         // $bookName = str_replace('-', ' ', $bookName);
         $cache = new Cache;
         $cache = $cache->config();
@@ -96,7 +96,34 @@ class Book extends Dbh{
         return $row;
     }
 
-    //NOTE - Load popular books of today by language
+    //NOTE - Load popular books
+    public function loadPopular($limit){
+        $cache = new Cache;
+        $cache = $cache->config();
+        $cahceInstance = $cache->getItem("books?limit={$limit}");
+        if(is_null($cahceInstance->get())){
+            $rows = $this->getLimited("0,".strval($limit) , "ORDER BY `clicks` DESC, `downloads` DESC ");
+            $cahceInstance->set($rows)->expiresAfter(43200);
+            $cache->save($cahceInstance);
+        }else{
+            $rows = $cahceInstance->get();
+        }
+       
+        foreach($rows as $row){
+            $cover = Application::$HOST."/uploads/".$row['bookCover'];
+            echo "<div class='top_book'>
+                    <div class='top_book-cover'>
+                        <img src='{$cover}'>
+                    </div>
+                    <div class='top_book-name'>{$row['bookName']}</div>
+                    <div class='top_book-impressions'>{$row['clicks']}</div>
+                    <div class='top_book-downloads'>{$row['downloads']}</div>
+                </div>";
+           
+        }
+    }
+
+    //NOTE - Load popular books by language
     public function loadPopularByLanguage($limit, $language){
         $cache = new Cache;
         $cache = $cache->config();
@@ -110,10 +137,12 @@ class Book extends Dbh{
         }
        
         foreach($rows as $row){
-            $link = Application::$HOST."/book/".$row['bookName'];
+            $host = Application::$HOST;
             echo "<article class='swiper-slide'>
-                    <a href='{$link}'>
-                    <img loading='lazy' alt='{$row['bookName']} pdf by Magna Dokan' src='uploads/{$row['bookCover']}'>
+                    <a href='{$host}/book/{$row['bookName']}'>
+                    <div class='image-container' style='background-image: url({$host}/imgs/loading.gif)'>
+                    <img loading='lazy' onload='this.style.opacity = 1' alt='{$row['bookName']} pdf by Magna Dokan' src='uploads/{$row['bookCover']}'>
+                    </div>
                     <h3 class='name'>{$row['bookName']}</h3>
                     </a>
                 </article>";
@@ -124,14 +153,17 @@ class Book extends Dbh{
    
 
     //NOTE - Register when a book is clicked the help the algorithms
-    public function click($bookName){
-        $clicks = $this->get($bookName)['clicks']+1;
-        $this->updateData('books', ['clicks'], 'i', " WHERE `bookName`='{$bookName}'", $clicks);
+    public function click($bookId){
+        $clicks = $this->getById($bookId)['clicks']+1;
+        $this->updateData('books', ['clicks'], 'i', " WHERE `bookId`='{$bookId}'", $clicks);
+        require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
+        $log = new Log;
+        $log->click('book', $bookId);
     }
 
     //NOTE - Download the pdf file if it's sotred on the server.(But not in use currently cause we store them on google drive)
     public function download($bookName){
-        $downloads = $this->get($bookName)['downloads']+1;
+        $downloads = $this->getByName($bookName)['downloads']+1;
         $this->updateData('books', ['downloads'], 'i', " WHERE `bookName`='{$bookName}'", $downloads);
     }
 

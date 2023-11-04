@@ -5,12 +5,14 @@ use App\Application;
 $application = new Application;
 $category = new App\Category;
 $book = new App\Book;
+header('Content-Encoding: gzip')
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Cache-control" content="no-cache">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="var(--accent-1)" />
     <title>Magna Dokan</title>
@@ -20,6 +22,12 @@ $book = new App\Book;
                 website. Most of the writters and pubblisher don't mind if their books are distributed to the underprivileged people
                 for free. If anyone mind and don't want their content to be distributed for free they can place a request and we will 
                 remove their content according to the DMCA policy.">
+    <link rel="preload" media="(min-width: 640px)" as="image" href="imgs/books.png"/>
+    <link rel="preload" as="image" href="imgs/loading.gif"/>
+    <link rel="preload" as="style" href="css/swiper.min.css">
+    <link rel="preload" as="style" href="<?=Application::$HOST?>/css/global.css">
+    <link rel="preload" as="style" href="css/style.css">
+    <link rel="preload" as="script" href="js/swiper.min.js">
     <link rel="apple-touch-icon" sizes="180x180" href="<?=Application::$HOST?>/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="<?=Application::$HOST?>/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="<?=Application::$HOST?>/favicon-16x16.png">
@@ -88,7 +96,7 @@ $book = new App\Book;
                 <div><a href="<?=Application::$HOST?>/book-request"  target="_blank" <?=(isset($_SESSION['userId']))?'':'onclick="showLoginSignup(); event.preventDefault();"';?> >Request a book...</a></div>
             </div>
             <div class="right">
-                <img src="imgs/books.png">
+                <div class="img"></div>
             </div>
         </section>
         <section id="popular-categories" class="popular-categories max-width center">
@@ -106,7 +114,7 @@ $book = new App\Book;
                     ?>
                     <article class="swiper-slide" id="showMore">
                         <a href="<?=Application::$HOST?>/books/language=English">
-                            <img src="imgs/arrow_circle_right.svg" alt="More English Books">
+                            <img style="opacity: 1;" src="imgs/arrow_circle_right.svg" alt="More English Books">
                             <h3 class="name">Show More</h3>
                         </a>
                     </article>
@@ -122,7 +130,7 @@ $book = new App\Book;
                     ?>
                     <article class="swiper-slide" id="showMore">
                         <a href="<?=Application::$HOST?>/books/language=Bangla">
-                            <img src="imgs/arrow_circle_right.svg" alt="More Bangla Books">
+                            <img style="opacity: 1;" src="imgs/arrow_circle_right.svg" alt="More Bangla Books">
                             <h3 class="name">Show More</h3>
                         </a>
                     </article>
@@ -131,7 +139,7 @@ $book = new App\Book;
         </section>
     </main>
     <?php include 'includes/footer.inc.php'?>
-    <script src="js/swiper.min.js"></script>
+    <script async src="js/swiper.min.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>

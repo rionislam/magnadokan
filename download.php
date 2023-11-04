@@ -4,7 +4,7 @@
 require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
 new App\Application;
 $book = new App\Book;
-$row = $book->get($_GET['name']);
+$row = $book->getByName($_GET['name']);
 $book->download($_GET['name']);
 $category = new App\Category;
 $category->download($row['bookCategory']);
