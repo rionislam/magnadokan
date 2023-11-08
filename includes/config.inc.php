@@ -1,7 +1,7 @@
 <?php
 
-define('dbName', 'test2');
-define('dbUser', 'root');
-define('dbPass', '');
-define('dbHost', 'localhost');
+define('dbName',  '');//Database Name
+define('dbUser', '');//Database UserName 
+define('dbPass', '');//Database Password
+define('dbHost', 'localhost');//Dababase Host
 

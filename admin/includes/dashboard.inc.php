@@ -19,12 +19,12 @@ $book = new App\Book;
         <div class="preview-cart">
             <div class="left">
                 <div class="icon">
-                    <?php include App\Application::$HOST."/imgs/books.svg";?>
+                    <?= file_get_contents(App\Application::$HOST."/imgs/books.svg")?>
                 </div>
             </div>
             <div class="middle">
                 <div class="number">
-                    70040
+                    <?= $book->count();?>
                 </div>
                 <div class="preview-title">
                     Total Books
@@ -32,7 +32,7 @@ $book = new App\Book;
             </div>
             <div class="right" title="Monthly growth">
                 <div class="icon">
-                    <?php include App\Application::$HOST."/imgs/growth.svg";?>
+                    <?= file_get_contents(App\Application::$HOST."/imgs/growth.svg")?>
                 </div>
                 <div class="number">
                     7%
@@ -44,12 +44,12 @@ $book = new App\Book;
         <div class="preview-cart">
             <div class="left">
                 <div class="icon">
-                    <?php include App\Application::$HOST."/imgs/account_circle.svg";?>
+                    <?= file_get_contents(App\Application::$HOST."/imgs/account_circle.svg")?>
                 </div>
             </div>
             <div class="middle">
                 <div class="number">
-                    70020
+                    <?=$user->count()?>
                 </div>
                 <div class="preview-title">
                     Total Users
@@ -57,7 +57,7 @@ $book = new App\Book;
             </div>
             <div class="right" title="Monthly growth">
                 <div class="icon">
-                    <?php include App\Application::$HOST."/imgs/growth.svg";?>
+                    <?= file_get_contents(App\Application::$HOST."/imgs/growth.svg")?>
                 </div>
                 <div class="number">
                     7%
@@ -69,7 +69,7 @@ $book = new App\Book;
         <div class="preview-cart">
             <div class="left">
                 <div class="icon">
-                    <?php include App\Application::$HOST."/imgs/download.svg";?>
+                    <?= file_get_contents(App\Application::$HOST."/imgs/download.svg")?>
                 </div>
             </div>
             <div class="middle">
@@ -82,7 +82,7 @@ $book = new App\Book;
             </div>
             <div class="right" title="Monthly growth">
                 <div class="icon">
-                    <?php include App\Application::$HOST."/imgs/growth.svg";?>
+                    <?= file_get_contents(App\Application::$HOST."/imgs/growth.svg")?>
                 </div>
                 <div class="number">
                     7%
@@ -94,7 +94,7 @@ $book = new App\Book;
         <div class="preview-cart">
             <div class="left">
                 <div class="icon">
-                    <?php include App\Application::$HOST."/imgs/dashboard.svg";?>
+                    <?= file_get_contents(App\Application::$HOST."/imgs/dashboard.svg")?>
                 </div>
             </div>
             <div class="middle">
@@ -107,7 +107,7 @@ $book = new App\Book;
             </div>
             <div class="right" title="Monthly growth">
                 <div class="icon">
-                    <?php include App\Application::$HOST."/imgs/growth.svg";?>
+                    <?= file_get_contents(App\Application::$HOST."/imgs/growth.svg")?>
                 </div>
                 <div class="number">
                     7%
@@ -116,7 +116,6 @@ $book = new App\Book;
         </div>
     </div>
 </section>
-
 <!-- ANCHOR Analitics Section -->
 <section class="analytics">
  <div class="left">

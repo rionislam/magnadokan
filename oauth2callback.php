@@ -1,5 +1,9 @@
 <?php
+
+use App\Application;
+
 require 'vendor/autoload.php';
+new Application;
 
 session_start();
 // Initialize the Google API client
@@ -8,7 +12,7 @@ $client->setAuthConfig('client-credentials.json'); // Path to your JSON credenti
 $client->addScope(Google_Service_Drive::DRIVE);
 
 // Set the redirect URI to match the one you configured in the Google Cloud Console
-$client->setRedirectUri('http://localhost/oauth2callback.php');
+$client->setRedirectUri(Application::$HOST.'/oauth2callback.php');
 
 // If the user has granted permission, handle the authorization code
 if (isset($_GET['code'])) {
@@ -25,7 +29,7 @@ if (isset($_GET['code'])) {
     // Save the access token to a secure location (e.g., a database) for future use
 
     // Redirect to a page where you can interact with Google Drive
-    header('Location: http://localhost/controllers/'.$_SESSION['redirection_target'].'.controller.php'); // Replace with the actual page URL
+    header('Location: '.Application::$HOST.'/controllers/'.$_SESSION['redirection_target'].'.controller.php'); // Replace with the actual page URL
 } else {
     // The user denied permission, or the request is invalid
     echo 'Authorization was denied or an error occurred.';

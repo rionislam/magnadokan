@@ -2,14 +2,29 @@
 namespace App;
 
 class Log extends Dbh{
-    public function add($event, $userIp, $userLogedIn, $userId=Null, $userOs, $userBrowser, $userCountry, $pageUrl, $contentType, $contentId){
-        $this->createRow('userLogs',['event', 'userIp', 'userLoggedIn', 'userId', 'userOs', 'userBrowser', 'userCountry', 'pageUrl', 'contentType', 'contentId'], 'ssiisssssi', $event, $userIp, $userLogedIn, $userId, $userOs, $userBrowser, $userCountry, $pageUrl, $contentType, $contentId);
+    private function addBookLogs($event, $userIp, $userLogedIn, $userId=Null, $userOs, $userBrowser, $userCountry, $pageUrl, $bookId, $bookCategory){
+        $this->createRow('bookLogs',['event', 'userIp', 'userLoggedIn', 'userId', 'userOs', 'userBrowser', 'userCountry', 'pageUrl', 'bookId', 'bookCategory'], 'ssiissssis', $event, $userIp, $userLogedIn, $userId, $userOs, $userBrowser, $userCountry, $pageUrl, $bookId, $bookCategory);
     }
 
-    public function click($contentType, $contentId){
+    public function collectClick($bookId, $bookCategory){
         $client = new Client;
         $user = new User;
-        $this->add('click', $client->getIp(), $user->logedIn(), ($user->logedIn())?$_SESSION['userId']:'', $client->getOs(), $client->getBrowser(), $client->getCountry(),  $_SERVER['HTTP_REFERER'], $contentType, $contentId);
+        $this->addBookLogs('click', $client->getIp(), $user->logedIn(), ($user->logedIn())?$_SESSION['userId']:'', $client->getOs(), $client->getBrowser(), $client->getCountry(),  $_SERVER['HTTP_REFERER'], $bookId, $bookCategory);
     }
+
+    public function collectImpression($bookId, $bookCategory){
+        $client = new Client;
+        $user = new User;
+        $this->addBookLogs('impression', $client->getIp(), $user->logedIn(), ($user->logedIn())?$_SESSION['userId']:'', $client->getOs(), $client->getBrowser(), $client->getCountry(),  $_SERVER['HTTP_REFERER'], $bookId, $bookCategory);
+    }
+
+    public function collectDownload($bookId, $bookCategory){
+        $client = new Client;
+        $user = new User;
+        $this->addBookLogs('download', $client->getIp(), $user->logedIn(), ($user->logedIn())?$_SESSION['userId']:'', $client->getOs(), $client->getBrowser(), $client->getCountry(),  $_SERVER['HTTP_REFERER'], $bookId, $bookCategory);
+    }
+
+    
+
 }
 

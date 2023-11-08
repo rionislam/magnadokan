@@ -36,6 +36,33 @@ let download = (e, sessionId) => {
   }
 };
 
+//NOTE - To put data
+/**
+ * @param {string} url
+ * @param {JSON} data
+ */
+let put = (url, data) => {
+  let my_headers = new Headers();
+  my_headers.append('pragma', 'no-cache');
+  my_headers.append('cache-control', 'no-cache');
+  my_headers.append('Content-Type', 'application/json');
+  fetch(url, {
+    method: 'PUT',
+    headers: my_headers,
+    body: data,
+  });
+  // .then(function (response) {
+  //   if (response.status >= 200 && response.status < 300) {
+  //     return response.text();
+  //   }
+  //   throw new Error(response.statusText);
+  // })
+  // .then(function (response) {
+  //   console.log(response);
+  // })
+  // .catch((err) => console.log('Request Failed', err));
+};
+
 let buy = (e) => {
   link = e.dataset.link;
   if (link == '') {
@@ -96,6 +123,19 @@ let togglePassword = (e) => {
     input.type = 'password';
     e.src = location.origin + '/imgs/visible.svg';
   }
+};
+
+let collectImpression = (bookId, bookCategory) => {
+  let event = 'impression';
+  let data = {
+    event: event,
+    bookId: bookId,
+    bookCategory: bookCategory,
+  };
+  put(
+    location.origin + '/controllers/collect-log.controller.php',
+    JSON.stringify(data),
+  );
 };
 
 let isInViewport = (el) => {

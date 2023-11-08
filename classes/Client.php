@@ -87,6 +87,6 @@ class Client extends IpInfo{
 
     //TODO - Need to change the ip with user's ip
     public function getCountry(){
-        return $this->get('103.155.118.138', 'Country');
+        return $this->get($this->getIp(), 'Country');
     }
 }

@@ -10,6 +10,13 @@ class User extends Dbh{
         $this->dbConn = $this->connect();
     }
 
+    //NOTE - Get the number of users
+    public function count($condition = NULL){
+        $sql= "SELECT * FROM `users` {$condition};";
+        $result = $this->getResult($sql);
+        return $result->num_rows;
+    }
+
 
     private function check($userUsername, $userEmail){
         $sql = "SELECT * FROM `users` WHERE userUsername = ? OR userEmail = ? ;";

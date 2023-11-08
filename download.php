@@ -2,12 +2,15 @@
 
 @session_start();
 require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
-new App\Application;
+$appliction = new App\Application;
+$appliction->checkUserLogin();
 $book = new App\Book;
 $row = $book->getByName($_GET['name']);
 $book->download($_GET['name']);
 $category = new App\Category;
 $category->download($row['bookCategory']);
+$log = new App\Log;
+$log->collectDownload( $row['bookId'], $row['bookCategory']);
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -1,0 +1,59 @@
+/** @format */
+
+.slider {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
+  list-style: none;
+  padding: 0;
+  z-index: 1;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.slider-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  transition: transform 0.3s ease-out;
+  box-sizing: content-box;
+  cursor: grab;
+}
+
+.slider-wrapper a {
+  cursor: grab;
+  -webkit-user-select: none; /* Safari 3.1+ */
+  -moz-user-select: none; /* Firefox 2+ */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none; /* Standard syntax */
+  user-drag: none;
+  -webkit-user-drag: none;
+}
+
+.slide {
+  flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition-property: transform;
+}
+
+.slide img {
+  pointer-events: none;
+}
+
+.dragging {
+  cursor: grabbing;
+}
+
+.dragging a {
+  cursor: grabbing;
+  pointer-events: none;
+}

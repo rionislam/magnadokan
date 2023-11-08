@@ -24,15 +24,15 @@ header('Content-Encoding: gzip')
                 remove their content according to the DMCA policy.">
     <link rel="preload" media="(min-width: 640px)" as="image" href="imgs/books.png"/>
     <link rel="preload" as="image" href="imgs/loading.gif"/>
-    <link rel="preload" as="style" href="css/swiper.min.css">
+    <link rel="preload" as="style" href="css/slider.css">
     <link rel="preload" as="style" href="<?=Application::$HOST?>/css/global.css">
     <link rel="preload" as="style" href="css/style.css">
-    <link rel="preload" as="script" href="js/swiper.min.js">
+    <link rel="preload" as="script" href="js/slider.js">
     <link rel="apple-touch-icon" sizes="180x180" href="<?=Application::$HOST?>/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="<?=Application::$HOST?>/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="<?=Application::$HOST?>/favicon-16x16.png">
     <link rel="manifest" href="<?=Application::$HOST?>/menifest.json">
-    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/slider.css">
     <link rel="stylesheet" href="<?=Application::$HOST?>/css/global.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/functions.js"></script>
@@ -107,12 +107,12 @@ header('Content-Encoding: gzip')
         </section>
         <section id="english-books" class="english-books max-width center">
             <div class="title">English Books</div>
-            <div class="books-container swiper">
-                <div class="books-wrapper swiper-wrapper">
+            <div class="books-container slider">
+                <div class="books-wrapper slider-wrapper">
                     <?php
                     $book->loadPopularByLanguage(8, 'English'); 
                     ?>
-                    <article class="swiper-slide" id="showMore">
+                    <article class="slide" id="showMore">
                         <a href="<?=Application::$HOST?>/books/language=English">
                             <img style="opacity: 1;" src="imgs/arrow_circle_right.svg" alt="More English Books">
                             <h3 class="name">Show More</h3>
@@ -123,12 +123,12 @@ header('Content-Encoding: gzip')
         </section>
         <section id="bangla-books" class="bangla-books max-width center">
             <div class="title">Bangla Books</div>
-            <div class="books-container swiper">
-                <div class="books-wrapper swiper-wrapper">
+            <div class="books-container slider">
+                <div class="books-wrapper slider-wrapper">
                     <?php
                     $book->loadPopularByLanguage(8, 'Bangla');
                     ?>
-                    <article class="swiper-slide" id="showMore">
+                    <article class="slide" id="showMore">
                         <a href="<?=Application::$HOST?>/books/language=Bangla">
                             <img style="opacity: 1;" src="imgs/arrow_circle_right.svg" alt="More Bangla Books">
                             <h3 class="name">Show More</h3>
@@ -139,7 +139,7 @@ header('Content-Encoding: gzip')
         </section>
     </main>
     <?php include 'includes/footer.inc.php'?>
-    <script async src="js/swiper.min.js"></script>
+    <script async src="js/slider.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>

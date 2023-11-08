@@ -5,9 +5,10 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
 new App\Application;
 $book = new App\Book;
 $row = $book->getByName($_GET['name']);
-$book->click($row['bookId']);
+$book->click($row['bookId'], $row['bookCategory']);
 $category = new App\Category;
 $category->click($row['bookCategory']);
+$log = new App\Log;
 ?>
 <!DOCTYPE html>
 <html lang="en">

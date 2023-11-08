@@ -62,7 +62,7 @@ class Book extends Dbh{
         // $bookName = str_replace('-', ' ', $bookName);
         $cache = new Cache;
         $cache = $cache->config();
-        $cahceInstance = $cache->getItem("book?name={$bookName}");
+        $cahceInstance = $cache->getItem("book?name=".str_replace(array('{', '}', '(', ')', '/','@', ':'), '', $bookName));
         if(is_null($cahceInstance->get())){
             $sql = "SELECT * FROM `books` WHERE `bookName`='{$bookName}';";
             $row = $this->getRows($sql)[0];
@@ -83,7 +83,7 @@ class Book extends Dbh{
     }
 
     //NOTE - Get the number of books added to the database
-    public function count($condition){
+    public function count($condition = NULL){
         $sql= "SELECT * FROM `books` {$condition};";
         $result = $this->getResult($sql);
         return $result->num_rows;
@@ -102,7 +102,25 @@ class Book extends Dbh{
         $cache = $cache->config();
         $cahceInstance = $cache->getItem("books?limit={$limit}");
         if(is_null($cahceInstance->get())){
-            $rows = $this->getLimited("0,".strval($limit) , "ORDER BY `clicks` DESC, `downloads` DESC ");
+            $sql = "SELECT
+                        b.*,
+                        COALESCE(SUM(CASE 
+                                        WHEN bl.event = 'impression' THEN 1 
+                                        WHEN bl.event = 'click' THEN 2
+                                        WHEN bl.event = 'download' THEN 2
+                                        ELSE 0 END
+                                    ), 0) AS total_score
+                    FROM
+                        Books b
+                    LEFT JOIN
+                        bookLogs bl ON b.bookId = bl.bookId AND bl.logTime >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+                    GROUP BY
+                        b.bookId
+                    ORDER BY
+                        total_score DESC
+                    LIMIT
+                        {$limit};";
+            $rows = $this->getRows($sql);
             $cahceInstance->set($rows)->expiresAfter(43200);
             $cache->save($cahceInstance);
         }else{
@@ -129,7 +147,32 @@ class Book extends Dbh{
         $cache = $cache->config();
         $cahceInstance = $cache->getItem("books?language={$language}&limit={$limit}");
         if(is_null($cahceInstance->get())){
-            $rows = $this->getLimited("0,".strval($limit) , "WHERE `bookLanguage` = '".$language."' ORDER BY `clicks` DESC, `downloads` DESC ");
+            $sql = "SELECT
+                        b.*,
+                        COALESCE(SUM(CASE 
+                                        WHEN bl.event = 'impression' THEN 1 
+                                        WHEN bl.event = 'click' THEN 2
+                                        WHEN bl.event = 'download' THEN 2
+                                        ELSE 0 END
+                                    ), 0) AS total_score
+                    FROM
+                        Books b
+
+                    LEFT JOIN
+                        bookLogs bl ON b.bookId = bl.bookId AND bl.logTime >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+
+                    WHERE 
+                        b.bookLanguage = '{$language}'
+                        
+                    GROUP BY
+                        b.bookId
+                    
+                    ORDER BY
+                        total_score DESC
+
+                    LIMIT
+                        {$limit};";
+            $rows = $this->getRows($sql);
             $cahceInstance->set($rows)->expiresAfter(43200);
             $cache->save($cahceInstance);
         }else{
@@ -138,7 +181,7 @@ class Book extends Dbh{
        
         foreach($rows as $row){
             $host = Application::$HOST;
-            echo "<article class='swiper-slide'>
+            echo "<article class='slide' data-impression-collected=false data-book-category='{$row['bookCategory']}' data-book-id='{$row['bookId']}'>
                     <a href='{$host}/book/{$row['bookName']}'>
                     <div class='image-container' style='background-image: url({$host}/imgs/loading.gif)'>
                     <img loading='lazy' onload='this.style.opacity = 1' alt='{$row['bookName']} pdf by Magna Dokan' src='uploads/{$row['bookCover']}'>
@@ -153,12 +196,12 @@ class Book extends Dbh{
    
 
     //NOTE - Register when a book is clicked the help the algorithms
-    public function click($bookId){
+    public function click($bookId, $bookCategory){
         $clicks = $this->getById($bookId)['clicks']+1;
         $this->updateData('books', ['clicks'], 'i', " WHERE `bookId`='{$bookId}'", $clicks);
         require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
         $log = new Log;
-        $log->click('book', $bookId);
+        $log->collectClick($bookId, $bookCategory);
     }
 
     //NOTE - Download the pdf file if it's sotred on the server.(But not in use currently cause we store them on google drive)

@@ -1,7 +1,7 @@
 <?php
 require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
 @session_start();
-$drive = new Drive;
+$drive = new App\Drive;
 $application = new App\Application;
 $application->checkAdminLogin();
 $book = new App\Book;
