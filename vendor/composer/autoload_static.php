@@ -14,9 +14,9 @@ class ComposerStaticInit923f8a79bcf0ad64f258b1c1362a4a43
             'Phpfastcache\\Tests\\' => 19,
             'Phpfastcache\\' => 13,
         ),
-        'A' => 
+        'C' => 
         array (
-            'App\\' => 4,
+            'Core\\' => 5,
         ),
     );
 
@@ -37,9 +37,9 @@ class ComposerStaticInit923f8a79bcf0ad64f258b1c1362a4a43
         array (
             0 => __DIR__ . '/..' . '/phpfastcache/phpfastcache/lib/Phpfastcache',
         ),
-        'App\\' => 
+        'Core\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/classes',
+            0 => __DIR__ . '/../..' . '/src/Core',
         ),
     );
 

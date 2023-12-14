@@ -1,0 +1,122 @@
+/** @format */
+body {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+main {
+  width: 80%;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+main section,
+main header,
+main hr {
+  margin: 1rem 2rem;
+}
+
+main header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+main header .right {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+
+main header .right .search-bar {
+  display: flex;
+  align-items: center;
+  border-radius: 3px;
+  background: white;
+  border: 1px solid var(--title-color);
+}
+
+main header .right .search-bar input {
+  font-size: 1rem;
+  font-family: Arial;
+  outline: 0;
+  border: 0;
+  padding: 0.2rem 0;
+  padding-left: 0.5rem;
+}
+
+main header .right input[type='image'] {
+  background: var(--accent-1);
+  padding-right: 0.5rem;
+  border-radius: 0px 3px 3px 0;
+  height: 1.7em;
+  border: 1px solid var(--accent-1);
+}
+
+#addNewBtn,
+#save,
+#update {
+  background: var(--accent-1);
+  padding: 0.3rem 0.5rem;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1rem;
+  margin: 0 2rem;
+}
+
+#back {
+  display: flex;
+  align-items: center;
+  background: none;
+  color: var(--title-color);
+  padding: 0.3rem 0.5rem;
+  border: 1px solid gray;
+  border-radius: 3px;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1rem;
+}
+
+#back svg {
+  height: 1em;
+  width: 1em;
+  fill: var(--title-color);
+}
+
+main section .row {
+  display: flex;
+  justify-content: space-between;
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+  margin: 1rem 0;
+  align-items: center;
+  cursor: pointer;
+}
+main section .row svg {
+  height: 1em;
+  fill: var(--dark-color);
+}
+
+main section .row .icon img {
+  height: 48px;
+  width: 48px;
+  object-fit: cover;
+  object-position: center;
+}
+
+main section .header-row {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+main section hr {
+  margin-left: 0;
+  margin-right: 0;
+  border: none;
+  background: gray;
+  height: 1px;
+}

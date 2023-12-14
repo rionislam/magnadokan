@@ -1,3 +1,7 @@
+.gitignore
 test*
 client-credentials.json
 dmca-validation.html
+config/database.php
+config/application.php
+*.zip

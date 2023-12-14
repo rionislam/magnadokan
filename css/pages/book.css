@@ -1,0 +1,144 @@
+/** @format */
+
+.book-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 5rem;
+  flex-wrap: wrap;
+}
+.book-container .left,
+.book-container .right {
+  width: 50%;
+}
+.book-container .left {
+  text-align: center;
+}
+.book-container .right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.book-container .right .writters {
+  margin-top: 3rem;
+  margin-bottom: 5rem;
+}
+.book-container .right .writters .title {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+.book-container .right .writters ul {
+  list-style: none;
+  margin-left: 2rem;
+}
+.book-container .right p {
+  font-family: Arial, sans-serif;
+  font-size: 0.7rem;
+  width: 100%;
+}
+.book-container .right .bottom {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.book-container .right .bottom button {
+  padding: 0.5rem 0.8rem;
+  font-family: Ubuntu, sans-serif;
+  font-size: 1.2rem;
+  background: var(--accent-1);
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.book-container .right .bottom button span {
+  transition: all 0.4s ease;
+}
+.book-container .right .bottom button svg {
+  fill: #fff;
+  height: 1em;
+  width: 1em;
+}
+.book-container .right .bottom .add-to-libray-btn {
+  background: var(--title-color);
+  margin-right: 1rem;
+}
+.book-container .bottom .description-container,
+.book-container .bottom .tags-container {
+  margin: 3rem 0;
+}
+.book-container .bottom hr {
+  height: 1px;
+  background: gray;
+  margin: 1rem 0;
+}
+
+.icon {
+  display: block;
+  border-radius: 50%;
+  stroke: white;
+  -webkit-animation: bounceIcon 0.17s ease-in-out;
+  animation: bounceIcon 0.17s ease-in-out;
+  -webkit-animation-delay: 0.25s;
+  animation-delay: 0.25s;
+}
+
+.circle {
+  stroke-dasharray: 190;
+  stroke-dashoffset: 190;
+  stroke-width: 9;
+  stroke: #ece8e8;
+  fill: none;
+  -webkit-animation: drawCircle 0.2s linear;
+  animation: drawCircle 0.2s linear;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+.check {
+  stroke-width: 7;
+  stroke-dasharray: 120;
+  stroke-dashoffset: 120;
+  -webkit-animation: drawCheckmark 0.2s cubic-bezier(0.89, 0.09, 0.91, 0.67);
+  animation: drawCheckmark 0.2s cubic-bezier(0.89, 0.09, 0.91, 0.67) forwards;
+  -webkit-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+}
+
+@keyframes drawCircle {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes drawCheckmark {
+  100% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes bounceIcon {
+  0% {
+    transform: none;
+  }
+  50% {
+    transform: scale3D(0.9, 0.9, 1);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .book-container .left,
+  .book-container .right {
+    width: 100%;
+  }
+  .book-container .right {
+    margin-top: 1rem;
+  }
+}

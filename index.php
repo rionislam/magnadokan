@@ -1,145 +1,89 @@
 <?php
-require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
 @session_start();
-use App\Application;
-$application = new Application;
-$category = new App\Category;
-$book = new App\Book;
-header('Content-Encoding: gzip')
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Cache-control" content="no-cache">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="var(--accent-1)" />
-    <title>Magna Dokan</title>
-    <meta name="description" content="We provide free pdf version of books to those people who can't affort to buy the original copy of the books. You can 
-                pdf of any book from our website for free. Although we always suggest to buy the real copy of the book.
-                We do it all for educational purpous only. We also promote the original copy of the books we provide through our
-                website. Most of the writters and pubblisher don't mind if their books are distributed to the underprivileged people
-                for free. If anyone mind and don't want their content to be distributed for free they can place a request and we will 
-                remove their content according to the DMCA policy.">
-    <link rel="preload" media="(min-width: 640px)" as="image" href="imgs/books.png"/>
-    <link rel="preload" as="image" href="imgs/loading.gif"/>
-    <link rel="preload" as="style" href="css/slider.css">
-    <link rel="preload" as="style" href="<?=Application::$HOST?>/css/global.css">
-    <link rel="preload" as="style" href="css/style.css">
-    <link rel="preload" as="script" href="js/slider.js">
-    <link rel="apple-touch-icon" sizes="180x180" href="<?=Application::$HOST?>/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="<?=Application::$HOST?>/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="<?=Application::$HOST?>/favicon-16x16.png">
-    <link rel="manifest" href="<?=Application::$HOST?>/menifest.json">
-    <link rel="stylesheet" href="css/slider.css">
-    <link rel="stylesheet" href="<?=Application::$HOST?>/css/global.css">
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/functions.js"></script>
-</head>
-<body>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9CHSKS37J3"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+require __DIR__.'/vendor/autoload.php';
 
-    gtag('config', 'G-9CHSKS37J3');
-    </script>
-    <?php echo $application->showError()?>
-    <?php include "includes/login-signup.inc.php"?>
-    <main>
-        <section class="navigation">
-            <div class="navigation-container max-width center">
-                <header><a href="#home"><h1>Magna Do<span class="accent-1">kan.</span></h1></a></header>
-                <img id="menuBtn" src="imgs/menu.svg" onclick="showMenu(this)" alt="Mobile Menu Button">
-                <nav class="landscape">
-                    <ul>
-                        <li><a href="#popular-categories">Popular Catagories</a></li>
-                        <li><a href="#english-books">English Books</a></li>
-                        <li><a href="#bangla-books">Bangla Books</a></li>
-                        <li>
-                            <form class="search-bar" action="<?=Application::$HOST?>/controllers/search.controller.php" method="post">
-                            <input type="text" name="search" placeholder="Search here...">
-                            <input type="image" src="imgs/search.svg" alt="Search Button">
-                            </form></li>
-                        <li><?=($application->checkUserLogin()) ? '<img src="imgs/account_circle.svg">':'<button class="loginBtn" onclick="showLoginSignup()">Login</button>'?></li>
-                    </ul>
-                </nav>
-                <nav class="vertical">
-                    <ul>
-                        <li><?=($application->checkUserLogin()) ? '<img src="imgs/account_circle.svg">':'<button class="loginBtn" onclick="showLoginSignup()">Login</button>'?></li>
-                        <li>
-                            <form class="search-bar" action="<?=Application::$HOST?>/controllers/search.controller.php" method="post">
-                            <input type="text" name="search" placeholder="Search here..." alt="Search Input">
-                            <input type="image" src="imgs/search.svg" alt="Search Button">
-                            </form>
-                        </li>
-                        <li onclick="showMenu(menuBtn)">
-                            <a href="#popular-categories">Popular Catagories</a>
-                        </li>
-                        <li onclick="showMenu(menuBtn)">
-                            <a href="#english-books">English Books</a>
-                        </li>
-                        <li onclick="showMenu(menuBtn)">
-                            <a href="#bangla-books">Bangla Books</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </section>
-        <section id="home" class="home max-width center">
-            <div class="left">
-                <h2>Welcome!</h2>
-                <p>Here you will get all type of books for free.</p>
-                <div><a href="<?=Application::$HOST?>/book-request"  target="_blank" <?=(isset($_SESSION['userId']))?'':'onclick="showLoginSignup(); event.preventDefault();"';?> >Request a book...</a></div>
-            </div>
-            <div class="right">
-                <div class="img"></div>
-            </div>
-        </section>
-        <section id="popular-categories" class="popular-categories max-width center">
-            <div class="title">Popular Catagories</div>
-            <div class="articles-container">
-                <?=$category->loadPopularList()?>
-            </div>
-        </section>
-        <section id="english-books" class="english-books max-width center">
-            <div class="title">English Books</div>
-            <div class="books-container slider">
-                <div class="books-wrapper slider-wrapper">
-                    <?php
-                    $book->loadPopularByLanguage(8, 'English'); 
-                    ?>
-                    <article class="slide" id="showMore">
-                        <a href="<?=Application::$HOST?>/books/language=English">
-                            <img style="opacity: 1;" src="imgs/arrow_circle_right.svg" alt="More English Books">
-                            <h3 class="name">Show More</h3>
-                        </a>
-                    </article>
-                </div>
-            </div>
-        </section>
-        <section id="bangla-books" class="bangla-books max-width center">
-            <div class="title">Bangla Books</div>
-            <div class="books-container slider">
-                <div class="books-wrapper slider-wrapper">
-                    <?php
-                    $book->loadPopularByLanguage(8, 'Bangla');
-                    ?>
-                    <article class="slide" id="showMore">
-                        <a href="<?=Application::$HOST?>/books/language=Bangla">
-                            <img style="opacity: 1;" src="imgs/arrow_circle_right.svg" alt="More Bangla Books">
-                            <h3 class="name">Show More</h3>
-                        </a>
-                    </article>
-                </div>
-            </div>
-        </section>
-    </main>
-    <?php include 'includes/footer.inc.php'?>
-    <script async src="js/slider.js"></script>
-    <script src="js/script.js"></script>
-</body>
-</html>
+use Core\Application;
+use Core\Services\ClientService;
+use Core\Services\ErrorHandler;
+use Core\Services\SessionService;
+
+// Check the session
+$sessionService = new SessionService;
+$sessionService->init();
+
+// Check the client
+$clientService = new ClientService;
+$clientService->init();
+
+$application = new Application;
+
+$errorHandaler = new ErrorHandler;
+
+// Instantiate the router
+use Core\Services\Router;
+
+// Instantiate the router
+
+new Router();
+
+//ROUTES for USERS
+
+// Routes for the main pages
+Router::get('/', 'PageController@loadHome');
+Router::get('/login', 'PageController@loadLogin');
+Router::get('/signup', 'PageController@loadSignup');
+Router::get('/book-request', 'PageController@loadBookRequest');
+Router::get('/fairuse', 'PageController@loadFairuse');
+Router::get('/dmca', 'PageController@loadDmca');
+Router::get('/disclaimer', 'PageController@loadDisclaimer');
+Router::get('/privacy-policy', 'PageController@loadPrivacyPolicy');
+Router::get('/fairuse', 'PageController@loadFairuse');
+Router::get('/about', 'PageController@loadAbout');
+Router::get('/library', 'PageController@loadLibrary');
+
+// Routes for the books
+Router::get('/book/{name}/download', 'PageController@downloadBook');
+Router::get('/book/{name}', 'PageController@loadBook');
+Router::get('/books/category/{category}/{page}', 'PageController@loadBooksByCategory');
+Router::get('/books/language/{language}/{page}', 'PageController@loadBooksByLanguage');
+Router::get('/books/{page}', 'PageController@loadAllBooks');
+Router::get('/search/{keyword}/{page}', 'PageController@loadBooksByKeyword');
+Router::post('/search', 'SearchController@search');
+Router::post('/process-login', 'UserController@processLogin');
+Router::post('/process-signup', 'UserController@processSignup');
+Router::post('/process-book-request', 'BookController@processBookRequest');
+Router::get('/logout', 'UserController@logout');
+Router::put('/add-to-library', 'LibraryController@addToLibrary');
+Router::put('/collect-book-log', 'LogController@collectBookLog');
+Router::del('/remove-from-library', 'LibraryController@removeFromLibrary');
+
+
+//ROUTES FOR ADMIN
+Router::get('/admin', 'AdminPageController@loadDashboard');
+Router::get('/admin/', 'AdminPageController@loadDashboard');
+Router::get('/admin/login', 'AdminPageController@loadLogin');
+Router::post('/admin/process-login', 'AdminController@processLogin');
+Router::get('/admin/dashboard', 'AdminPageController@loadDashboard');
+Router::get('/admin/users', 'AdminPageController@loadUsers');
+Router::get('/admin/books', 'AdminPageController@loadBooks');
+Router::get('/admin/add-book', 'AdminPageController@loadAddBook');
+Router::post('/admin/process-add-book', 'AdminBookController@addBook');
+Router::get('/admin/book-details/{id}', 'AdminPageController@loadBookDetails');
+Router::post('/admin/process-update-book', 'AdminBookController@updateBook');
+
+Router::get('/admin/categories', 'AdminPageController@loadCategories');
+Router::get('/admin/add-category', 'AdminPageController@loadAddCategory');
+Router::post('/admin/process-add-category', 'AdminCategoryController@addCategory');
+
+Router::get('/admin/writters', 'AdminPageController@loadWritters');
+Router::get('/admin/add-writter', 'AdminPageController@loadAddWritter');
+Router::post('/admin/process-add-writter', 'AdminWritterController@addWritter');
+
+Router::get('/admin/settings', 'AdminPageController@loadSettings');
+Router::post('/admin/save-settings', 'AdminSettingsController@saveSettings');
+
+Router::post('/admin/upload-image', 'AdminFileController@uploadImage');
+
+
+// Dispatch the request
+Router::dispatch();

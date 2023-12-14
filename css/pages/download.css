@@ -1,0 +1,57 @@
+/** @format */
+.book-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 5rem;
+  flex-wrap: wrap;
+}
+.book-container .left,
+.book-container .right {
+  width: 50%;
+}
+.book-container .left {
+  text-align: center;
+}
+
+.book-container .right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.book-container .right .download_text {
+  height: 80%;
+  display: flex;
+  align-items: center;
+}
+
+.book-container .right .download_text-container {
+  padding: 0.5rem 0.8rem;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1.2rem;
+  background: var(--accent-1);
+  color: white;
+  border: none;
+  border-radius: 3px;
+  text-align: center;
+}
+
+.book-container .right .download_text span {
+  font-size: 1.2rem;
+}
+
+.book-container .right .download_text span a {
+  color: var(--dim-text);
+  text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+  .book-container .left,
+  .book-container .right {
+    width: 100%;
+  }
+  .book-container .right {
+    margin-top: 1rem;
+  }
+}

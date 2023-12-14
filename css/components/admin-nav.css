@@ -1,0 +1,97 @@
+/** @format */
+
+nav {
+  width: 20%;
+  background: var(--dark-color);
+  color: white;
+  padding: 2rem 0;
+  text-align: center;
+  height: 100vh;
+  font-family: 'Ubuntu', sans-serif;
+  overflow: hidden;
+}
+
+nav header {
+  padding: 0 3rem;
+}
+
+nav hr {
+  height: 1px;
+  background: white;
+  border: none;
+  margin: 2rem 3rem;
+}
+
+nav ul {
+  list-style: none;
+  margin-left: 3rem;
+}
+
+nav ul li {
+  position: relative;
+  font-size: 1.5rem;
+  height: auto;
+  width: 100%;
+  float: left;
+  cursor: pointer;
+  transition: all;
+  min-height: max-content;
+}
+
+nav ul li a {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0.7rem 0;
+  color: white;
+  float: left;
+  transition: 0.4s;
+}
+
+nav ul li a svg {
+  height: 1em;
+  padding: 0 0.3rem;
+  fill: white;
+  transition: 0.4s;
+}
+
+.active {
+  background: white;
+  border-top-left-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+}
+
+.active a {
+  color: black;
+}
+
+.active svg {
+  fill: var(--accent-1);
+}
+
+.active a::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: 35px -35px 0 10px white;
+}
+
+.active a::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: 35px 35px 0 10px white;
+}

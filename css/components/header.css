@@ -1,0 +1,265 @@
+/** @format */
+
+.navigation {
+  position: fixed;
+  z-index: 3;
+  width: 100%;
+  background: var(--dark-color);
+}
+.navigation-container {
+  padding: 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: Ubuntu, sans-serif;
+  overflow-x: visible;
+}
+header {
+  width: 30%;
+}
+header h1 {
+  color: #fff;
+}
+nav {
+  width: 70%;
+  font-weight: 500;
+}
+nav ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  list-style: none;
+}
+nav ul li {
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+}
+
+nav ul li.search_bar-container {
+  width: 75%;
+}
+
+nav ul li a {
+  color: #fff;
+}
+nav ul li .search_bar {
+  display: flex;
+  align-items: center;
+  border-radius: 3px;
+  background: #fff;
+  width: 100%;
+}
+nav ul li .search_bar input {
+  font-size: 1.2rem;
+  font-family: Arial;
+  outline: 0;
+  border: 0;
+  padding: 0.2rem 0;
+  padding-left: 0.5rem;
+}
+
+nav ul li .search_bar input[type='text'] {
+  width: 94%;
+}
+
+nav ul li input[type='image'] {
+  background: var(--accent-1);
+  padding-right: 0.5rem;
+  border-radius: 0 3px 3px 0;
+}
+nav ul li img,
+nav ul li input[type='image'] {
+  height: 1.7em;
+}
+
+.login-btn {
+  background: var(--accent-1);
+  border: none;
+  font-family: Ubuntu, sans-serif;
+  font-size: 1.2rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: 3px;
+  color: #fff;
+  width: auto;
+  cursor: pointer;
+}
+
+.downloads-left-btn {
+  background: var(--danger);
+  border: none;
+  font-family: Ubuntu, sans-serif;
+  font-size: 1.2rem;
+  padding: 0.32rem 1rem;
+  border-radius: 3px;
+  color: #fff;
+  width: auto;
+  cursor: pointer;
+}
+
+.account_menu {
+  position: relative;
+  transition: all 0.4s ease;
+  width: 25%;
+}
+
+.account_menu .account_menu-btn {
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  justify-content: center;
+}
+
+.account_menu .account_menu-btn img {
+  margin-right: 0.2rem;
+}
+
+.account_menu .account_menu-container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.account_menu .account_menu-wrapper {
+  background: white;
+  transform: translateY(1.25rem);
+  border: none;
+  border-radius: 3px;
+  height: 0;
+  width: 0;
+}
+
+.account_menu .account_menu-wrapper li a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: var(--dim-text);
+  cursor: default;
+  overflow: hidden;
+  padding: 0.5rem 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.account_menu .account_menu-container li a svg {
+  fill: var(--dim-text);
+  margin-right: 1rem;
+  height: 1.75em;
+  width: 1.75em;
+}
+
+.account_menu.active {
+  cursor: pointer;
+}
+
+.account_menu.active .account_menu-container li a {
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.account_menu.active .account_menu-container {
+  opacity: 1;
+}
+
+.account_menu.active .account_menu-wrapper {
+  height: auto;
+  width: auto;
+  padding: 0.5rem 2rem;
+  border: 1px solid var(--dim-text);
+  transition: all 0.3s ease-out;
+}
+
+.account_menu.active .account_menu-wrapper::before {
+  left: 50%;
+  -webkit-transform: translateX(-50%) rotate(45deg);
+  -ms-transform: translateX(-50%) rotate(45deg);
+  transform: translateX(-50%) rotate(45deg);
+  border-left-width: 1px;
+  border-top-width: 1px;
+  border-left-style: solid;
+  border-top-style: solid;
+  top: -6px;
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border-color: var(--dim-text);
+}
+
+.vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: var(--dark-color);
+  top: 3.5rem;
+  left: -110%;
+  z-index: 3;
+  transition: left 0.4s ease;
+}
+.vertical ul {
+  display: flex;
+  flex-direction: column;
+}
+.vertical ul li {
+  margin: 1rem 0;
+  font-size: 1.5rem;
+}
+
+.vertical ul li:first-child {
+  width: 100%;
+}
+
+.vertical ul li.buttons {
+  justify-content: space-around;
+}
+
+.vertical ul li.search_bar-container {
+  width: 100%;
+}
+
+.vertical ul li a {
+  display: flex;
+  align-items: center;
+}
+
+.vertical ul li span {
+  font-size: 1.3rem;
+  margin-left: 0.5rem;
+  color: white;
+}
+
+.vertical ul li a img {
+  height: 1em;
+  width: 1em;
+  margin-right: 0.25rem;
+}
+#menuBtn {
+  display: none;
+  transition: all 0.4s ease;
+}
+nav.active {
+  left: 0;
+}
+
+@media (max-width: 900px) {
+  .landscape {
+    display: none;
+  }
+  #menuBtn {
+    display: block;
+    height: 1.75em;
+    width: 1.75em;
+  }
+}
+
+@media (max-width: 640px) {
+  header {
+    width: 80%;
+  }
+}

@@ -2,30 +2,50 @@
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>
-ErrorDocument 400 /error/400.php
-ErrorDocument 401 /error/401.php
-ErrorDocument 403 /error/403.php
-ErrorDocument 404 /error/404.php
-ErrorDocument 408 /error/408.php
-ErrorDocument 503 /error/503.php
+ErrorDocument 400 /templates/error/400.php
+ErrorDocument 401 /templates/error/401.php
+ErrorDocument 403 /templates/error/403.php
+ErrorDocument 404 /templates/error/404.php
+ErrorDocument 408 /templates/error/408.php
+ErrorDocument 500 /templates/error/500.php
+ErrorDocument 503 /templates/error/503.php
 
 RewriteEngine on
 RewriteBase /
 
-RewriteRule ^book/(.+)/download$ download.php?name=$1 [B,NC,L]
-RewriteRule ^book/(.+)$ book.php?name=$1 [B,NC,L]
-RewriteRule ^books/(.+)$ books.php?$1 [B,NC,L]
-RewriteRule ^admin/p/(.+)/(.+)$ admin/?p=$1&id=$2 [B,NC,L]
-RewriteRule ^admin/p/(.+)$ admin/?p=$1 [B,NC,L]
-RewriteRule ^login/(.+)$ login.php?error=$1 [NC,L]
-RewriteRule ^signup/(.+)$ signup.php?error=$1 [NC,L]
-RewriteRule ^admin/login/(.+)$ admin/login.php?error=$1 [NC,L]
+# # RewriteRule ^login$ index.php?login=1
+# RewriteRule ^book/(.+)/download$ download.php?name=$1 [B,NC,L]
+# RewriteRule ^book/(.+)$ book.php?name=$1 [B,NC,L]
+
+# #For search
+# RewriteRule ^books/search/(.+)/([0-9]+)$ books.php?search=$1&page=$2
+# RewriteRule ^books/search/(.+)$ books.php?search=$1
+
+# #For books
+# RewriteRule ^books/([0-9]+)$ books.php?page=$1
+
+# #For books by Language
+# RewriteRule ^books/language/([a-zA-Z]+)/([0-9]+)$ books.php?language=$1&page=$2
+
+# #For books by Category
+# RewriteRule ^books/category/([a-zA-Z]+)/([0-9]+)$ books.php?category=$1&page=$2
+
+# #For login and signup
+# RewriteRule ^login/(.+)$ login.php?error=$1 [NC,L]
+# RewriteRule ^signup/(.+)$ signup.php?error=$1 [NC,L]
+
+#For admin
+# RewriteRule ^admin/(.*)$ admin/index.php?route=$1 [NC,L]
 # RewriteRule ^watch_video/(.+)$ watch_video.php?id=$1 [NC,L]
 # RewriteRule ^view_link/(.+)$ view_link.php?id=$1 [NC,L]
 
-RewriteCond %{REQUEST_FILENAME} !-d
+
+
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^([^\.]+)$ $1.php [NC,L]
+# RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(.*)$ index.php [QSA,L]
+
 </IfModule>
 
 <FilesMatch "\.(?i:gif|jpe?g|png|ico|svg)$">
@@ -34,10 +54,5 @@ RewriteRule ^([^\.]+)$ $1.php [NC,L]
   </IfModule>
 </FilesMatch>
 
-<FilesMatch swiper.min.css|swiper.min.js>
-  <IfModule mod_headers.c>
-    Header set Cache-Control "max-age=1296000, public, must-revalidate"
-  </IfModule>
-</FilesMatch>
 
 

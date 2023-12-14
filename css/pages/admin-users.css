@@ -1,0 +1,16 @@
+/** @format */
+.user-name {
+  width: 10%;
+}
+
+.user-full-name {
+  width: 40%;
+}
+
+.user-email {
+  width: 40%;
+}
+
+.user-status {
+  width: 10%;
+}

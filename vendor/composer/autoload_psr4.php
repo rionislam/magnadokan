@@ -10,5 +10,5 @@ return array(
     'Psr\\Cache\\' => array($vendorDir . '/psr/cache/src'),
     'Phpfastcache\\Tests\\' => array($vendorDir . '/phpfastcache/phpfastcache/tests/lib'),
     'Phpfastcache\\' => array($vendorDir . '/phpfastcache/phpfastcache/lib/Phpfastcache'),
-    'App\\' => array($baseDir . '/classes'),
+    'Core\\' => array($baseDir . '/src/Core'),
 );

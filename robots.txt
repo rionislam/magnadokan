@@ -4,4 +4,4 @@ Allow: /
 User-Agent: Googlebot
 Allow: /
 
-Sitemap: https://magnadokan.com/allsitemap
+Sitemap: https://magnadokan.com/sitemaps/allsitemap.php
