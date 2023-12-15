@@ -23,11 +23,12 @@ class BookController extends Book{
             $bookName = rawurlencode($row['bookName']);
             $date = new DateTime($row['bookUpdatedAt'], new DateTimeZone(date_default_timezone_get()));
             $date = $date->format('Y-m-d\TH:i:sP');
-            $output .= "<url>
+            $output .= "
+            <url>
                 <loc>".Application::$HOST."/book/{$bookName}</loc>
                 <lastmod>{$date}</lastmod>
                 <priority>1</priority>
-                </url>";
+            </url>";
         }
         return $output;
     }

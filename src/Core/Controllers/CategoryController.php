@@ -17,11 +17,12 @@ class CategoryController extends Category{
         $output = '';
         foreach($categoryRows as $row){
             $categoryName = str_replace(' ', '%20', $row['category']);
-            $output .= "<url>
-                <loc>".Application::$HOST."/books/category={$categoryName}</loc>
+            $output .= "
+            <url>
+                <loc>".Application::$HOST."/books/category/{$categoryName}/1</loc>
                 <lastmod>{$date}</lastmod>
                 <priority>0.8</priority>
-                </url>";
+            </url>";
         }
         return $output;
     }
