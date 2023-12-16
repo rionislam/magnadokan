@@ -8,7 +8,7 @@ header('Content-type: App\Application/xml');
 require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
 new Application;
 $bookController = new BookController;
-$booksCount = $bookController->booksAdded();
+$booksCount = $bookController->count();
 $categoryController = new CategoryController;
 $categoriesCount = $categoryController->categoriesAdded();
 $count = $booksCount + $categoriesCount;

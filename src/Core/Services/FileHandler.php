@@ -3,6 +3,7 @@ namespace Core\Services;
 
 use Core\Application;
 use Core\Models\File;
+use Core\Utilities\ImageHandler;
 
 class FileHandler extends File{
     public function storeImage($file, $width = NULL, $height = NULL, $subFolder = NULL){

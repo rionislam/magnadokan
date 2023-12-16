@@ -1,9 +1,7 @@
 <?php
 namespace Core\Models;
 
-use Core\Application;
-use Core\Services\ResourceLoader;
-use Core\Services\Cache;
+use Core\Utilities\Cache;
 use Core\Services\ErrorHandler;
 
 class Book extends Dbh{

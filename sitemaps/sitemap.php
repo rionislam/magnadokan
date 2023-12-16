@@ -8,7 +8,7 @@ header('Content-type: App\Application/xml');
 require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
 new Application;
 $bookController = new BookController;
-$bookCount = $bookController->booksAdded();
+$bookCount = $bookController->count();
 $categoryController = new CategoryController;
 $limit = $_GET['limit'];
 $output = '<urlset

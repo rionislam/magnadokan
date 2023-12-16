@@ -2,7 +2,7 @@
 namespace Core\Controllers;
 use Core\Application;
 use Core\Models\User;
-use Core\Services\Mailer;
+use Core\Utilities\Mailer;
 use Core\Services\SessionService;
 
 class UserController extends User{

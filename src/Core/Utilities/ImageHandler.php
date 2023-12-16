@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Services;
+namespace Core\Utilities;
 
 class ImageHandler{
     public static function resizeImage($file, $fileDestination, $width, $height, $crop = false){

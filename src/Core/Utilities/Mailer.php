@@ -1,5 +1,5 @@
 <?php
-namespace Core\Services;
+namespace Core\Utilities;
 
 use Core\Application;
 

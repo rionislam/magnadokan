@@ -1,9 +1,6 @@
 <?php
 namespace Core\Models;
 
-use Core\Application;
-use Core\Services\ResourceLoader;
-
 class Category extends Dbh{
     public function get($category){
         $sql = 'SELECT * FROM `categories` WHERE `category`="'.$category.'";';

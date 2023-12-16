@@ -3,16 +3,14 @@ namespace Core\Controllers;
 
 use Core\Application;
 use Core\Models\Book;
-use Core\Services\Cache;
+use Core\Utilities\Cache;
 use Core\Services\HtmlGenerator;
 use Core\Services\Search;
+use Core\Utilities\Cache as UtilitiesCache;
 use DateTime;
 use DateTimeZone;
 
 class BookController extends Book{
-    public function booksAdded(){
-        return $this->count();
-    }
 
     public function loadUrlsForSitemap(){
         

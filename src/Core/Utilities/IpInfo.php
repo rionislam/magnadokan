@@ -1,5 +1,5 @@
 <?php
-namespace Core\Services;
+namespace Core\Utilities;
 
 class IpInfo{
     public static function get($ip, $purpose){

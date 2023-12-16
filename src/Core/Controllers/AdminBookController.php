@@ -8,8 +8,39 @@ use Core\Services\FileHandler;
 use Core\Services\ErrorHandler;
 use Core\Services\ResourceLoader;
 use Core\Services\AdminAuthHandler;
+use Core\Utilities\Cache;
+use Core\Utilities\Timer;
 
 class AdminBookController extends Book{
+    // NOTE - Comparing 30 days
+    public function booksIncreased(){
+        if(!AdminAuthHandler::isLoggedIn()){
+            ErrorHandler::displayErrorPage(403);
+            exit;
+        }
+        $increased = 0;
+        $cache = new Cache;
+        $cache = $cache->config();
+        $cahceInstance = $cache->getItem('booksIncreased');
+        if(is_null($cahceInstance->get())){
+            $addedThisMonth = $this->getRows("SELECT COUNT(*) AS count FROM books WHERE DATE(bookAddedAt) < DATE(NOW()) AND DATE(bookAddedAt) > DATE(NOW() - INTERVAL 30 DAY);")[0]['count'];
+            $addedPreviousMonth = $this->getRows("SELECT COUNT(*) AS count FROM books WHERE DATE(bookAddedAt) < DATE(NOW() - INTERVAL 30 DAY) AND DATE(bookAddedAt) > DATE(NOW() - INTERVAL 60 DAY);")[0]['count'];
+            if ($addedPreviousMonth != 0) {
+                $increased = floor((($addedThisMonth - $addedPreviousMonth) / $addedPreviousMonth) * 100);
+            } else {
+                // Handle the case where addedPreviousMonth is 0 to avoid division by zero
+                $increased = 100;
+            }
+            $cahceInstance->set($increased)->expiresAfter(Timer::timeLeftForNextDay());
+            $cache->save($cahceInstance);
+        }else{
+            $increased = $cahceInstance->get();
+        }
+    
+
+        return floor($increased);
+    }
+
     public function loadAll(){
         if(!AdminAuthHandler::isLoggedIn()){
             ErrorHandler::displayErrorPage(403);
@@ -43,7 +74,7 @@ class AdminBookController extends Book{
         $writters = $writterModel->getAllWrittersName();
         $bookWritters = NULL;
         $bookWrittersJson = array();
-        
+
         if($row['bookWritters'] != NULL && $writters != NULL){
             $bookWritters = array_map('trim',explode(',',$row['bookWritters']));
             $bookWrittersJson = json_encode($bookWritters);
@@ -60,8 +91,8 @@ class AdminBookController extends Book{
 
         $adminCategoryController = new AdminCategoryController;
         $categoriesDropdown = $adminCategoryController->loadAllCategoriesName($row['bookCategory']);
-        
-        
+
+
         $bookTags = explode(',', $row['bookTags']);
         $bookTagsJson = json_encode($bookTags);
         $tagsInput = "";
@@ -120,7 +151,7 @@ class AdminBookController extends Book{
                         <input type='text' id='writters' onfocus='showWritters()' oninput=\"searchList(this,'writters')\" autocomplete='off'>
                     </ul>
                 </div>
-                
+
                 <div id='writtersDropdown'>
                     <ul>
                         {$writtersDropdown}
@@ -150,7 +181,7 @@ class AdminBookController extends Book{
                     <ul>
                        {$tagsInput}
                         <input id='tagInput'>
-                    </ul>   
+                    </ul>
                 </div>
                 <input type='hidden' name='tags' data-oldvalue='{$row['bookTags']}' value='{$row['bookTags']}' onchange='updateFormInput(this)'>
                 <script>
@@ -227,7 +258,7 @@ class AdminBookController extends Book{
                 header("Location: {$_SERVER['HTTP_REFERER']}");
                 exit();
             }
-            
+
         }
 
         if(isset($_POST['language'])){

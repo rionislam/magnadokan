@@ -1,5 +1,5 @@
 <?php
-namespace Core\Services;
+namespace Core\Utilities;
 use Phpfastcache\Config\ConfigurationOption;
 use Phpfastcache\CacheManager;
 class Cache{

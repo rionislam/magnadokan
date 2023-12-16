@@ -4,9 +4,38 @@ namespace Core\Controllers;
 use Core\Models\User;
 use Core\Services\AdminAuthHandler;
 use Core\Services\ErrorHandler;
-use Core\Services\ResourceLoader;
+use Core\Utilities\Cache;
+use Core\Utilities\Timer;
 
 class AdminUserController extends User{
+    // NOTE - Comparing 30 days
+    public function usersIncreased(){
+        if(!AdminAuthHandler::isLoggedIn()){
+            ErrorHandler::displayErrorPage(403);
+            exit;
+        }
+        $increased = 0;
+        $cache = new Cache;
+        $cache = $cache->config();
+        $cahceInstance = $cache->getItem('usersIncreased');
+        if(is_null($cahceInstance->get())){
+            $signedUpThisMonth = $this->getRows("SELECT COUNT(*) AS count FROM users WHERE DATE(userSignedUpAt) < DATE(NOW()) AND DATE(userSignedUpAt) > DATE(NOW() - INTERVAL 30 DAY);")[0]['count'];
+            $signedUpPreviousMonth = $this->getRows("SELECT COUNT(*) AS count FROM users WHERE DATE(userSignedUpAt) < DATE(NOW() - INTERVAL 30 DAY) AND DATE(userSignedUpAt) > DATE(NOW() - INTERVAL 60 DAY);")[0]['count'];
+            if ($signedUpPreviousMonth != 0) {
+                $increased = floor((($signedUpThisMonth - $signedUpPreviousMonth) / $signedUpPreviousMonth) * 100);
+            } else {
+                // Handle the case where signedUpPreviousMonth is 0 to avoid division by zero
+                $increased = 100;
+            }
+            $cahceInstance->set($increased)->expiresAfter(Timer::timeLeftForNextDay());
+            $cache->save($cahceInstance);
+        }else{
+            $increased = $cahceInstance->get();
+        }
+
+        return $increased;
+    }
+
     public function loadAll(){
         if(!AdminAuthHandler::isLoggedIn()){
             ErrorHandler::displayErrorPage(403);

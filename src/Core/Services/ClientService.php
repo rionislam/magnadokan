@@ -2,6 +2,7 @@
 namespace Core\Services;
 
 use Core\Models\Client;
+use Core\Utilities\IpInfo;
 
 class ClientService extends Client{
 

@@ -1,10 +1,20 @@
 <?php
 // define the pagename for selecting the active nav bar
 define('pageName', 'admin-dashboard');
-use Core\Application;
+
 use Core\Services\HtmlGenerator;
 use Core\Services\ResourceLoader;
+use Core\Controllers\AdminBookController;
+use Core\Controllers\AdminUserController;
+use Core\Services\AdminAuthHandler;
+use Core\Services\ErrorHandler;
 
+if(!AdminAuthHandler::isLoggedIn()){
+    ErrorHandler::displayErrorPage(403);
+    exit;
+}
+$adminBookController = new AdminBookController;
+$adminUserController = new AdminUserController;
 require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
 ?>
 <!DOCTYPE html>
@@ -35,7 +45,7 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
             </div>
             <div class="middle">
                 <div class="number">
-                70020
+                <?=$adminBookController->count()?>
                 </div>
                 <div class="preview-title">
                     Total Books
@@ -43,10 +53,17 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
             </div>
             <div class="right" title="Monthly growth">
                 <div class="icon">
-                    <?= ResourceLoader::loadIcon('growth.svg')?>
+                    <?php
+                    $booksIncreased = $adminBookController->booksIncreased();
+                    if($booksIncreased > 0){
+                        echo ResourceLoader::loadIcon('increase.svg');
+                    }else{
+                        echo ResourceLoader::loadIcon('decrease.svg');
+                    }
+                    ?>
                 </div>
                 <div class="number">
-                    7%
+                    <?=$booksIncreased?>%
                 </div>
             </div>
         </div>
@@ -55,12 +72,12 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
         <div class="preview-cart">
             <div class="left">
                 <div class="icon">
-                    <?= ResourceLoader::loadIcon('account_circle.svg')?>
+                    <?=ResourceLoader::loadIcon('account_circle.svg')?>
                 </div>
             </div>
             <div class="middle">
                 <div class="number">
-                70020
+                    <?=$adminUserController->count()?>
                 </div>
                 <div class="preview-title">
                     Total Users
@@ -68,10 +85,17 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
             </div>
             <div class="right" title="Monthly growth">
                 <div class="icon">
-                    <?=ResourceLoader::loadIcon('growth.svg')?>
+                <?php
+                    $usersIncreased = $adminUserController->usersIncreased();
+                    if($usersIncreased > 0){
+                        echo ResourceLoader::loadIcon('increase.svg');
+                    }else{
+                        echo ResourceLoader::loadIcon('decrease.svg');
+                    }
+                    ?>
                 </div>
                 <div class="number">
-                    7%
+                    <?=$usersIncreased?>%
                 </div>
             </div>
         </div>
@@ -127,9 +151,7 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
         </div>
     </div>
 </section>
-</main>
-
-<!-- ANCHOR Analitics Section
+<!-- SECTION Analitics Section -->
 <section class="analytics">
  <div class="left">
     <div class="title-wrapper">
@@ -174,6 +196,7 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
     </div>
  </div>
 </section>
-<script src="<?=Application::$HOST?>/admin/js/create-pie.js"></script> -->
+</main>
+<?=ResourceLoader::loadPageJs(pageName)?>
 </body>
 </html>
