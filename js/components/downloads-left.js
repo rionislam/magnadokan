@@ -1,6 +1,10 @@
 /** @format */
 
 let showDownloadsLeft = () => {
+  let verticalMenu = document.getElementsByClassName('vertical')[0];
+  if (verticalMenu.classList.contains('active')) {
+    verticalMenu.classList.remove('active');
+  }
   let downloadsLeft = document.getElementsByClassName('downloads-left')[0];
   downloadsLeft.style.display = 'flex';
 };
