@@ -5,6 +5,7 @@ define('pageName', 'admin-dashboard');
 use Core\Services\HtmlGenerator;
 use Core\Services\ResourceLoader;
 use Core\Controllers\AdminBookController;
+use Core\Controllers\AdminLogController;
 use Core\Controllers\AdminUserController;
 use Core\Services\AdminAuthHandler;
 use Core\Services\ErrorHandler;
@@ -15,6 +16,7 @@ if(!AdminAuthHandler::isLoggedIn()){
 }
 $adminBookController = new AdminBookController;
 $adminUserController = new AdminUserController;
+$adminLogController = new AdminLogController;
 require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
 ?>
 <!DOCTYPE html>
@@ -109,7 +111,7 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
             </div>
             <div class="middle">
                 <div class="number">
-                    70020
+                    <?=$adminLogController->downloadsCount();?>
                 </div>
                 <div class="preview-title">
                     Total Downloads
@@ -117,10 +119,17 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
             </div>
             <div class="right" title="Monthly growth">
                 <div class="icon">
-                    <?= ResourceLoader::loadIcon('growth.svg')?>
+                <?php
+                    $downloadsIncreased = $adminLogController->downloadsIncreased();
+                    if($downloadsIncreased > 0){
+                        echo ResourceLoader::loadIcon('increase.svg');
+                    }else{
+                        echo ResourceLoader::loadIcon('decrease.svg');
+                    }
+                    ?>
                 </div>
                 <div class="number">
-                    7%
+                    <?=$downloadsIncreased?>%
                 </div>
             </div>
         </div>

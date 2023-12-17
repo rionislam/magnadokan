@@ -17,8 +17,8 @@ class AdminUserController extends User{
         $increased = 0;
         $cache = new Cache;
         $cache = $cache->config();
-        $cahceInstance = $cache->getItem('usersIncreased');
-        if(is_null($cahceInstance->get())){
+        $cacheInstance = $cache->getItem('usersIncreased');
+        if(is_null($cacheInstance->get())){
             $signedUpThisMonth = $this->getRows("SELECT COUNT(*) AS count FROM users WHERE DATE(userSignedUpAt) < DATE(NOW()) AND DATE(userSignedUpAt) > DATE(NOW() - INTERVAL 30 DAY);")[0]['count'];
             $signedUpPreviousMonth = $this->getRows("SELECT COUNT(*) AS count FROM users WHERE DATE(userSignedUpAt) < DATE(NOW() - INTERVAL 30 DAY) AND DATE(userSignedUpAt) > DATE(NOW() - INTERVAL 60 DAY);")[0]['count'];
             if ($signedUpPreviousMonth != 0) {
@@ -27,10 +27,10 @@ class AdminUserController extends User{
                 // Handle the case where signedUpPreviousMonth is 0 to avoid division by zero
                 $increased = 100;
             }
-            $cahceInstance->set($increased)->expiresAfter(Timer::timeLeftForNextDay());
-            $cache->save($cahceInstance);
+            $cacheInstance->set($increased)->expiresAfter(Timer::timeLeftForNextDay());
+            $cache->save($cacheInstance);
         }else{
-            $increased = $cahceInstance->get();
+            $increased = $cacheInstance->get();
         }
 
         return $increased;

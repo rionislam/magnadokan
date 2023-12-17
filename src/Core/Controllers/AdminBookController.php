@@ -21,8 +21,8 @@ class AdminBookController extends Book{
         $increased = 0;
         $cache = new Cache;
         $cache = $cache->config();
-        $cahceInstance = $cache->getItem('booksIncreased');
-        if(is_null($cahceInstance->get())){
+        $cacheInstance = $cache->getItem('booksIncreased');
+        if(is_null($cacheInstance->get())){
             $addedThisMonth = $this->getRows("SELECT COUNT(*) AS count FROM books WHERE DATE(bookAddedAt) < DATE(NOW()) AND DATE(bookAddedAt) > DATE(NOW() - INTERVAL 30 DAY);")[0]['count'];
             $addedPreviousMonth = $this->getRows("SELECT COUNT(*) AS count FROM books WHERE DATE(bookAddedAt) < DATE(NOW() - INTERVAL 30 DAY) AND DATE(bookAddedAt) > DATE(NOW() - INTERVAL 60 DAY);")[0]['count'];
             if ($addedPreviousMonth != 0) {
@@ -31,10 +31,10 @@ class AdminBookController extends Book{
                 // Handle the case where addedPreviousMonth is 0 to avoid division by zero
                 $increased = 100;
             }
-            $cahceInstance->set($increased)->expiresAfter(Timer::timeLeftForNextDay());
-            $cache->save($cahceInstance);
+            $cacheInstance->set($increased)->expiresAfter(Timer::timeLeftForNextDay());
+            $cache->save($cacheInstance);
         }else{
-            $increased = $cahceInstance->get();
+            $increased = $cacheInstance->get();
         }
     
 

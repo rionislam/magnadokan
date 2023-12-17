@@ -3,6 +3,7 @@ namespace Core\Models;
 
 use Core\Utilities\Cache;
 use Core\Services\ErrorHandler;
+use Core\Utilities\Timer;
 
 class Book extends Dbh{
     public function add($name,$pdfId, $language, $writter, $description, $tags, $cover, $category){
@@ -52,8 +53,8 @@ class Book extends Dbh{
         $bookName = urldecode($bookName);
         $cache = new Cache;
         $cache = $cache->config();
-        $cahceInstance = $cache->getItem("book?name=".str_replace(array('{', '}', '(', ')', '/','@', ':'), '', $bookName));
-        if(is_null($cahceInstance->get())){
+        $cacheInstance = $cache->getItem("book?name=".str_replace(array('{', '}', '(', ')', '/','@', ':'), '', $bookName));
+        if(is_null($cacheInstance->get())){
             $sql = "SELECT * FROM `books` WHERE `bookName`='{$bookName}';";
             $rows = $this->getRows($sql);
             if($rows == false){
@@ -61,10 +62,10 @@ class Book extends Dbh{
                 exit();
             }
             $row = $rows[0];
-            $cahceInstance->set($row)->expiresAfter(43200);
-            $cache->save($cahceInstance);
+            $cacheInstance->set($row)->expiresAfter(43200);
+            $cache->save($cacheInstance);
         }else{
-            $row = $cahceInstance->get();
+            $row = $cacheInstance->get();
         }
         
         return $row;
@@ -79,9 +80,21 @@ class Book extends Dbh{
 
     //NOTE - Get the number of books added to the database
     public function count($condition = NULL){
-        $sql= "SELECT * FROM `books` {$condition};";
-        $result = $this->getResult($sql);
-        return $result->num_rows;
+        $cache = new Cache;
+        $cache = $cache->config();
+        $cacheInstance = $cache->getItem("booksCount?condition={$condition}");
+        if(is_null($cacheInstance->get())){
+            $sql= "SELECT * FROM `books` {$condition};";
+            $result = $this->getResult($sql);
+            $cacheInstance->set($result->num_rows)->expiresAfter(Timer::timeLeftForNextDay());
+            $cache->save($cacheInstance);
+            return $result->num_rows;
+        }else{
+            return $cacheInstance->get();
+        }
+        
+        
+        
     }
 
     //NOTE - Get a limited list of books
@@ -96,8 +109,8 @@ class Book extends Dbh{
     public function getPopular($limit){
         $cache = new Cache;
         $cache = $cache->config();
-        $cahceInstance = $cache->getItem("books?limit={$limit}");
-        if(is_null($cahceInstance->get())){
+        $cacheInstance = $cache->getItem("books?limit={$limit}");
+        if(is_null($cacheInstance->get())){
             $sql = "SELECT
                         b.*,
                         COALESCE(SUM(CASE 
@@ -117,10 +130,10 @@ class Book extends Dbh{
                     LIMIT
                         {$limit};";
             $rows = $this->getRows($sql);
-            $cahceInstance->set($rows)->expiresAfter(43200);
-            $cache->save($cahceInstance);
+            $cacheInstance->set($rows)->expiresAfter(43200);
+            $cache->save($cacheInstance);
         }else{
-            $rows = $cahceInstance->get();
+            $rows = $cacheInstance->get();
         }
        
         return $rows;
@@ -132,8 +145,8 @@ class Book extends Dbh{
     public function getPopularByLanguage($limit, $language){
         $cache = new Cache;
         $cache = $cache->config();
-        $cahceInstance = $cache->getItem("books?language={$language}&limit={$limit}");
-        if(is_null($cahceInstance->get())){
+        $cacheInstance = $cache->getItem("books?language={$language}&limit={$limit}");
+        if(is_null($cacheInstance->get())){
             $sql = "SELECT
                         b.*,
                         COALESCE(SUM(CASE 
@@ -160,10 +173,10 @@ class Book extends Dbh{
                     LIMIT
                         {$limit};";
             $rows = $this->getRows($sql);
-            $cahceInstance->set($rows)->expiresAfter(43200);
-            $cache->save($cahceInstance);
+            $cacheInstance->set($rows)->expiresAfter(43200);
+            $cache->save($cacheInstance);
         }else{
-            $rows = $cahceInstance->get();
+            $rows = $cacheInstance->get();
         }
        
         return $rows;

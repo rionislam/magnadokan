@@ -134,13 +134,13 @@ class BookController extends Book{
         $condition = "WHERE `bookCategory`= '{$category}' ORDER BY `bookId` DESC";
         $cache = new Cache;
         $cache = $cache->config();
-        $cahceInstance = $cache->getItem("books?category={$category}&page={$page}");
-        if(is_null($cahceInstance->get())){  
+        $cacheInstance = $cache->getItem("books?category={$category}&page={$page}");
+        if(is_null($cacheInstance->get())){  
             $rows = $this->getLimited("{$starting},{$limit}", $condition);
-            $cahceInstance->set($rows)->expiresAfter(43200);
-            $cache->save($cahceInstance);
+            $cacheInstance->set($rows)->expiresAfter(43200);
+            $cache->save($cacheInstance);
         }else{
-            $rows = $cahceInstance->get();
+            $rows = $cacheInstance->get();
         }
 
         $books = '';
@@ -191,13 +191,13 @@ class BookController extends Book{
         $condition = $search->createCondition($keyword);
         $cache = new Cache;
         $cache = $cache->config();
-        $cahceInstance = $cache->getItem("books?keyword={$keyword}&page={$page}");
-        if(is_null($cahceInstance->get())){  
+        $cacheInstance = $cache->getItem("books?keyword={$keyword}&page={$page}");
+        if(is_null($cacheInstance->get())){  
             $rows = $this->getLimited("{$starting},{$limit}", $condition);
-            $cahceInstance->set($rows)->expiresAfter(43200);
-            $cache->save($cahceInstance);
+            $cacheInstance->set($rows)->expiresAfter(43200);
+            $cache->save($cacheInstance);
         }else{
-            $rows = $cahceInstance->get();
+            $rows = $cacheInstance->get();
         }
 
         $books = '';
@@ -246,13 +246,13 @@ class BookController extends Book{
         $condition = "WHERE `bookLanguage`= '{$language}' ORDER BY `bookId` DESC";
         $cache = new Cache;
         $cache = $cache->config();
-        $cahceInstance = $cache->getItem("books?language={$language}&page={$page}");
-        if(is_null($cahceInstance->get())){  
+        $cacheInstance = $cache->getItem("books?language={$language}&page={$page}");
+        if(is_null($cacheInstance->get())){  
             $rows = $this->getLimited("{$starting},{$limit}", $condition);
-            $cahceInstance->set($rows)->expiresAfter(43200);
-            $cache->save($cahceInstance);
+            $cacheInstance->set($rows)->expiresAfter(43200);
+            $cache->save($cacheInstance);
         }else{
-            $rows = $cahceInstance->get();
+            $rows = $cacheInstance->get();
         }
 
         $books = '';
@@ -302,13 +302,13 @@ class BookController extends Book{
         $condition = "";
         $cache = new Cache;
         $cache = $cache->config();
-        $cahceInstance = $cache->getItem("books?page={$page}");
-        if(is_null($cahceInstance->get())){  
+        $cacheInstance = $cache->getItem("books?page={$page}");
+        if(is_null($cacheInstance->get())){  
             $rows = $this->getLimited("{$starting},{$limit}", $condition);
-            $cahceInstance->set($rows)->expiresAfter(43200);
-            $cache->save($cahceInstance);
+            $cacheInstance->set($rows)->expiresAfter(43200);
+            $cache->save($cacheInstance);
         }else{
-            $rows = $cahceInstance->get();
+            $rows = $cacheInstance->get();
         }
 
         $books = "";
