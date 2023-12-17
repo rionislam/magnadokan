@@ -173,7 +173,7 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
             <div class="top_book-impressions">Clicks</div>
             <div class="top_book-downloads">Downloads</div>
         </div>
-        
+        <?=$adminBookController->loadPopularBooks();?>
     </div>
  </div>
  <div class="right">

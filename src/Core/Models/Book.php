@@ -106,13 +106,19 @@ class Book extends Dbh{
 
 
     //NOTE - Load popular books
-    public function getPopular($limit){
+    protected function getPopular($limit){
         $cache = new Cache;
         $cache = $cache->config();
-        $cacheInstance = $cache->getItem("books?limit={$limit}");
+        $cacheInstance = $cache->getItem("popularBooks?limit={$limit}");
         if(is_null($cacheInstance->get())){
             $sql = "SELECT
                         b.*,
+                        COALESCE(SUM(CASE 
+                                        WHEN bl.event = 'download' THEN 1
+                                        ELSE 0 END), 0) AS downloads,
+                        COALESCE(SUM(CASE 
+                                        WHEN bl.event = 'click' THEN 1
+                                        ELSE 0 END), 0) AS clicks,
                         COALESCE(SUM(CASE 
                                         WHEN bl.event = 'impression' THEN 1 
                                         WHEN bl.event = 'click' THEN 2
@@ -130,7 +136,7 @@ class Book extends Dbh{
                     LIMIT
                         {$limit};";
             $rows = $this->getRows($sql);
-            $cacheInstance->set($rows)->expiresAfter(43200);
+            $cacheInstance->set($rows)->expiresAfter(Timer::timeLeftForNextDay());
             $cache->save($cacheInstance);
         }else{
             $rows = $cacheInstance->get();
@@ -173,7 +179,7 @@ class Book extends Dbh{
                     LIMIT
                         {$limit};";
             $rows = $this->getRows($sql);
-            $cacheInstance->set($rows)->expiresAfter(43200);
+            $cacheInstance->set($rows)->expiresAfter(Timer::timeLeftForNextDay());
             $cache->save($cacheInstance);
         }else{
             $rows = $cacheInstance->get();
