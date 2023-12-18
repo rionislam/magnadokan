@@ -64,18 +64,29 @@ class BookController extends Book{
         $logController = new LogController;
         $logController->collectBookLog('click', $row['bookId'], $row['bookCategory']);
         $writters = '';
-        $writtersArray = explode(',', $row['bookWritters']);
+        $writtersArray = array_map('trim',explode(',', $row['bookWritters']));
+        $writtersSchema = '';
         $userId = (isset($_SESSION['USER_ID'])) ? $_SESSION['USER_ID'] : '0';
+        (count($writtersArray) > 1)?$writtersSchema.='[':'';
         foreach($writtersArray  as $writter){
             $writters .= "<li><a href='#'>{$writter}</a></li>";
+            $writtersSchema .= "{
+                                \"@type\": \"Person\",
+                                \"name\": \"{$writter}\"
+                                },";
         }
+        $writtersSchema = trim($writtersSchema, ',');
+        (count($writtersArray) > 1)?$writtersSchema.=']':'';
         $downloadIcon = file_get_contents(Application::$ROOT_DIR."/assets/images/icons/download.svg");
         $addToLibraryIcon = file_get_contents(Application::$ROOT_DIR."/assets/images/icons/library_add.svg");
         $addedToLibraryIcon = '<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><circle class="circle" cx="30" cy="30" r="30" fill="none"/><path class="check" fill="none" d="m12.5 28l10.0 13 24-22.2"/></svg>';
         $libraryButton = (isset($_COOKIE['LIBRARY_ADDED'])) ? $addedToLibraryIcon. "Added To Library" : $addToLibraryIcon."Add To Library";
+        $cover = Application::$HOST."/uploads/books/covers/{$row['bookCover']}";
+        $decodedDescription = html_entity_decode($row['bookDescription'], ENT_QUOTES);
+        $decodedDescription = str_replace('"','\"', $decodedDescription);
         return "<section class='book-container max-width center'>
                     <div class='left'>
-                        <img src='uploads/books/covers/{$row['bookCover']}' alt='{$row['bookName']}'>
+                        <img src='{$cover}' alt='{$row['bookName']}'>
                     </div>
                     <div class='right'>
                         <h1 class='title'>{$row['bookName']}</h1>
@@ -104,7 +115,35 @@ class BookController extends Book{
                             <p>{$row['bookTags']}</p>
                         </div>
                     </div>
-                </section>";   
+                </section>
+                <script type='application/ld+json'>
+                {
+                \"@context\": \"https://schema.org\",
+                \"@type\": \"Book\",
+                \"bookFormat\": \"https://schema.org/EBook\",
+                \"name\": \"{$row['bookName']}\",
+                \"author\": {$writtersSchema},
+                \"image\": \"{$cover}\",
+                \"description\": \"{$decodedDescription}\",
+                \"offers\": {
+                    \"@type\": \"Offer\",
+                    \"price\": \"0.00\",
+                    \"priceCurrency\": \"USD\",
+                    \"availability\": \"http://schema.org/InStock\",
+                    \"url\": \"".Application::$HOST."/book/{$name}\",
+                    \"seller\": {
+                      \"@type\": \"Organization\",
+                      \"name\": \"".TITLE."\",
+                      \"url\": \"".Application::$HOST."\"
+                    }
+                  },
+                  \"mainEntityOfPage\": {
+                    \"@type\": \"WebPage\",
+                    \"@id\": \"".Application::$HOST."/book/{$name}\"
+                  }
+                }
+                </script>
+                ";   
     }
 
     public function loadForDownloadPageByName($name){

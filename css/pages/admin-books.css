@@ -71,7 +71,7 @@ main .form-container form .input-wrapper:hover {
 }
 
 main .form-container form .input-wrapper .label {
-  font-family: Ubuntu, sans-serif;
+  font-family: system-ui, sans-serif;
   position: absolute;
   margin: auto;
   color: var(--dim-text);
@@ -136,7 +136,7 @@ main .form-container form .icon img {
   box-shadow: 0 2px 12px hsla(228, 66%, 45%, 0.1);
   border-radius: 3px;
   margin-top: 0.5rem;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: system-ui, sans-serif;
   display: none;
   max-height: 15rem;
   overflow-y: auto;

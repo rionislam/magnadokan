@@ -63,7 +63,7 @@ main header .right input[type='image'] {
   border: none;
   border-radius: 3px;
   color: white;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: system-ui, sans-serif;
   font-size: 1rem;
   margin: 0 2rem;
 }
@@ -76,7 +76,7 @@ main header .right input[type='image'] {
   padding: 0.3rem 0.5rem;
   border: 1px solid gray;
   border-radius: 3px;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: system-ui, sans-serif;
   font-size: 1rem;
 }
 
@@ -108,7 +108,7 @@ main section .row .icon img {
 }
 
 main section .header-row {
-  font-family: 'Ubuntu', sans-serif;
+  font-family: system-ui, sans-serif;
   font-size: 1.2rem;
   font-weight: 500;
 }

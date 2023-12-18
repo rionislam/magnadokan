@@ -7,7 +7,7 @@ nav {
   padding: 2rem 0;
   text-align: center;
   height: 100vh;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: system-ui, sans-serif;
   overflow: hidden;
 }
 

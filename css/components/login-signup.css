@@ -40,7 +40,7 @@
 .login-signup .forms-container form input[type='submit'] {
   background: var(--accent-1);
   border: none;
-  font-family: Ubuntu, sans-serif;
+  font-family: system-ui, sans-serif;
   font-size: 1.2rem;
   padding: 0.3rem 0.5rem;
   border-radius: 3px;

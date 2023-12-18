@@ -1,5 +1,5 @@
 /** @format */
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,500;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=system-ui:ital,wght@0,400;0,500;1,300&display=swap');
 @import url('utilities/color.css');
 * {
   margin: 0;
@@ -19,7 +19,7 @@ p {
 .title {
   font-size: 1.5rem;
   font-weight: 500;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: system-ui, sans-serif;
   color: var(--title-color);
 }
 
@@ -102,7 +102,7 @@ input[type='checkbox']:checked:after {
 }
 
 .input-name {
-  font-family: 'Ubuntu', sans-serif;
+  font-family: system-ui, sans-serif;
   font-size: 1rem;
   margin: 0.3rem 0;
 }
@@ -127,7 +127,7 @@ body::-webkit-scrollbar {
 .warning {
   color: var(--danger);
   padding: 0.5rem 0;
-  font-family: Ubuntu, sans-serif;
+  font-family: system-ui, sans-serif;
   font-size: 0.8rem;
 }
 
@@ -139,7 +139,7 @@ body::-webkit-scrollbar {
   align-items: center;
   justify-content: center;
   color: var(--dim-text);
-  font-family: Ubuntu, sans-serif;
+  font-family: system-ui, sans-serif;
 }
 
 .error-container h1 {

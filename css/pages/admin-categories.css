@@ -29,7 +29,7 @@ main .form-container form .input-wrapper:hover {
 }
 
 main .form-container form .input-wrapper .label {
-  font-family: Ubuntu, sans-serif;
+  font-family: system-ui, sans-serif;
   position: absolute;
   margin: auto;
   color: var(--dim-text);

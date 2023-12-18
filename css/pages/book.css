@@ -43,7 +43,7 @@
 }
 .book-container .right .bottom button {
   padding: 0.5rem 0.8rem;
-  font-family: Ubuntu, sans-serif;
+  font-family: system-ui, sans-serif;
   font-size: 1.2rem;
   background: var(--accent-1);
   color: #fff;

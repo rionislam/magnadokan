@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: Ubuntu, sans-serif;
+  font-family: system-ui, sans-serif;
   overflow-x: visible;
 }
 header {
@@ -76,7 +76,7 @@ nav ul li input[type='image'] {
 .login-btn {
   background: var(--accent-1);
   border: none;
-  font-family: Ubuntu, sans-serif;
+  font-family: system-ui, sans-serif;
   font-size: 1.2rem;
   padding: 0.3rem 0.5rem;
   border-radius: 3px;
@@ -88,7 +88,7 @@ nav ul li input[type='image'] {
 .downloads-left-btn {
   background: var(--danger);
   border: none;
-  font-family: Ubuntu, sans-serif;
+  font-family: system-ui, sans-serif;
   font-size: 1.2rem;
   padding: 0.32rem 1rem;
   border-radius: 3px;

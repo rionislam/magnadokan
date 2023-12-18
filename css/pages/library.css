@@ -82,7 +82,7 @@
 .books-container .book-wrapper .right button {
   width: 100%;
   background: var(--danger);
-  font-family: 'Ubuntu', sans-serif;
+  font-family: system-ui, sans-serif;
   font-size: 1.2rem;
   color: white;
   border: none;

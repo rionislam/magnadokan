@@ -39,7 +39,7 @@
 
 .preview-cart .middle .number {
   font-size: 2rem;
-  font-family: Ubuntu, sans-serif;
+  font-family: system-ui, sans-serif;
 }
 
 .preview-cart .middle .preview-title {
@@ -107,7 +107,7 @@
 .analytics .left .top_book.header {
   color: var(--dim-text);
   margin-bottom: 1rem;
-  font-family: Ubuntu, sans-serif;
+  font-family: system-ui, sans-serif;
   box-shadow: none;
 }
 

@@ -33,7 +33,7 @@
 
 .downloads-left-container .downloads-left-number {
   text-align: center;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: system-ui, sans-serif;
   font-size: 2rem;
   font-weight: 500;
   color: var(--danger);
