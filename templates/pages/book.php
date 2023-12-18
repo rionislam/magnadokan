@@ -1,5 +1,7 @@
 <?php
 define('pageName', 'book');
+
+use Core\Application;
 use Core\Services\ResourceLoader;
 use Core\Controllers\BookController;
 use Core\Services\HtmlGenerator;
@@ -12,6 +14,7 @@ $bookController = new BookController;
 <html lang="en">
 <head>
     <?=HtmlGenerator::generateHead($bookController->getSeoTags($name), pageName)?>
+    <link rel="canonical" href="<?=Application::$HOST.'/book/'.$name?>"/>
 </head>
 <body>
         <!-- Load gtag for google services intrigration -->
