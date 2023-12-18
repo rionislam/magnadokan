@@ -1,5 +1,6 @@
 /** @format */
 import dataConverter from '../utilities/dataConverter.js';
+import tags from '../utilities/tags.js';
 let showCategories = () => {
   categoriesDropdown.style.display = 'block';
 };
