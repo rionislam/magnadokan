@@ -25,13 +25,13 @@ const pie = {
     let starting = -90;
     let ending = 0;
     colors.push(
-      getComputedStyle(document.documentElement).getPropertyValue('--accent-1'),
+      getComputedStyle(document.documentElement).getPropertyValue('--danger'),
     );
     colors.push(
       getComputedStyle(document.documentElement).getPropertyValue('--green'),
     );
     colors.push(
-      getComputedStyle(document.documentElement).getPropertyValue('--danger'),
+      getComputedStyle(document.documentElement).getPropertyValue('--accent-1'),
     );
     colors.push(
       getComputedStyle(document.documentElement).getPropertyValue(

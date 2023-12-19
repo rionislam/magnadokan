@@ -5,6 +5,7 @@ define('pageName', 'admin-dashboard');
 use Core\Services\HtmlGenerator;
 use Core\Services\ResourceLoader;
 use Core\Controllers\AdminBookController;
+use Core\Controllers\AdminCategoryController;
 use Core\Controllers\AdminLogController;
 use Core\Controllers\AdminUserController;
 use Core\Services\AdminAuthHandler;
@@ -15,6 +16,7 @@ if(!AdminAuthHandler::isLoggedIn()){
     exit;
 }
 $adminBookController = new AdminBookController;
+$adminCategoryController = new AdminCategoryController;
 $adminUserController = new AdminUserController;
 $adminLogController = new AdminLogController;
 require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
@@ -177,6 +179,12 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
     </div>
  </div>
  <div class="right">
+    <?php
+    $topCategories = $adminCategoryController->loadPopularCategoriesAsArray();
+    ?>
+    <script>
+        let topCategories = <?=json_encode($topCategories)?>;
+    </script>
     <div class="title-wrapper">
         <div class="title">Top peforming catagories</div>
     </div>
@@ -186,20 +194,20 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
         </div>
         <div class="chart_info">
             <div class="chart_info-wrapper">
-                <div class="palet" style="background: var(--accent-1);"></div>
-                <div class="catagory-name">Programming</div>
+                <div class="palet" style="background: var(--danger);"></div>
+                <div class="catagory-name"><?=array_keys($topCategories)[0]?></div>
             </div>
             <div class="chart_info-wrapper">
                 <div class="palet" style="background: var(--green);"></div>
-                <div class="catagory-name">Fiction</div>
+                <div class="catagory-name"><?=array_keys($topCategories)[1]?></div>
             </div>
             <div class="chart_info-wrapper">
-                <div class="palet" style="background: var(--danger);"></div>
-                <div class="catagory-name">Non fiction</div>
+                <div class="palet" style="background: var(--accent-1);"></div>
+                <div class="catagory-name"><?=array_keys($topCategories)[2]?></div>
             </div>
             <div class="chart_info-wrapper">
                 <div class="palet" style="background: var(--dark-color);"></div>
-                <div class="catagory-name">Others</div>
+                <div class="catagory-name"><?=array_keys($topCategories)[3]?></div>
             </div>
         </div>
     </div>

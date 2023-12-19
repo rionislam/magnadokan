@@ -1,7 +1,40 @@
 <?php
 namespace Core\Models;
 
+use Core\Utilities\Cache;
+use Core\Utilities\Timer;
+
 class Category extends Dbh{
+    public function getPopularCategories(){
+        $cache = new Cache;
+        $cache = $cache->config();
+        $cacheInstance = $cache->getItem("popularCategories");
+        if(is_null($cacheInstance->get())){
+            $sql = "SELECT
+                    bookCategory,
+                    COALESCE(SUM(CASE 
+                                    WHEN `event` = 'download' THEN 1
+                                    WHEN `event` = 'click' THEN 1
+                                    ELSE 0 END), 0) AS score
+                    
+                FROM
+                    bookLogs 
+                WHERE
+                    logTime >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+                GROUP BY
+                    bookCategory
+                ORDER BY
+                    score DESC;";
+            $rows = $this->getRows($sql);
+            $cacheInstance->set($rows)->expiresAfter(Timer::timeLeftForNextDay());
+            $cache->save($cacheInstance);
+        }else{
+            $rows = $cacheInstance->get();
+        }
+        return $rows;
+        
+    }
+
     public function get($category){
         $sql = 'SELECT * FROM `categories` WHERE `category`="'.$category.'";';
         $row = $this->getRows($sql)[0];

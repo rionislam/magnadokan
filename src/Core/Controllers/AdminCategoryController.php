@@ -26,6 +26,27 @@ class AdminCategoryController extends Category{
         }
     }
 
+    public function loadPopularCategoriesAsArray(){
+        $categories = $this->getPopularCategories();
+        $totalScore = 0;
+        $percentUsed = NULL;
+        $result = array();
+        foreach($categories as $category){
+            $totalScore += intval($category['score']);
+        }
+        for($i = 0; $i<3; $i++){
+            $scoreInPercent = floor(($categories[$i]['score'] / $totalScore)*100);
+            
+            $result[$categories[$i]['bookCategory']] = $scoreInPercent;
+            $percentUsed += $scoreInPercent;
+        }
+
+        $result['others'] = 100-$percentUsed;
+
+        return $result;
+        
+    }
+
     public function loadAllCategoriesName(string $filter = NULL){
         $categories = $this->getAllCateogoriesNames();
         
