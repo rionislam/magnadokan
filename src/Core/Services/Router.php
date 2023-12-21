@@ -2,7 +2,6 @@
 namespace Core\Services;
 
 use Core\Application;
-use Core\Services\ResourceLoader;
 
 class Router
 {
