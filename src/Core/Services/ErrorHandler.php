@@ -31,7 +31,7 @@ class ErrorHandler {
 
     public static function displayErrorPage($statusCode = 500) {
         // Clean output buffer
-        ob_end_clean();
+        ob_clean();
 
         // Set the appropriate HTTP header
         http_response_code($statusCode);
@@ -74,5 +74,6 @@ class ErrorHandler {
             // Display a custom error page
             self::displayErrorPage();
         }
+        ob_end_flush();
     }
 }
