@@ -3,10 +3,16 @@
 define('pageName', 'admin-writters');
 use Core\Application;
 use Core\Controllers\AdminWritterController;
+use Core\Services\AdminAuthHandler;
+use Core\Services\ErrorHandler;
 use Core\Services\HtmlGenerator;
 use Core\Services\ResourceLoader;
 
 require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
+if(!AdminAuthHandler::isLoggedIn()){
+    ErrorHandler::displayErrorPage(403);
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
