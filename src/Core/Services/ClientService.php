@@ -49,7 +49,7 @@ class ClientService extends Client{
                             '/macintosh|mac os x/i' =>  'Mac OS X',
                             '/mac_powerpc/i'        =>  'Mac OS 9',
                             '/linux/i'              =>  'Linux',
-                            '/system-ui/i'             =>  system-ui,
+                            '/system-ui/i'          =>  'system-ui',
                             '/iphone/i'             =>  'iPhone',
                             '/ipod/i'               =>  'iPod',
                             '/ipad/i'               =>  'iPad',

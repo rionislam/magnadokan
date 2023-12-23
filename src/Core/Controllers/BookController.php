@@ -37,7 +37,7 @@ class BookController extends Book{
             $host = Application::$HOST;
             $bookName = rawurlencode($row['bookName']);
             echo "<article class='slide' data-impression-collected=false data-book-category='{$row['bookCategory']}' data-book-id='{$row['bookId']}'>
-                    <a href='{$host}/book/{$bookName}'>
+                    <a draggable='false' href='{$host}/book/{$bookName}'>
                     <div class='image-container' style='background-image: url({$host}/assets/gifs/loading.gif)'>
                     <img loading='lazy' onload='this.style.opacity = 1' alt='{$row['bookName']} pdf by Magna Dokan' src='uploads/books/covers/{$row['bookCover']}'>
                     </div>
@@ -96,6 +96,9 @@ class BookController extends Book{
                                 {$writters}
                             </ul>
                         </div>
+                        <div class='vertical-ad-container'>
+                            
+                        </div>
                         <div class='bottom'>
                             <p class='notice'>Note: We always suggest to buy the real copy of the book. This patform is just for them who can't affort to buy.</p>
                             <button class='add-to-libray-btn' data-book-id='{$row['bookId']}' onclick='addToLibrary(this, {$userId})'>{$libraryButton}</button>
@@ -104,10 +107,16 @@ class BookController extends Book{
                         
                     </div>
                     <div class='bottom'>
+                        <div class='horizontal-ad-container'>
+                            
+                        </div>
                         <div class='description-container'>
                             <h1 class='title'>Description</h1>
                             <hr>
                             <p>{$row['bookDescription']}</p>
+                        </div>
+                        <div class='horizontal-ad-container'>
+                           
                         </div>
                         <div class='tags-container'>
                             <h1 class='title'>Tags</h1>
@@ -116,33 +125,6 @@ class BookController extends Book{
                         </div>
                     </div>
                 </section>
-                <script type='application/ld+json'>
-                {
-                \"@context\": \"https://schema.org\",
-                \"@type\": \"Book\",
-                \"bookFormat\": \"https://schema.org/EBook\",
-                \"name\": \"{$row['bookName']}\",
-                \"author\": {$writtersSchema},
-                \"image\": \"{$cover}\",
-                \"description\": \"{$decodedDescription}\",
-                \"offers\": {
-                    \"@type\": \"Offer\",
-                    \"price\": \"0.00\",
-                    \"priceCurrency\": \"USD\",
-                    \"availability\": \"http://schema.org/InStock\",
-                    \"url\": \"".Application::$HOST."/book/{$name}\",
-                    \"seller\": {
-                      \"@type\": \"Organization\",
-                      \"name\": \"".TITLE."\",
-                      \"url\": \"".Application::$HOST."\"
-                    }
-                  },
-                  \"mainEntityOfPage\": {
-                    \"@type\": \"WebPage\",
-                    \"@id\": \"".Application::$HOST."/book/{$name}\"
-                  }
-                }
-                </script>
                 ";   
     }
 
