@@ -83,6 +83,14 @@ class AdminPageController{
         include Application::$ROOT_DIR."/templates/pages/admin-add-writter.php";
     }
 
+    public function loadLanguages(){
+        if(!AdminAuthHandler::isLoggedIn()){
+            header("Location: ".Application::$HOST."/admin/login");
+            exit;
+        }
+        include Application::$ROOT_DIR."/templates/pages/admin-languages.php";
+    }
+
     public function loadSettings(){
         if(!AdminAuthHandler::isLoggedIn()){
             header("Location: ".Application::$HOST."/admin/login");

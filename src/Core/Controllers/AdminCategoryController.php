@@ -34,7 +34,7 @@ class AdminCategoryController extends Category{
         foreach($categories as $category){
             $totalScore += intval($category['score']);
         }
-        for($i = 0; $i<3; $i++){
+        for($i = 0; $i<3 && $i<count($categories); $i++){
             $scoreInPercent = floor(($categories[$i]['score'] / $totalScore)*100);
             
             $result[$categories[$i]['bookCategory']] = $scoreInPercent;

@@ -197,18 +197,37 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
                 <div class="palet" style="background: var(--danger);"></div>
                 <div class="catagory-name"><?=array_keys($topCategories)[0]?></div>
             </div>
-            <div class="chart_info-wrapper">
-                <div class="palet" style="background: var(--green);"></div>
-                <div class="catagory-name"><?=array_keys($topCategories)[1]?></div>
-            </div>
-            <div class="chart_info-wrapper">
-                <div class="palet" style="background: var(--accent-1);"></div>
-                <div class="catagory-name"><?=array_keys($topCategories)[2]?></div>
-            </div>
-            <div class="chart_info-wrapper">
-                <div class="palet" style="background: var(--dark-color);"></div>
-                <div class="catagory-name"><?=array_keys($topCategories)[3]?></div>
-            </div>
+            <?php
+                if(count($topCategories) >= 2){
+            ?>
+                <div class="chart_info-wrapper">
+                    <div class="palet" style="background: var(--green);"></div>
+                    <div class="catagory-name"><?=array_keys($topCategories)[1]?></div>
+                </div>
+            <?php
+                }
+            ?>
+            <?php
+                if(count($topCategories) >= 3){
+            ?>
+                <div class="chart_info-wrapper">
+                    <div class="palet" style="background: var(--accent-1);"></div>
+                    <div class="catagory-name"><?=array_keys($topCategories)[2]?></div>
+                </div>
+            <?php
+                }
+            ?>
+            <?php
+                if(count($topCategories) >= 4){
+            ?>
+                <div class="chart_info-wrapper">
+                    <div class="palet" style="background: var(--dark-color);"></div>
+                    <div class="catagory-name"><?=array_keys($topCategories)[3]?></div>
+                </div>
+            <?php
+                }
+            ?>
+            
         </div>
     </div>
  </div>

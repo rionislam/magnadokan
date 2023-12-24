@@ -79,6 +79,8 @@ Router::get('/admin/writters', 'AdminPageController@loadWritters');
 Router::get('/admin/add-writter', 'AdminPageController@loadAddWritter');
 Router::post('/admin/process-add-writter', 'AdminWritterController@addWritter');
 
+Router::get('/admin/languages', 'AdminPageController@loadLanguages');
+
 Router::get('/admin/settings', 'AdminPageController@loadSettings');
 Router::post('/admin/save-settings', 'AdminSettingsController@saveSettings');
 
