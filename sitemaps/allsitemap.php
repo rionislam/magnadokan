@@ -17,7 +17,6 @@ $output .= '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 for($i=0; $i<$count; $i +=25000){
     $output .= "<sitemap>";
     $output .=    "<loc>".Application::$HOST."/sitemaps/sitemap.php?limit=".$i."</loc>";
-    $output .=    "<changefreq>daily</changefreq>";
     $output .= "</sitemap>";
 }
 $output .= "</sitemapindex>";
