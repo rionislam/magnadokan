@@ -140,23 +140,30 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
         <div class="preview-cart">
             <div class="left">
                 <div class="icon">
-                    <?= ResourceLoader::loadIcon('dashboard.svg')?>
+                    <?= ResourceLoader::loadIcon('view-window.svg')?>
                 </div>
             </div>
             <div class="middle">
                 <div class="number">
-                    70020
+                    <?=$adminLogController->viewsCount()?>
                 </div>
                 <div class="preview-title">
-                    Book Requests
+                    Total Views
                 </div>
             </div>
             <div class="right" title="Monthly growth">
                 <div class="icon">
-                    <?=ResourceLoader::loadIcon('growth.svg')?>
+                    <?php
+                        $viewsIncreased = $adminLogController->viewsIncreased();
+                        if($downloadsIncreased > 0){
+                            echo ResourceLoader::loadIcon('increase.svg');
+                        }else{
+                            echo ResourceLoader::loadIcon('decrease.svg');
+                        }
+                    ?>
                 </div>
                 <div class="number">
-                    7%
+                    <?=$viewsIncreased?>%
                 </div>
             </div>
         </div>

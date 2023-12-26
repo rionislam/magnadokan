@@ -5,6 +5,7 @@ require __DIR__.'/vendor/autoload.php';
 use Core\Application;
 use Core\Services\ClientService;
 use Core\Services\ErrorHandler;
+use Core\Services\Logger;
 use Core\Services\SessionService;
 
 // Check the session
@@ -89,3 +90,6 @@ Router::post('/admin/upload-image', 'AdminFileController@uploadImage');
 
 // Dispatch the request
 Router::dispatch();
+
+$logger = new Logger;
+$logger->collectPageViewForUsers();
