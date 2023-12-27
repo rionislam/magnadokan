@@ -31,17 +31,22 @@ class AdminCategoryController extends Category{
         $totalScore = 0;
         $percentUsed = NULL;
         $result = array();
-        foreach($categories as $category){
-            $totalScore += intval($category['score']);
+        if(count($categories) > 0){
+            foreach($categories as $category){
+                $totalScore += intval($category['score']);
+            }
+            for($i = 0; $i<3 && $i<count($categories); $i++){
+                $scoreInPercent = floor(($categories[$i]['score'] / $totalScore)*100);
+                
+                $result[$categories[$i]['bookCategory']] = $scoreInPercent;
+                $percentUsed += $scoreInPercent;
+            }
+    
+            $result['others'] = 100-$percentUsed;
+        }else{
+            $result['No data'] = 100;
         }
-        for($i = 0; $i<3 && $i<count($categories); $i++){
-            $scoreInPercent = floor(($categories[$i]['score'] / $totalScore)*100);
-            
-            $result[$categories[$i]['bookCategory']] = $scoreInPercent;
-            $percentUsed += $scoreInPercent;
-        }
-
-        $result['others'] = 100-$percentUsed;
+        
 
         return $result;
         

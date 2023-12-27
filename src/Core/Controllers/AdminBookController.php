@@ -45,18 +45,23 @@ class AdminBookController extends Book{
     public function loadPopularBooks(){
         $rows = $this->getPopular('0,5');
         $books = NULL;
-        foreach($rows as $row){
-            $cover = Application::$HOST."/uploads/books/covers/".$row['bookCover'];
-            $books .= "<div class='top_book'>
-                            <div class='top_book-cover'>
-                                <img src='{$cover}'>
-                            </div>
-                            <div class='top_book-name'>{$row['bookName']}</div>
-                            <div class='top_book-impressions'>{$row['clicks']}</div>
-                            <div class='top_book-downloads'>{$row['downloads']}</div>
-                        </div>";
-           
+        if(count($rows)>0){
+            foreach($rows as $row){
+                $cover = Application::$HOST."/uploads/books/covers/".$row['bookCover'];
+                $books .= "<div class='top_book'>
+                                <div class='top_book-cover'>
+                                    <img src='{$cover}'>
+                                </div>
+                                <div class='top_book-name'>{$row['bookName']}</div>
+                                <div class='top_book-impressions'>{$row['clicks']}</div>
+                                <div class='top_book-downloads'>{$row['downloads']}</div>
+                            </div>";
+               
+            }
+        }else{
+            $books = 'No Data!';
         }
+        
         return $books;
     }
 

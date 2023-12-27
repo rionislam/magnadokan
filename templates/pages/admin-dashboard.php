@@ -140,7 +140,7 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
         <div class="preview-cart">
             <div class="left">
                 <div class="icon">
-                    <?= ResourceLoader::loadIcon('view-window.svg')?>
+                    <?=ResourceLoader::loadIcon('view-window.svg')?>
                 </div>
             </div>
             <div class="middle">
