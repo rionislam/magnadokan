@@ -91,9 +91,12 @@ main section .row {
   justify-content: space-between;
   font-family: Arial, sans-serif;
   font-size: 1rem;
-  margin: 1rem 0;
+  margin: 0.5rem 0;
+  padding: 0.3rem 0.5rem;
+  border-radius: 5px;
   align-items: center;
   cursor: pointer;
+  box-shadow: 0px 0px 18px var(--shadow-color);
 }
 main section .row svg {
   height: 1em;
@@ -111,6 +114,7 @@ main section .header-row {
   font-family: system-ui, sans-serif;
   font-size: 1.2rem;
   font-weight: 500;
+  box-shadow: none;
 }
 
 main section hr {
