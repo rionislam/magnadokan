@@ -10,6 +10,7 @@ use Core\Controllers\AdminLogController;
 use Core\Controllers\AdminUserController;
 use Core\Services\AdminAuthHandler;
 use Core\Services\ErrorHandler;
+use Core\Utilities\NumberFormatter;
 
 if(!AdminAuthHandler::isLoggedIn()){
     ErrorHandler::displayErrorPage(403);
@@ -49,7 +50,7 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
             </div>
             <div class="middle">
                 <div class="number">
-                <?=$adminBookController->count()?>
+                <?=NumberFormatter::formatNumber($adminBookController->count())?>
                 </div>
                 <div class="preview-title">
                     Total Books
@@ -81,7 +82,7 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
             </div>
             <div class="middle">
                 <div class="number">
-                    <?=$adminUserController->count()?>
+                    <?=NumberFormatter::formatNumber($adminUserController->count())?>
                 </div>
                 <div class="preview-title">
                     Total Users
@@ -113,7 +114,7 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
             </div>
             <div class="middle">
                 <div class="number">
-                    <?=$adminLogController->downloadsCount();?>
+                    <?=NumberFormatter::formatNumber($adminLogController->downloadsCount())?>
                 </div>
                 <div class="preview-title">
                     Total Downloads
@@ -145,7 +146,7 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
             </div>
             <div class="middle">
                 <div class="number">
-                    <?=$adminLogController->viewsCount()?>
+                    <?=NumberFormatter::formatNumber($adminLogController->viewsCount())?>
                 </div>
                 <div class="preview-title">
                     Total Views
