@@ -97,6 +97,13 @@ input[type='checkbox']:checked:after {
   outline: 1px solid var(--accent-1);
 }
 
+.input-container input.invalid,
+.input-container select.invalid,
+.input-container textarea.invalid{
+  border-color: var(--danger);
+  outline: 1px solid var(--danger);
+}
+
 .input-container img {
   height: 1.7em;
   position: absolute;

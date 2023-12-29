@@ -13,27 +13,27 @@ use Core\Services\SessionService;
         <form id="signup-form" action="<?=Application::$HOST?>/process-signup" method="post">
             <div class="input-container">
                 <div class="input-name">Full Name</div>
-                <input type="text" name="full-name" required>
+                <input type="text" pattern="^[a-zA-Z\s]+$" id="fullName" name="full-name" required>
             </div>
             <div class="input-container">
                 <div class="input-name">User Name</div>
-                <input type="text" name="username" required>
+                <input type="text" id="username" name="username" pattern="^[a-zA-Z0-9_\-]+$" minlength="5" required>
             </div>
             <div class="input-container">
                 <div class="input-name">Email</div>
-                <input type="email" name="email"  required>
+                <input type="email" id="email" name="email"  required>
             </div>
             <div class="input-container">
                 <div class="input-name">Password</div>
-                <input type="password" name="password" id="password" required>
+                <input type="password" name="password" id="password" minlength="6" required>
                 <img onclick="togglePassword(this)" src="assets/images/icons/visible.svg">
             </div>
             <div class="input-container">
                 <div class="input-name">Confirm Password</div>
-                <input type="password" name="confirm-password" id="confirm-password">
+                <input type="password" name="confirm-password" id="confirmPassword">
                 <img onclick="togglePassword(this)" src="assets/images/icons/visible.svg">
             </div>
-            <input type="submit" value="Signup">
+            <input id="signupBtn" type="submit" value="Signup">
         </form>
         <hr>
         <form action="<?=Application::$HOST?>/process-login" method="post">

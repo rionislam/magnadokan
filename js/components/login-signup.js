@@ -1,4 +1,6 @@
 /** @format */
+import formUtil from "../utilities/formUtil.js";
+
 let showLoginSignup = () => {
   let loginSignup = document.getElementsByClassName('login-signup')[0];
   loginSignup.style.display = 'flex';
@@ -48,13 +50,59 @@ document.addEventListener('click', (ev) => {
   }
 });
 
-let signupForm = document.getElementById('signup-form');
-let confirmPassword = document.getElementById('confirm-password');
-signupForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  if (password.value == confirmPassword.value) {
-    signupForm.submit();
-  } else {
-    alert("Password Doesn't match");
+fullName.addEventListener('input', () => {
+  if (fullName.classList.contains('invalid')) {
+    formUtil.validateFullname(fullName);
   }
-});
+})
+
+username.addEventListener('input', () => {
+  if (username.classList.contains('invalid')) {
+    formUtil.validateUsername(username);
+  }
+})
+
+email.addEventListener('input', () => {
+  if (email.classList.contains('invalid')) {
+    formUtil.validateEmail(email);
+  }
+})
+
+password.addEventListener('input', () => {
+  if (password.classList.contains('invalid')) {
+    formUtil.validatePassword(password);
+  }
+})
+
+confirmPassword.addEventListener('input', () => {
+  if (confirmPassword.classList.contains('invalid')) {
+    formUtil.validateConfirmPassword(confirmPassword, password);
+  }
+})
+
+
+let signupForm = document.getElementById('signup-form');
+signupBtn.addEventListener('click', (event) => {
+  event.preventDefault();
+  if (formUtil.validateFullname(fullName)) {
+    if (formUtil.validateUsername(username)) {
+      if (formUtil.validateEmail(email)) {
+        if (formUtil.validatePassword(password)) {
+          if (formUtil.validateConfirmPassword(confirmPassword, password)) {
+            
+          }
+        }
+      }
+    }
+  }
+})
+// signupForm.addEventListener('submit', (event) => {
+//   event.preventDefault();
+//   formUtil.validateUsername(username);
+//   console.log('hello');
+//   if (password.value == confirmPassword.value) {
+//     signupForm.submit();
+//   } else {
+//     alert("Password Doesn't match");
+//   }
+// });
