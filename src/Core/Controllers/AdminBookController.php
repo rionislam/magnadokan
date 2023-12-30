@@ -8,6 +8,7 @@ use Core\Services\FileHandler;
 use Core\Services\ErrorHandler;
 use Core\Services\ResourceLoader;
 use Core\Services\AdminAuthHandler;
+use Core\Services\HtmlGenerator;
 use Core\Utilities\Cache;
 use Core\Utilities\Timer;
 
@@ -65,26 +66,60 @@ class AdminBookController extends Book{
         return $books;
     }
 
-    public function loadAll(){
+    public function loadAll($page){
         if(!AdminAuthHandler::isLoggedIn()){
             ErrorHandler::displayErrorPage(403);
             exit;
         }
-        $rows = $this->getAll();
-        if($rows !== false){
+        $rows = NULL;
+        $starting = 0 + 20 * ($page-1);
+        $limit = 20*$page;
+        $condition = "ORDER BY bookId DESC";
+        $cache = new Cache;
+        $cache = $cache->config();
+        $cacheInstance = $cache->getItem("admin-books?page={$page}");
+        if(is_null($cacheInstance->get())){  
+            $rows = $this->getLimited("{$starting},{$limit}", $condition);
+            $cacheInstance->set($rows)->expiresAfter(43200);
+            $cache->save($cacheInstance);
+        }else{
+            $rows = $cacheInstance->get();
+        }
+
+        $books = "";
+        if(is_array($rows)){
             $detailsLogo = ResourceLoader::loadIcon('details.svg');
             foreach($rows as $row){
-                echo "<div class='row' onclick='this.getElementsByTagName(\"a\")[0].click();'>
-                    <div class='name'>".$row['bookName']."</div>
-                    <div class='writter'>".$row['bookWritters']."</div>
-                    <div class='downloads'>".$row['downloads']."</div>
-                    <div class='clicks'>".$row['clicks']."</div>
-                    <a href='".Application::$HOST."/admin/book-details/".$row['bookId']."' class='details'>$detailsLogo</a>
-                    </div>";
+                $link = Application::$HOST."/admin/book-details/".$row['bookId'];
+                $books .= "<div class='row' onclick='this.getElementsByTagName(\"a\")[0].click();'>
+                <div class='name'>{$row['bookName']}</div>
+                <div class='writter'>{$row['bookWritters']}</div>
+                <div class='downloads'>{$row['downloads']}</div>
+                <div class='clicks'>{$row['clicks']}</div>
+                <a href='{$link}' class='details'>$detailsLogo</a>
+                </div>";
             }
         }else{
-            echo 'Nothing found!';
+            $books .= 'Nothing found!';
         }
+        $bookCount = $this->count($condition);
+        $htmlGenerator = new HtmlGenerator;
+
+        return "<section class='books-container'>
+                <div class='row header-row'>
+                    <div class='name'>Name</div>
+                    <div class='writter'>Writter</div>
+                    <div class='downloads'>Downloads</div>
+                    <div class='clicks'>Clicks</div>
+                    <div class='details'>Details</div>
+                </div>
+                <hr>
+                <div class='rows-container'>
+                <div class='books-container'>
+                {$books}
+                </div>
+                {$htmlGenerator->generatePagination(20, $bookCount, $page, Application::$HOST."/admin/books/{page}")}
+                </section>";
     }
 
     public function showBookDetails($id){

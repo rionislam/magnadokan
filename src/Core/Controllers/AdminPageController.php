@@ -27,7 +27,7 @@ class AdminPageController{
         include Application::$ROOT_DIR."/templates/pages/admin-users.php";
     }
 
-    public function loadBooks(){
+    public function loadBooks($page){
         if(!AdminAuthHandler::isLoggedIn()){
             header("Location: ".Application::$HOST."/admin/login");
             exit;

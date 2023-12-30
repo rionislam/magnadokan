@@ -33,24 +33,14 @@ if(!AdminAuthHandler::isLoggedIn()){
         </form>
         <button id="addNewBtn" onclick="addNew('book')">Add New</button>
     </div>
-   
 </header>
 <hr>
-<section class="books-container">
-    <div class="row header-row">
-        <div class="name">Name</div>
-        <div class="writter">Writter</div>
-        <div class="downloads">Downloads</div>
-        <div class="clicks">Clicks</div>
-        <div class="details">Details</div>
-    </div>
-    <hr>
-    <div class="rows-container">
+
         <?php
-        $AdminBookController = new AdminBookController;
-        $AdminBookController->loadAll();
+            $AdminBookController = new AdminBookController;
+            echo $AdminBookController->loadAll($page);
         ?>
-    </div>
+    
 </section>
 </main>
 
