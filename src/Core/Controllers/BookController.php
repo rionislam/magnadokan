@@ -3,6 +3,7 @@ namespace Core\Controllers;
 
 use Core\Application;
 use Core\Models\Book;
+use Core\Services\ErrorHandler;
 use Core\Utilities\Cache;
 use Core\Services\HtmlGenerator;
 use Core\Services\Search;
@@ -149,6 +150,10 @@ class BookController extends Book{
     }
 
     public function loadByCategory($category, $page){
+        if(!is_numeric($page)){
+            ErrorHandler::displayErrorPage(404);
+            exit;
+        }
         $rows = NULL;
         $starting = 0 + 12 * ($page-1);
         $limit = 12*$page;
@@ -205,6 +210,10 @@ class BookController extends Book{
     }
 
     public function loadByKeyword($keyword, $page){
+        if(!is_numeric($page)){
+            ErrorHandler::displayErrorPage(404);
+            exit;
+        }
         $rows = NULL;
         $starting = 0 + 12 * ($page-1);
         $limit = 12*$page;
@@ -261,6 +270,10 @@ class BookController extends Book{
     }
 
     public function loadByLanguage($language, $page){
+        if(!is_numeric($page)){
+            ErrorHandler::displayErrorPage(404);
+            exit;
+        }
         $rows = NULL;
         $starting = 0 + 12 * ($page-1);
         $limit = 12*$page;
@@ -317,6 +330,10 @@ class BookController extends Book{
     }
 
     public function loadAll($page){
+        if(!is_numeric($page)){
+            ErrorHandler::displayErrorPage(404);
+            exit;
+        }
         $rows = NULL;
         $starting = 0 + 12 * ($page-1);
         $limit = 12*$page;

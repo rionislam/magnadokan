@@ -13,34 +13,6 @@ ErrorDocument 503 /templates/error/503.php
 RewriteEngine on
 RewriteBase /
 
-# # RewriteRule ^login$ index.php?login=1
-# RewriteRule ^book/(.+)/download$ download.php?name=$1 [B,NC,L]
-# RewriteRule ^book/(.+)$ book.php?name=$1 [B,NC,L]
-
-# #For search
-# RewriteRule ^books/search/(.+)/([0-9]+)$ books.php?search=$1&page=$2
-# RewriteRule ^books/search/(.+)$ books.php?search=$1
-
-# #For books
-# RewriteRule ^books/([0-9]+)$ books.php?page=$1
-
-# #For books by Language
-# RewriteRule ^books/language/([a-zA-Z]+)/([0-9]+)$ books.php?language=$1&page=$2
-
-# #For books by Category
-# RewriteRule ^books/category/([a-zA-Z]+)/([0-9]+)$ books.php?category=$1&page=$2
-
-# #For login and signup
-# RewriteRule ^login/(.+)$ login.php?error=$1 [NC,L]
-# RewriteRule ^signup/(.+)$ signup.php?error=$1 [NC,L]
-
-#For admin
-# RewriteRule ^admin/(.*)$ admin/index.php?route=$1 [NC,L]
-# RewriteRule ^watch_video/(.+)$ watch_video.php?id=$1 [NC,L]
-# RewriteRule ^view_link/(.+)$ view_link.php?id=$1 [NC,L]
-
-
-
 RewriteCond %{REQUEST_FILENAME} !-f
 # RewriteCond %{REQUEST_FILENAME} !-d
 
