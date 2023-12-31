@@ -70,8 +70,6 @@ CREATE TABLE `books` (
   `bookWritters` varchar(128) NOT NULL,
   `bookTags` varchar(512) NOT NULL,
   `bookDescription` text NOT NULL,
-  `clicks` int(11) NOT NULL,
-  `downloads` int(11) NOT NULL,
   `bookCover` varchar(128) NOT NULL,
   `bookPdf` varchar(128) NOT NULL,
   `bookLanguage` varchar(16) NOT NULL,

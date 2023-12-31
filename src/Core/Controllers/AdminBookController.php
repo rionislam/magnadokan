@@ -74,12 +74,29 @@ class AdminBookController extends Book{
         $rows = NULL;
         $starting = 0 + 20 * ($page-1);
         $limit = 20*$page;
-        $condition = "ORDER BY bookId DESC";
         $cache = new Cache;
         $cache = $cache->config();
         $cacheInstance = $cache->getItem("admin-books?page={$page}");
         if(is_null($cacheInstance->get())){  
-            $rows = $this->getLimited("{$starting},{$limit}", $condition);
+            $sql = "SELECT
+                        b.bookName, b.bookWritters, b.bookId,
+                        COALESCE(SUM(CASE 
+                                        WHEN bl.event = 'download' THEN 1
+                                        ELSE 0 END), 0) AS downloads,
+                        COALESCE(SUM(CASE 
+                                        WHEN bl.event = 'click' THEN 1
+                                        ELSE 0 END), 0) AS clicks
+                    FROM
+                        books b
+                    LEFT JOIN
+                        bookLogs bl ON b.bookId = bl.bookId
+                    GROUP BY
+                        b.bookId
+                    ORDER BY
+                        b.bookId DESC
+                    LIMIT
+                       {$starting},{$limit};";
+            $rows = $this->getRows($sql);
             $cacheInstance->set($rows)->expiresAfter(43200);
             $cache->save($cacheInstance);
         }else{
@@ -102,7 +119,7 @@ class AdminBookController extends Book{
         }else{
             $books .= 'Nothing found!';
         }
-        $bookCount = $this->count($condition);
+        $bookCount = $this->count();
         $htmlGenerator = new HtmlGenerator;
 
         return "<section class='books-container'>
