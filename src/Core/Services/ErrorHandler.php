@@ -1,32 +1,47 @@
 <?php
 namespace Core\Services;
 
-use Core\Application;
 
 class ErrorHandler {
+    public static function init() {
+        // Set a custom error handler
+        set_error_handler([__CLASS__, 'handleErrors']);
+        set_exception_handler([__CLASS__, 'handleExceptions']);
+        register_shutdown_function([__CLASS__, 'handleShutdown']);
+    }
+
     public static function handleErrors($errno, $errstr, $errfile, $errline) {
-        //TODO - Need to comment this out while debugging
-        // // Check if the error is a deprecated warning about passing null to a parameter
-        if (self::isDeprecatedNullWarning($errno, $errstr)) {
-            // Don't handle the deprecated null warning
-            return;
+        // Check if error reporting is turned on and the error is not suppressed with @
+        if ((error_reporting() !== 0) && !self::isErrorSuppressed($errfile, $errline)) {
+
+            // Log the error
+            self::logError("Error: [$errno] $errstr in $errfile on line $errline");
+
+            // Display a custom error page
+            self::displayErrorPage(500); // Internal Server Error by default
         }
+    }
 
-        // Log the error
-        error_log("Error: [$errno] $errstr in $errfile on line $errline");
+    // Add this method to check if error is suppressed with @ symbol
+    private static function isErrorSuppressed($file, $line) {
+        $contents = file($file);
+        $lineContent = $contents[$line - 1];
 
-        
-        // Display a custom error page
-        self::displayErrorPage(500); // Internal Server Error by default
-        
+        // Check if @ symbol is present in the line
+        return strpos($lineContent, '@') !== false;
     }
 
     public static function handleExceptions($exception) {
         // Log the exception
-        error_log("Exception: " . $exception->getMessage() . " in " . $exception->getFile() . " on line " . $exception->getLine());
+        self::logError("Exception: " . $exception->getMessage() . " in " . $exception->getFile() . " on line " . $exception->getLine());
 
         // Display a custom error page
         self::displayErrorPage(500); // Internal Server Error by default
+    }
+
+    private static function logError($message) {
+        // Implement your logging mechanism here
+        error_log($message);
     }
 
     public static function displayErrorPage($statusCode = 500) {
@@ -39,31 +54,27 @@ class ErrorHandler {
         // Display the corresponding error page
         switch ($statusCode) {
             case 400:
-                include(Application::$ROOT_DIR.'/templates/error/400.php'); // Bad Request
+                include($_SERVER['DOCUMENT_ROOT'].'/templates/error/400.php'); // Bad Request
                 break;
             case 401:
-                include(Application::$ROOT_DIR.'/templates/error/401.php'); // Unauthorized
+                include($_SERVER['DOCUMENT_ROOT'].'/templates/error/401.php'); // Unauthorized
                 break;
             case 403:
-                include(Application::$ROOT_DIR.'/templates/error/403.php'); // Not Found
+                include($_SERVER['DOCUMENT_ROOT'].'/templates/error/403.php'); // Not Found
                 break;
             case 404:
-                include(Application::$ROOT_DIR.'/templates/error/404.php'); // Not Found
+                include($_SERVER['DOCUMENT_ROOT'].'/templates/error/404.php'); // Not Found
                 break;
             case 606:
-                include(Application::$ROOT_DIR.'/templates/error/606.php'); // Not Found
+                include($_SERVER['DOCUMENT_ROOT'].'/templates/error/606.php'); // Not Found
                 break;
             default:
-                include(Application::$ROOT_DIR.'/templates/error/500.php'); // General Error
+                include($_SERVER['DOCUMENT_ROOT'].'/templates/error/500.php'); // General Error
         }
 
         exit;
     }
 
-    private static function isDeprecatedNullWarning($errno, $errstr) {
-        // Check if the error is a deprecated warning about passing null to a parameter
-        return $errno === E_DEPRECATED && strpos($errstr, 'Passing null to parameter') !== false;
-    }
 
     public static function handleShutdown() {
         $error = error_get_last();
