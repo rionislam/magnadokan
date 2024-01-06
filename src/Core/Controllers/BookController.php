@@ -157,6 +157,7 @@ class BookController extends Book{
         $rows = NULL;
         $starting = 0 + 12 * ($page-1);
         $limit = 12*$page;
+        $category = rawurldecode($category);
         $condition = "WHERE `bookCategory`= '{$category}' ORDER BY `bookId` DESC";
         $cache = new Cache;
         $cache = $cache->config();
@@ -217,6 +218,7 @@ class BookController extends Book{
         $rows = NULL;
         $starting = 0 + 12 * ($page-1);
         $limit = 12*$page;
+        $keyword = rawurldecode($keyword);
         $search = new Search;
         $condition = $search->createCondition($keyword);
         $cache = new Cache;
