@@ -27,21 +27,18 @@ if(!AdminAuthHandler::isLoggedIn()){
         <div class="title">Books</div>
     </div>
     <div class="right">
-        <form class="search-bar" action="" method="post">
-            <input type="text" id="search" name="search" placeholder="Search here...">
-            <input type="image" src="<?=Application::$HOST?>/assets/images/icons/search.svg">
+        <form class="search-bar">
+            <input type="text" id="search" placeholder="Search here...">
+            <input type="image" onclick="searchBooks(event)" src="<?=Application::$HOST?>/assets/images/icons/search.svg">
         </form>
         <button id="addNewBtn" onclick="addNew('book')">Add New</button>
     </div>
 </header>
 <hr>
-
         <?php
             $AdminBookController = new AdminBookController;
             echo $AdminBookController->loadAll($page);
         ?>
-    
-</section>
 </main>
 
 </body>

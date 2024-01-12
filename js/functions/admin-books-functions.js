@@ -1,6 +1,7 @@
 /** @format */
 import dataConverter from '../utilities/dataConverter.js';
 import tags from '../utilities/tags.js';
+import request from '../utilities/request.js';
 let showCategories = () => {
   categoriesDropdown.style.display = 'block';
 };
@@ -190,3 +191,18 @@ let isDataChanged = () => {
 };
 
 window.isDataChanged = isDataChanged;
+
+let searchBooks = (event) => {
+  event.preventDefault();
+  let searchInput = document.getElementById('search');
+  let formData = new FormData();
+  formData.append('keyword', searchInput.value);
+  request
+    .post(location.origin + '/admin/search-books', formData)
+    .then((response) => {
+      document.getElementsByClassName('books-container')[0].innerHTML =
+        response;
+    });
+};
+
+window.searchBooks = searchBooks;

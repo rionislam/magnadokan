@@ -8,6 +8,7 @@ use Core\Utilities\Cache;
 use Core\Services\HtmlGenerator;
 use Core\Services\Search;
 use Core\Utilities\Cache as UtilitiesCache;
+use Core\Utilities\Timer;
 use DateTime;
 use DateTimeZone;
 
@@ -164,7 +165,7 @@ class BookController extends Book{
         $cacheInstance = $cache->getItem("books?category={$category}&page={$page}");
         if(is_null($cacheInstance->get())){  
             $rows = $this->getLimited("{$starting},{$limit}", $condition);
-            $cacheInstance->set($rows)->expiresAfter(43200);
+            $cacheInstance->set($rows)->expiresAfter(Timer::timeLeftForNextDay());
             $cache->save($cacheInstance);
         }else{
             $rows = $cacheInstance->get();
@@ -221,12 +222,13 @@ class BookController extends Book{
         $keyword = rawurldecode($keyword);
         $search = new Search;
         $condition = $search->createCondition($keyword);
+        $order = $search->createOrder($keyword);
         $cache = new Cache;
         $cache = $cache->config();
         $cacheInstance = $cache->getItem("books?keyword={$keyword}&page={$page}");
         if(is_null($cacheInstance->get())){  
-            $rows = $this->getLimited("{$starting},{$limit}", $condition);
-            $cacheInstance->set($rows)->expiresAfter(43200);
+            $rows = $this->getLimited("{$starting},{$limit}", $condition . $order);
+            $cacheInstance->set($rows)->expiresAfter(Timer::timeLeftForNextDay());
             $cache->save($cacheInstance);
         }else{
             $rows = $cacheInstance->get();
@@ -285,7 +287,7 @@ class BookController extends Book{
         $cacheInstance = $cache->getItem("books?language={$language}&page={$page}");
         if(is_null($cacheInstance->get())){  
             $rows = $this->getLimited("{$starting},{$limit}", $condition);
-            $cacheInstance->set($rows)->expiresAfter(43200);
+            $cacheInstance->set($rows)->expiresAfter(Timer::timeLeftForNextDay());
             $cache->save($cacheInstance);
         }else{
             $rows = $cacheInstance->get();
@@ -345,7 +347,7 @@ class BookController extends Book{
         $cacheInstance = $cache->getItem("books?page={$page}");
         if(is_null($cacheInstance->get())){  
             $rows = $this->getLimited("{$starting},{$limit}", $condition);
-            $cacheInstance->set($rows)->expiresAfter(43200);
+            $cacheInstance->set($rows)->expiresAfter(Timer::timeLeftForNextDay());
             $cache->save($cacheInstance);
         }else{
             $rows = $cacheInstance->get();

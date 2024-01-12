@@ -67,6 +67,7 @@ Router::post('/admin/process-login', 'AdminController@processLogin');
 Router::get('/admin/dashboard', 'AdminPageController@loadDashboard');
 Router::get('/admin/users', 'AdminPageController@loadUsers');
 Router::get('/admin/books/{page}', 'AdminPageController@loadBooks');
+Router::post('/admin/search-books', 'AdminBookController@searchBooks');
 Router::get('/admin/add-book', 'AdminPageController@loadAddBook');
 Router::post('/admin/process-add-book', 'AdminBookController@addBook');
 Router::get('/admin/book-details/{id}', 'AdminPageController@loadBookDetails');

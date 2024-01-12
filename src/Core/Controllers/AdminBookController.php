@@ -9,6 +9,7 @@ use Core\Services\ErrorHandler;
 use Core\Services\ResourceLoader;
 use Core\Services\AdminAuthHandler;
 use Core\Services\HtmlGenerator;
+use Core\Services\Search;
 use Core\Utilities\Cache;
 use Core\Utilities\Timer;
 
@@ -97,7 +98,7 @@ class AdminBookController extends Book{
                     LIMIT
                        {$starting},{$limit};";
             $rows = $this->getRows($sql);
-            $cacheInstance->set($rows)->expiresAfter(43200);
+            $cacheInstance->set($rows)->expiresAfter(Timer::timeLeftForNextDay());
             $cache->save($cacheInstance);
         }else{
             $rows = $cacheInstance->get();
@@ -385,5 +386,62 @@ class AdminBookController extends Book{
         $_SESSION['NOTIFICATION'] = true;
         $_SESSION['NOTIFICATION_MESSAGE'] = "The book is successfully updated.";
         header("Location: {$_SERVER['HTTP_REFERER']}");
+    }
+
+    public function searchBooks(){
+        $keyword = $_POST['keyword'];
+        $rows = NULL;
+        $starting = 0;
+        $limit = 12;
+        $keyword = rawurldecode($keyword);
+        $search = new Search;
+        $condition = $search->createCondition($keyword);
+        $order = $search->createOrder($keyword);
+        $cache = new Cache;
+        $cache = $cache->config();
+        $cacheInstance = $cache->getItem("admin-books?keyword={$keyword}");
+        if(is_null($cacheInstance->get())){  
+            $sql = "SELECT
+                        b.bookName, b.bookWritters, b.bookId,
+                        COALESCE(SUM(CASE 
+                                        WHEN bl.event = 'download' THEN 1
+                                        ELSE 0 END), 0) AS downloads,
+                        COALESCE(SUM(CASE 
+                                        WHEN bl.event = 'click' THEN 1
+                                        ELSE 0 END), 0) AS clicks
+                    FROM
+                        books b
+                    LEFT JOIN
+                        bookLogs bl ON b.bookId = bl.bookId
+                    {$condition}
+                    GROUP BY
+                        b.bookId
+                     {$order}
+                    LIMIT
+                       {$starting},{$limit};";
+            $rows = $this->getRows($sql);
+            $cacheInstance->set($rows)->expiresAfter(Timer::timeLeftForNextDay());
+            $cache->save($cacheInstance);
+        }else{
+            $rows = $cacheInstance->get();
+        }
+
+        $books = "";
+        if(is_array($rows)){
+            $detailsLogo = ResourceLoader::loadIcon('details.svg');
+            foreach($rows as $row){
+                $link = Application::$HOST."/admin/book-details/".$row['bookId'];
+                $books .= "<div class='row' onclick='this.getElementsByTagName(\"a\")[0].click();'>
+                <div class='name'>{$row['bookName']}</div>
+                <div class='writter'>{$row['bookWritters']}</div>
+                <div class='downloads'>{$row['downloads']}</div>
+                <div class='clicks'>{$row['clicks']}</div>
+                <a href='{$link}' class='details'>$detailsLogo</a>
+                </div>";
+            }
+        }else{
+            $books .= 'Nothing found!';
+        }
+        echo $books;
     }
 }

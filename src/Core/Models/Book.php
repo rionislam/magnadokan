@@ -62,7 +62,7 @@ class Book extends Dbh{
                 exit();
             }
             $row = $rows[0];
-            $cacheInstance->set($row)->expiresAfter(43200);
+            $cacheInstance->set($row)->expiresAfter(Timer::timeLeftForNextDay());
             $cache->save($cacheInstance);
         }else{
             $row = $cacheInstance->get();
