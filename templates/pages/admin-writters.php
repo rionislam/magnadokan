@@ -20,6 +20,7 @@ if(!AdminAuthHandler::isLoggedIn()){
     <?=HtmlGenerator::generateAdminHead('Writters', pageName)?>
 </head>
 <body>
+<?=ResourceLoader::loadNotification()?>
 <?=ResourceLoader::loadComponent('admin-nav')?>
 <main>
 <header>

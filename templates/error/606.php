@@ -7,7 +7,7 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?=HtmlGenerator::generateHead(HtmlGenerator::generateSeoTags('Book not found | '.TITLE))?>
+    <?=HtmlGenerator::generateHead(HtmlGenerator::generateSeoTags('Book not found'))?>
 </head>
 <body>
         <!-- Load gtag for google services intrigration -->

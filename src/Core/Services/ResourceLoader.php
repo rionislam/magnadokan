@@ -43,7 +43,7 @@ class ResourceLoader{
     }
 
     public static function loadGtag(){
-        return GTAG;
+        return htmlspecialchars_decode(GTAG);
     }
 
     public static function loadIcon($iconName){

@@ -20,6 +20,7 @@ if(!AdminAuthHandler::isLoggedIn()){
     <?=HtmlGenerator::generateAdminHead('Books', pageName)?>
 </head>
 <body>
+<?=ResourceLoader::loadNotification()?>
 <?=ResourceLoader::loadComponent('admin-nav')?>
 <main>
 <header>
