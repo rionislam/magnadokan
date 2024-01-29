@@ -157,7 +157,7 @@ class BookController extends Book{
         }
         $rows = NULL;
         $starting = 0 + 12 * ($page-1);
-        $limit = 12*$page;
+        $limit = 12;
         $category = rawurldecode($category);
         $condition = "WHERE `bookCategory`= '{$category}' ORDER BY `bookId` DESC";
         $cache = new Cache;
@@ -218,7 +218,7 @@ class BookController extends Book{
         }
         $rows = NULL;
         $starting = 0 + 12 * ($page-1);
-        $limit = 12*$page;
+        $limit = 12;
         $keyword = rawurldecode($keyword);
         $search = new Search;
         $condition = $search->createCondition($keyword);
@@ -280,7 +280,7 @@ class BookController extends Book{
         }
         $rows = NULL;
         $starting = 0 + 12 * ($page-1);
-        $limit = 12*$page;
+        $limit = 12;
         $condition = "WHERE `bookLanguage`= '{$language}' ORDER BY `bookId` DESC";
         $cache = new Cache;
         $cache = $cache->config();
@@ -340,7 +340,7 @@ class BookController extends Book{
         }
         $rows = NULL;
         $starting = 0 + 12 * ($page-1);
-        $limit = 12*$page;
+        $limit = 12;
         $condition = "";
         $cache = new Cache;
         $cache = $cache->config();

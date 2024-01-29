@@ -74,7 +74,7 @@ class AdminBookController extends Book{
         }
         $rows = NULL;
         $starting = 0 + 20 * ($page-1);
-        $limit = 20*$page;
+        $limit = 20;
         $cache = new Cache;
         $cache = $cache->config();
         $cacheInstance = $cache->getItem("admin-books?page={$page}");

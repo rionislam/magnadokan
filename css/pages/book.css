@@ -133,12 +133,35 @@
   }
 }
 
+.vertical-ad-container {
+  display: none;
+  text-align: center;
+}
+
+.horizontal-ad-container {
+  display: block;
+  text-align: center;
+}
+
+.horizontal-ad-container:first-child iframe {
+  margin-top: 5rem;
+}
+
 @media (max-width: 640px) {
   .book-container .left,
   .book-container .right {
     width: 100%;
   }
+
   .book-container .right {
     margin-top: 1rem;
+  }
+
+  .vertical-ad-container {
+    display: block;
+  }
+
+  .horizontal-ad-container {
+    display: none;
   }
 }
