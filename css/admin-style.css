@@ -3,12 +3,21 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
 
 main {
   width: 80%;
-  height: 100vh;
+  height: 100%;
   overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: 0;
+}
+
+main::-webkit-scrollbar {
+  display: none;
 }
 
 main section,

@@ -12,7 +12,7 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
     <?=HtmlGenerator::generateHead(HtmlGenerator::generateSeoTags('400 - Bad Request'))?>
 </head>
 <body>
-    < <!-- Load gtag for google services intrigration -->
+        <!-- Load gtag for google services intrigration -->
         <?=ResourceLoader::loadGtag()?>
         
         <!-- Show if there is any user notification -->

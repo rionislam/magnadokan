@@ -71,14 +71,15 @@ class HtmlGenerator{
         $pageCss = (file_exists(Application::$ROOT_DIR."/css/pages/{$pageName}.css")?"<link rel='stylesheet' href='{$host}/css/pages/{$pageName}.css'>": "");
         $pageJsFunctions = (file_exists(Application::$ROOT_DIR."/js/functions/{$pageName}-functions.js")?"<script type='module' src='{$host}/js/functions/{$pageName}-functions.js'></script>": "");
         return "<meta charset='UTF-8'>
-        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <meta name='view-transition' content='same-origin' />
+        <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
         <title>{$pageTitle} | Admin</title>
-        <meta name='robots' content='noindex'>
-        <link rel='manifest' href='{$host}/menifest.json'>
+        <meta name='robots' content='noindex'/>
+        <link rel='manifest' href='{$host}/menifest.json'/>
         <base href='{$host}/'/>
-        <link rel='stylesheet' href='{$host}/css/style.css'>
-        <link rel='stylesheet' href='{$host}/css/admin-style.css'>
+        <link rel='stylesheet' href='{$host}/css/style.css'/>
+        <link rel='stylesheet' href='{$host}/css/admin-style.css'/>
         {$pageCss}
         {$pageJsFunctions}
         <script src='js/admin-functions.js'></script>";

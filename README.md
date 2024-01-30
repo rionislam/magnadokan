@@ -2,7 +2,7 @@
 
 # Magna Dokan
 
-[![Version](https://img.shields.io/badge/version-1.0.2-blue.svg)](https://github.com/rionislam/magnadokan/releases/tag/v1.0.2)
+[![Version](https://img.shields.io/badge/version-1.0.3-blue.svg)](https://github.com/rionislam/magnadokan/releases/tag/v1.0.3)
 
 A php web application to provide free books as pdf. This is actually a practice project. I tried the MVC structure in this.
 

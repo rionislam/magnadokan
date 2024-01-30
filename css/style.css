@@ -99,7 +99,7 @@ input[type='checkbox']:checked:after {
 
 .input-container input.invalid,
 .input-container select.invalid,
-.input-container textarea.invalid{
+.input-container textarea.invalid {
   border-color: var(--danger);
   outline: 1px solid var(--danger);
 }
@@ -126,8 +126,9 @@ body {
   width: 100vw;
   position: relative;
   overflow-y: scroll;
+  overflow-x: hidden;
   -ms-overflow-style: none;
-  scrollbar-width: none;
+  scrollbar-width: 0;
 }
 
 body::-webkit-scrollbar {

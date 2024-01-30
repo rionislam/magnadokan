@@ -31,7 +31,7 @@ class AdminCategoryController extends Category{
         $totalScore = 0;
         $percentUsed = NULL;
         $result = array();
-        if(count($categories) > 0){
+        if($categories != NULL && count($categories) > 0){
             foreach($categories as $category){
                 $totalScore += intval($category['score']);
             }
@@ -42,9 +42,9 @@ class AdminCategoryController extends Category{
                 $percentUsed += $scoreInPercent;
             }
     
-            $result['others'] = 100-$percentUsed;
+            $result['Others'] = 100-$percentUsed;
         }else{
-            $result['No data'] = 100;
+            $result['No Data'] = 100;
         }
         
 
