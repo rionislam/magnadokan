@@ -77,7 +77,7 @@ use Core\Services\SessionService;
                         <?php
                             }else{
                         ?>
-                                <li><a href="<?=Application::$HOST?>/categories">Popular Catagories</a></li>
+                                <li><a href="<?=Application::$HOST?>/">Popular Catagories</a></li>
                                 <li><a href="<?=Application::$HOST?>/books/language/English/1">English Books</a></li>
                                 <li><a href="<?=Application::$HOST?>/books/language/Bangla/1">Bangla Books</a></li>
                         <?php

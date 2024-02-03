@@ -32,7 +32,6 @@
   margin-left: 2rem;
 }
 .book-container .right p {
-  font-family: Arial, sans-serif;
   font-size: 0.7rem;
   width: 100%;
 }
@@ -70,6 +69,13 @@
 .book-container .bottom .tags-container {
   margin: 3rem 0;
 }
+
+.book-container .bottom .description-container p,
+.book-container .bottom .tags-container p {
+  line-height: 1.5;
+  font-size: 1.1rem;
+}
+
 .book-container .bottom hr {
   height: 1px;
   background: gray;

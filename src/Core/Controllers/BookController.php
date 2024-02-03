@@ -7,7 +7,7 @@ use Core\Services\ErrorHandler;
 use Core\Utilities\Cache;
 use Core\Services\HtmlGenerator;
 use Core\Services\Search;
-use Core\Utilities\Cache as UtilitiesCache;
+use Core\Utilities\DataConverter;
 use Core\Utilities\Timer;
 use DateTime;
 use DateTimeZone;
@@ -52,12 +52,16 @@ class BookController extends Book{
 
     public function getSeoTags($name){
         $row = $this->getByName($name);
+        $endOfMetaDescription = strpos($row['bookDescription'], ".\n");
+        $metaDescription = substr($row['bookDescription'], 0, $endOfMetaDescription);
         $host = Application::$HOST;
-        return "<meta property='og:title' content=\"{$row['bookName']}\">
+        return "<meta property='og:title' content=\"{$row['bookName']} Free Pdf Download.\">
         <meta property='og:description' content=\"{$row['bookDescription']}\">
         <meta property='og:image' content='{$host}/uploads/books/covers/{$row['bookCover']}'>
+        <meta property='og:url' content='{$host}/book/{$name}'/>
+        <meta property='og:type' content='book'/>
         <title>{$row['bookName']} | Magna Dokan</title>
-        <meta name='description' content=\"Download {$row['bookName']} pdf for free from magnadokan written by {$row['bookWritters']}. {$row['bookDescription']}\">
+        <meta name='description' content=\"{$metaDescription}\">
         <meta name='keywords' content='{$row['bookTags']}'>";
     }
 
@@ -67,25 +71,17 @@ class BookController extends Book{
         $logController->collectBookLog('click', $row['bookId'], $row['bookCategory']);
         $writters = '';
         $writtersArray = array_map('trim',explode(',', $row['bookWritters']));
-        $writtersSchema = '';
         $userId = (isset($_SESSION['USER_ID'])) ? $_SESSION['USER_ID'] : '0';
-        (count($writtersArray) > 1)?$writtersSchema.='[':'';
         foreach($writtersArray  as $writter){
             $writters .= "<li><a href='#'>{$writter}</a></li>";
-            $writtersSchema .= "{
-                                \"@type\": \"Person\",
-                                \"name\": \"{$writter}\"
-                                },";
         }
-        $writtersSchema = trim($writtersSchema, ',');
-        (count($writtersArray) > 1)?$writtersSchema.=']':'';
+        
         $downloadIcon = file_get_contents(Application::$ROOT_DIR."/assets/images/icons/download.svg");
         $addToLibraryIcon = file_get_contents(Application::$ROOT_DIR."/assets/images/icons/library_add.svg");
         $addedToLibraryIcon = '<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><circle class="circle" cx="30" cy="30" r="30" fill="none"/><path class="check" fill="none" d="m12.5 28l10.0 13 24-22.2"/></svg>';
         $libraryButton = (isset($_COOKIE['LIBRARY_ADDED'])) ? $addedToLibraryIcon. "Added To Library" : $addToLibraryIcon."Add To Library";
         $cover = Application::$HOST."/uploads/books/covers/{$row['bookCover']}";
-        $decodedDescription = html_entity_decode($row['bookDescription'], ENT_QUOTES);
-        $decodedDescription = str_replace('"','\"', $decodedDescription);
+        $decodedDescription = DataConverter::markdownToHtml($row['bookDescription']);
         return "<section class='book-container max-width center'>
                     <div class='left'>
                         <img src='{$cover}' alt='{$row['bookName']}'>
@@ -113,15 +109,15 @@ class BookController extends Book{
                             
                         </div>
                         <div class='description-container'>
-                            <h1 class='title'>Description</h1>
+                            <h2 class='title'>Description</h2>
                             <hr>
-                            <p>{$row['bookDescription']}</p>
+                            <p>{$decodedDescription}</p>
                         </div>
                         <div class='horizontal-ad-container'>
                            
                         </div>
                         <div class='tags-container'>
-                            <h1 class='title'>Tags</h1>
+                            <h2 class='title'>Tags</h2>
                             <hr>
                             <p>{$row['bookTags']}</p>
                         </div>
