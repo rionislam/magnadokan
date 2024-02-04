@@ -3,6 +3,7 @@ namespace Core\Models;
 
 use Core\Utilities\Cache;
 use Core\Services\ErrorHandler;
+use Core\Utilities\DataConverter;
 use Core\Utilities\Timer;
 
 class Book extends Dbh{
@@ -62,6 +63,11 @@ class Book extends Dbh{
                 exit();
             }
             $row = $rows[0];
+            $description = DataConverter::markdownToText($row['bookDescription']);
+            $description = str_replace(["\r\n", "\r"], "\n", $description);
+            $paras= preg_split('/\s*\n+\s*/', $description, 2, PREG_SPLIT_DELIM_CAPTURE);
+            $metaDescription = isset($paras[0]) ? $paras[0] : '';
+            $row['metaDescription'] = $metaDescription;
             $cacheInstance->set($row)->expiresAfter(Timer::timeLeftForNextDay());
             $cache->save($cacheInstance);
         }else{

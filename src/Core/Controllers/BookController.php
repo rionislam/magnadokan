@@ -52,16 +52,15 @@ class BookController extends Book{
 
     public function getSeoTags($name){
         $row = $this->getByName($name);
-        $endOfMetaDescription = strpos($row['bookDescription'], ".\n");
-        $metaDescription = substr($row['bookDescription'], 0, $endOfMetaDescription);
+        
         $host = Application::$HOST;
         return "<meta property='og:title' content=\"{$row['bookName']} Free Pdf Download.\">
-        <meta property='og:description' content=\"{$row['bookDescription']}\">
+        <meta property='og:description' content=\"{$row['metaDescription']}\">
         <meta property='og:image' content='{$host}/uploads/books/covers/{$row['bookCover']}'>
         <meta property='og:url' content='{$host}/book/{$name}'/>
         <meta property='og:type' content='book'/>
         <title>{$row['bookName']} | Magna Dokan</title>
-        <meta name='description' content=\"{$metaDescription}\">
+        <meta name='description' content=\"{$row['metaDescription']}\">
         <meta name='keywords' content='{$row['bookTags']}'>";
     }
 

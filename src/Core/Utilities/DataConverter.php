@@ -9,4 +9,10 @@ class DataConverter{
         $decodedMarkdown = preg_replace('/\*(.*?)\*/s', '<em>$1</em>', $decodedMarkdown);
         return $decodedMarkdown;
     }
+
+    public static function markdownToText($markdown){
+        $html = Self::markdownToHtml($markdown);
+        $text = strip_tags($html);
+        return $text;
+    }
 }
