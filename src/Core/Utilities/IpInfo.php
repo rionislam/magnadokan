@@ -3,7 +3,7 @@ namespace Core\Utilities;
 
 class IpInfo{
     public static function get($ip, $purpose){
-            $output = 'Unknown Country';
+            $output = 'Unknown ' . $purpose;
             $purpose    = str_replace(array("name", "\n", "\t", " ", "-", "_"), '', strtolower(trim($purpose)));
             $support    = array("country", "countrycode", "state", "region", "city", "location", "address");
             $continents = array(
@@ -16,8 +16,9 @@ class IpInfo{
                 "SA" => "South America"
             );
             if (filter_var($ip, FILTER_VALIDATE_IP) && in_array($purpose, $support)) {
-                if(file_exists("http://www.geoplugin.net/json.gp?ip=" . $ip)){
-                    $ipdat = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
+                $ipdat = file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip);
+                if($ipdat !== false){
+                    $ipdat = @json_decode($ipdat);
                     if (@strlen(trim($ipdat->geoplugin_countryCode)) == 2) {
                         switch ($purpose) {
                             case "location":

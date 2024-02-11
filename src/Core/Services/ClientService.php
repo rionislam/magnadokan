@@ -102,7 +102,7 @@ class ClientService extends Client{
     }
 
     public static function getCountry(){
-        return IpInfo::get(self::getIp(), 'Country');
+        return IpInfo::get(self::getIp(), 'country');
     }
 
     public static function getTimezone(){

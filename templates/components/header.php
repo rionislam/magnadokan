@@ -28,9 +28,9 @@ use Core\Services\SessionService;
                                 <li class="account_menu-btn"><img src="assets/images/icons/account_circle.svg"><?=$_SESSION['USER_NAME']?></li>
                                 <div class="account_menu-container">
                                     <div class="account_menu-wrapper">
-                                        <li><a href="<?=Application::$HOST?>\library"><?php include Application::$HOST."/assets/images/icons/manage_accounts.svg"?>Manage My Account</a></li>
-                                        <li><a href="<?=Application::$HOST?>\library"><?php include Application::$HOST."/assets/images/icons/library.svg"?>My Library</a></li>
-                                        <li><a href="<?=Application::$HOST?>\logout"><?php include Application::$HOST."/assets/images/icons/logout.svg"?>Logout</a></li>
+                                        <li><a href="<?=Application::$HOST?>\library"><?=ResourceLoader::loadIcon('manage_accounts.svg');?>Manage My Account</a></li>
+                                        <li><a href="<?=Application::$HOST?>\library"><?=ResourceLoader::loadIcon('library.svg');?>My Library</a></li>
+                                        <li><a href="<?=Application::$HOST?>\logout"><?=ResourceLoader::loadIcon('logout.svg');?>Logout</a></li>
                                     </div>
                                 </div>
                             </div>
@@ -66,13 +66,13 @@ use Core\Services\SessionService;
                             if(SessionService::isLoggedIn()){
                         ?>
                                 <li>
-                                    <a href="<?=Application::$HOST?>\library"><img src="assets/images/icons/manage_accounts.svg">My Account</a>
+                                    <a href="<?=Application::$HOST?>\library"><?=ResourceLoader::loadIcon('manage_accounts.svg');?>My Account</a>
                                 </li>
                                 <li>
-                                    <a href="<?=Application::$HOST?>\library"><img src="assets/images/icons/library.svg">Library</a>
+                                    <a href="<?=Application::$HOST?>\library"><?=ResourceLoader::loadIcon('library.svg');?>Library</a>
                                 </li>
                                 <li>
-                                    <a class="logoutBtn" href="<?=Application::$HOST?>\logout"><img src="assets/images/icons/logout.svg">Logout</a>
+                                    <a class="logoutBtn" href="<?=Application::$HOST?>\logout"><?=ResourceLoader::loadIcon('logout.svg');?>Logout</a>
                                 </li>
                         <?php
                             }else{
