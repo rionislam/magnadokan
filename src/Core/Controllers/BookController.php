@@ -20,12 +20,12 @@ class BookController extends Book{
         $bookRows = $this->getLimited("0,{$booksCount}", '');
         $output = '';
         foreach($bookRows as $row){
-            $bookName = rawurlencode($row['bookName']);
+            $encodedBookName = rawurlencode($row['bookName']);
             $date = new DateTime($row['bookUpdatedAt'], new DateTimeZone(date_default_timezone_get()));
             $date = $date->format('Y-m-d\TH:i:sP');
             $output .= "
             <url>
-                <loc>".Application::$HOST."/book/{$bookName}</loc>
+                <loc>".Application::$HOST."/book/{$encodedBookName}</loc>
                 <lastmod>{$date}</lastmod>
                 <priority>1</priority>
             </url>";
@@ -37,9 +37,9 @@ class BookController extends Book{
         $rows = $this->getPopularByLanguage($limit, $language);
         foreach($rows as $row){
             $host = Application::$HOST;
-            $bookName = rawurlencode($row['bookName']);
+            $encodedBookName = rawurlencode($row['bookName']);
             echo "<article class='slide' data-impression-collected=false data-book-category='{$row['bookCategory']}' data-book-id='{$row['bookId']}'>
-                    <a draggable='false' href='{$host}/book/{$bookName}'>
+                    <a draggable='false' href='{$host}/book/{$encodedBookName}'>
                     <div class='image-container' style='background-image: url({$host}/assets/gifs/loading.gif)'>
                     <img loading='lazy' onload='this.style.opacity = 1' alt='{$row['bookName']} pdf by Magna Dokan' src='uploads/books/covers/{$row['bookCover']}'>
                     </div>
@@ -52,16 +52,17 @@ class BookController extends Book{
 
     public function getSeoTags($name){
         $row = $this->getByName($name);
-        
+        $encodedBookName = rawurlencode($row['bookName']);
         $host = Application::$HOST;
-        return "<meta property='og:title' content=\"{$row['bookName']} Free Pdf Download.\">
-        <meta property='og:description' content=\"{$row['metaDescription']}\">
-        <meta property='og:image' content='{$host}/uploads/books/covers/{$row['bookCover']}'>
+        return "<meta property='og:title' content=\"{$row['bookName']} Free Pdf Download.\"/>
+        <meta property='og:description' content=\"{$row['metaDescription']}\"/>
+        <meta property='og:image' content='{$host}/uploads/books/covers/{$row['bookCover']}'/>
         <meta property='og:url' content='{$host}/book/{$name}'/>
         <meta property='og:type' content='book'/>
-        <title>{$row['bookName']} | Magna Dokan</title>
-        <meta name='description' content=\"{$row['metaDescription']}\">
-        <meta name='keywords' content='{$row['bookTags']}'>";
+        <title>{$row['bookName']} | PDF Download - Magna Dokan</title>
+        <meta name='description' content=\"{$row['metaDescription']}\"/>
+        <meta name='keywords' content='{$row['bookTags']}'/>
+        <link rel='canonical' href='{$host}/book/{$encodedBookName}'/>";
     }
 
     public function loadByName($name){
