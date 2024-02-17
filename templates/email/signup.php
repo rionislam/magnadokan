@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +12,7 @@
     <div style="background-color: white; border-radius:5px; max-width: 40rem; min-width: 30rem; margin: auto; overflow: hidden; padding: 1rem 1.5rem">
         <div style="font-weight: bold; padding: 0.5rem 0; display: flex; align-items: center; font-family: system-ui, sans-serif; font-size: 2rem; height:auto; width: 100%">
             <img style="margin-right: 0.5rem; height:1em; width: 1em;" src="{HOST}/favicon.ico">
-            Magnado<span style="color: #679bdd;">kan.</span>
+            Magna Do<span style="color: #679bdd;">kan.</span>
         </div>
         <hr style="height: 1px; width:100%; background-color: #679bdd1a; border: none;">
         <div style="font-family: 'Poppins', sans-serif; padding: 0.25rem 0;">
@@ -42,10 +41,10 @@
         </div>
     </div>
     <div style="font-family: system-ui, sans-serif; max-width: 40rem; min-width: 30rem; margin: auto; padding: 0.5rem 0; display: flex; justify-content: space-around">
-    <a style="color: #b5c2d1bf;" href="">Home</a>
-    <a style="color: #b5c2d1bf;"  href="">All Books</a>
-    <a style="color: #b5c2d1bf;"  href="">Request Books</a>
-    <a style="color: #b5c2d1bf;"  href="">About Us</a>
+    <a style="color: #b5c2d1bf;" href="{HOST}">Home</a>
+    <a style="color: #b5c2d1bf;"  href="{HOST}/books/1">All Books</a>
+    <a style="color: #b5c2d1bf;"  href="{HOST}/about">About Us</a>
+    <a style="color: #b5c2d1bf;"  href="mailto: support@{HOST}">Contact Us</a>
     </div>
 </body>
 </html>
