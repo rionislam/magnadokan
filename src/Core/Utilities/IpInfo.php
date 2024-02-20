@@ -16,7 +16,7 @@ class IpInfo{
                 "SA" => "South America"
             );
             if (filter_var($ip, FILTER_VALIDATE_IP) && in_array($purpose, $support)) {
-                $ipdat = file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip);
+                $ipdat = @file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip);
                 if($ipdat !== false){
                     $ipdat = @json_decode($ipdat);
                     if (@strlen(trim($ipdat->geoplugin_countryCode)) == 2) {
