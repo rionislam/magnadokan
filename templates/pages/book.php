@@ -39,5 +39,7 @@ $bookController = new BookController;
     <?=ResourceLoader::loadComponent('footer')?>
     <!-- The default javascript -->
     <?=ResourceLoader::loadAppJs()?>
+    <!-- Javascript for specific page -->
+    <?=ResourceLoader::loadPageJs('book')?>
 </body>
 </html>

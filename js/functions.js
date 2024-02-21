@@ -64,13 +64,29 @@ let del = (url, data) => {
 // };
 
 let collectImpression = (bookId, bookCategory) => {
-  let event = 'impression';
-  let data = {
-    event: event,
-    bookId: bookId,
-    bookCategory: bookCategory,
-  };
-  put(location.origin + '/collect-book-log', JSON.stringify(data));
+  let currentTime = new Date().getTime();
+  let lastImpressionTimes =
+    JSON.parse(localStorage.getItem('lastImpressionTimes')) || {};
+  let lastImpressionTime = lastImpressionTimes[bookId];
+
+  if (!lastImpressionTime || currentTime - lastImpressionTime > 10 * 60) {
+    let event = 'impression';
+    let data = {
+      event: event,
+      bookId: bookId,
+      bookCategory: bookCategory,
+    };
+    put(location.origin + '/collect-book-log', JSON.stringify(data));
+
+    // Update the last impression time for this bookId
+    lastImpressionTimes[bookId] = currentTime;
+
+    // Store lastImpressionTimes in localStorage
+    localStorage.setItem(
+      'lastImpressionTimes',
+      JSON.stringify(lastImpressionTimes),
+    );
+  }
 };
 
 let isInViewport = (el) => {

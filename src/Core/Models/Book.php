@@ -84,6 +84,69 @@ class Book extends Dbh{
         return $row;
     }
 
+    protected function getFourRelatedsById($bookId){
+        $cache = new Cache;
+        $cache = $cache->config();
+        $cacheInstance = $cache->getItem("relatedBooks?id={$bookId}");
+        if(is_null($cacheInstance->get())){
+            $sql ="(
+                SELECT
+                    b.bookId
+                FROM
+                    books b
+                INNER JOIN (
+                    SELECT
+                        *
+                    FROM
+                        books
+                    WHERE
+                        bookId = {$bookId}
+                ) p ON b.bookId != p.bookId
+                WHERE
+                    b.bookCategory LIKE CONCAT('%', p.bookCategory, '%')
+                    OR b.bookWritters LIKE CONCAT('%', p.bookWritters, '%')
+                    OR b.bookName LIKE CONCAT('%', p.bookName, '%')
+                    OR b.bookDescription LIKE CONCAT('%', p.bookDescription, '%')
+                    OR b.bookTags LIKE CONCAT('%', p.bookTags, '%')
+                LIMIT 4
+            )
+            UNION
+            (
+                SELECT
+                   books.bookId
+                FROM
+                    books
+                WHERE
+                    bookId != {$bookId}
+                ORDER BY
+                    RAND()
+                LIMIT 4
+            )
+            LIMIT 4;";
+            $rows = $this->getRows($sql);
+            $cacheInstance->set($rows)->expiresAfter(Timer::timeLeftForNextMonth());
+            $cache->save($cacheInstance);
+        }else{
+            $rows = $cacheInstance->get();
+        }
+        $books = array();
+        foreach($rows as $row){
+            $cache = new Cache;
+            $cache = $cache->config();
+            $cacheInstance = $cache->getItem("book?id={$row['bookId']}");
+            $book = '';
+            if(is_null($cacheInstance->get())){
+                $book = $this->getById($row['bookId']);
+                $cacheInstance->set($book)->expiresAfter(Timer::timeLeftForNextDay());
+                $cache->save($cacheInstance);
+            }else{
+                $book = $cacheInstance->get();
+            }
+            array_push($books, $book);
+        }
+        return $books;
+    }
+
     //NOTE - Get the number of books added to the database
     public function count($condition = NULL){
         $cache = new Cache;

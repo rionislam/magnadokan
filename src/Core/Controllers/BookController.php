@@ -69,18 +69,35 @@ class BookController extends Book{
         $row = $this->getByName($name);
         $logController = new LogController;
         $logController->collectBookLog('click', $row['bookId'], $row['bookCategory']);
+
+        $host = Application::$HOST;
+
         $writters = '';
         $writtersArray = array_map('trim',explode(',', $row['bookWritters']));
         $userId = (isset($_SESSION['USER_ID'])) ? $_SESSION['USER_ID'] : '0';
         foreach($writtersArray  as $writter){
             $writters .= "<li><a href='#'>{$writter}</a></li>";
         }
+
+        $suggestions = '';
+        $suggestionsArray = $this->getFourRelatedsById($row['bookId']);
+        foreach($suggestionsArray as $suggestion){
+            $encodedBookName = rawurlencode($suggestion['bookName']);
+            $suggestions .= "<article data-impression-collected=false data-book-category='{$suggestion['bookCategory']}' data-book-id='{$suggestion['bookId']}'>
+                                <a draggable='false' href='{$host}/book/{$encodedBookName}'>
+                                <div class='image-container' style='background-image: url({$host}/assets/gifs/loading.gif)'>
+                                <img loading='lazy' onload='this.style.opacity = 1' alt='{$suggestion['bookName']} pdf by Magna Dokan' src='uploads/books/covers/{$suggestion['bookCover']}'>
+                                </div>
+                                <h3 class='name'>{$suggestion['bookName']}</h3>
+                                </a>
+                            </article>";
+        }
         
         $downloadIcon = file_get_contents(Application::$ROOT_DIR."/assets/images/icons/download.svg");
         $addToLibraryIcon = file_get_contents(Application::$ROOT_DIR."/assets/images/icons/library_add.svg");
         $addedToLibraryIcon = '<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><circle class="circle" cx="30" cy="30" r="30" fill="none"/><path class="check" fill="none" d="m12.5 28l10.0 13 24-22.2"/></svg>';
         $libraryButton = (isset($_COOKIE['LIBRARY_ADDED'])) ? $addedToLibraryIcon. "Added To Library" : $addToLibraryIcon."Add To Library";
-        $cover = Application::$HOST."/uploads/books/covers/{$row['bookCover']}";
+        $cover = $host."/uploads/books/covers/{$row['bookCover']}";
         $decodedDescription = DataConverter::markdownToHtml($row['bookDescription']);
         return "<section class='book-container max-width center'>
                     <div class='left'>
@@ -104,7 +121,7 @@ class BookController extends Book{
                         </div>
                         
                     </div>
-                    <div class='bottom'>
+                    <div class='mid'>
                         <div class='horizontal-ad-container'>
                             
                         </div>
@@ -112,14 +129,17 @@ class BookController extends Book{
                             <h2 class='title'>Description</h2>
                             <hr>
                             <p>{$decodedDescription}</p>
+                            <button onclick='showMore(this)'>Show more...</button>
                         </div>
                         <div class='horizontal-ad-container'>
                            
                         </div>
-                        <div class='tags-container'>
-                            <h2 class='title'>Tags</h2>
-                            <hr>
-                            <p>{$row['bookTags']}</p>
+                    </div>
+                    <div class='bottom'>
+                        <h2 class='title'>Related Books</h2>
+                        <hr>
+                        <div class='suggestions-container'>
+                            {$suggestions}
                         </div>
                     </div>
                 </section>
