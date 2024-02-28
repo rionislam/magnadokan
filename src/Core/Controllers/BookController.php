@@ -41,7 +41,7 @@ class BookController extends Book{
             echo "<article class='slide' data-impression-collected=false data-book-category='{$row['bookCategory']}' data-book-id='{$row['bookId']}'>
                     <a draggable='false' href='{$host}/book/{$encodedBookName}'>
                     <div class='image-container' style='background-image: url({$host}/assets/gifs/loading.gif)'>
-                    <img loading='lazy' onload='this.style.opacity = 1' alt='{$row['bookName']} pdf by Magna Dokan' src='uploads/books/covers/{$row['bookCover']}'>
+                    <img loading='lazy' onload='this.style.opacity = 1' alt='{$row['bookName']} by {$row['bookWritters']} Pdf Cover' src='uploads/books/covers/{$row['bookCover']}'>
                     </div>
                     <h3 class='name'>{$row['bookName']}</h3>
                     </a>
@@ -86,7 +86,7 @@ class BookController extends Book{
             $suggestions .= "<article data-impression-collected=false data-book-category='{$suggestion['bookCategory']}' data-book-id='{$suggestion['bookId']}'>
                                 <a draggable='false' href='{$host}/book/{$encodedBookName}'>
                                 <div class='image-container' style='background-image: url({$host}/assets/gifs/loading.gif)'>
-                                <img loading='lazy' onload='this.style.opacity = 1' alt='{$suggestion['bookName']} pdf by Magna Dokan' src='uploads/books/covers/{$suggestion['bookCover']}'>
+                                <img loading='lazy' onload='this.style.opacity = 1' alt='{$suggestion['bookName']} by {$suggestion['bookWritters']} Pdf' src='uploads/books/covers/{$suggestion['bookCover']}'>
                                 </div>
                                 <h3 class='name'>{$suggestion['bookName']}</h3>
                                 </a>
@@ -101,7 +101,7 @@ class BookController extends Book{
         $decodedDescription = DataConverter::markdownToHtml($row['bookDescription']);
         return "<section class='book-container max-width center'>
                     <div class='left'>
-                        <img src='{$cover}' alt='{$row['bookName']}'>
+                        <img src='{$cover}' alt='{$row['bookName']} by {$row['bookWritters']} Pdf Cover'>
                     </div>
                     <div class='right'>
                         <h1 class='title'>{$row['bookName']}</h1>
@@ -152,7 +152,7 @@ class BookController extends Book{
         $logController->collectBookLog('download', $row['bookId'], $row['bookCategory']);
         return "<section class='book-container max-width center'>
                     <div class='left'>
-                        <img src='uploads/books/covers/{$row['bookCover']}'>
+                        <img src='uploads/books/covers/{$row['bookCover']}' alt='{$row['bookName']} by {$row['bookWritters']} Pdf Cover'>
                     </div>
                     <div class='right'>
                         <h1 class='title'>{$row['bookName']}</h1>
@@ -193,13 +193,13 @@ class BookController extends Book{
             foreach($rows as $row){
                 $host = Application::$HOST;
                 $link = Application::$HOST.'/book/'.rawurlencode($row['bookName']);
-                $books .= '<article data-impression-collected=false data-book-category="'.$row['bookCategory'].'" data-book-id="'.$row['bookId'].'">
-                <a href="'.$link.'">
-                <div class="image-container" style="background-image: url('.$host.'/assets/gifs/loading.gif)">
-                    <img loading="lazy" onload="this.style.opacity = 1" src="uploads/books/covers/'.$row['bookCover'].'" alt="'.$row['bookName'].'">
-                </div>
-                <h3 class="name">'.$row["bookName"].'</h3>
-                </a></article>';
+                $books .= "<article data-impression-collected=false data-book-category='{$row['bookCategory']}' data-book-id='{$row['bookId']}'>
+                            <a href='{$link}'>
+                            <div class='image-container' style='background-image: url('.$host.'/assets/gifs/loading.gif)'>
+                                <img loading='lazy' onload='this.style.opacity = 1' src='uploads/books/covers/{$row['bookCover']}' alt='{$row['bookName']} by {$row['bookWritters']} Pdf Cover'>
+                            </div>
+                            <h3 class='name'>{$row["bookName"]}</h3>
+                            </a></article>";
             }
         }else{
             $books .= 'Nothing found!';
@@ -256,13 +256,13 @@ class BookController extends Book{
             foreach($rows as $row){
                 $host = Application::$HOST;
                 $link = Application::$HOST.'/book/'.rawurlencode($row['bookName']);
-                $books .= '<article data-impression-collected=false data-book-category="'.$row['bookCategory'].'" data-book-id="'.$row['bookId'].'">
-                <a href="'.$link.'">
-                <div class="image-container" style="background-image: url('.$host.'/assets/gifs/loading.gif)">
-                    <img loading="lazy" onload="this.style.opacity = 1" src="uploads/books/covers/'.$row['bookCover'].'" alt="'.$row['bookName'].'">
-                </div>
-                <h3 class="name">'.$row["bookName"].'</h3>
-                </a></article>';
+                $books .= "<article data-impression-collected=false data-book-category='{$row['bookCategory']}' data-book-id='{$row['bookId']}'>
+                            <a href='{$link}' title='{$row['bookName']} by {$row['bookWritters']} Pdf Download'>
+                            <div class='image-container' style='background-image: url('.$host.'/assets/gifs/loading.gif)'>
+                                <img loading='lazy' onload='this.style.opacity = 1' src='uploads/books/covers/{$row['bookCover']}' alt='{$row['bookName']} by {$row['bookWritters']} Pdf Cover'>
+                            </div>
+                            <h3 class='name'>{$row["bookName"]}</h3>
+                            </a></article>";
             }
         }else{
             $books .= 'Nothing found!';
@@ -315,13 +315,13 @@ class BookController extends Book{
             foreach($rows as $row){
                 $host = Application::$HOST;
                 $link = Application::$HOST.'/book/'.rawurlencode($row['bookName']);
-                $books .= '<article data-impression-collected=false data-book-category="'.$row['bookCategory'].'" data-book-id="'.$row['bookId'].'">
-                <a href="'.$link.'">
-                <div class="image-container" style="background-image: url('.$host.'/assets/gifs/loading.gif)">
-                    <img loading="lazy" onload="this.style.opacity = 1" src="uploads/books/covers/'.$row['bookCover'].'" alt="'.$row['bookName'].'">
-                </div>
-                <h3 class="name">'.$row["bookName"].'</h3>
-                </a></article>';
+                $books .= "<article data-impression-collected=false data-book-category='{$row['bookCategory']}' data-book-id='{$row['bookId']}'>
+                            <a href='{$link}' title='{$row['bookName']} by {$row['bookWritters']} Pdf Download'>
+                            <div class='image-container' style='background-image: url('.$host.'/assets/gifs/loading.gif)'>
+                                <img loading='lazy' onload='this.style.opacity = 1' src='uploads/books/covers/{$row['bookCover']}' alt='{$row['bookName']} by {$row['bookWritters']} Pdf Cover'>
+                            </div>
+                            <h3 class='name'>{$row["bookName"]}</h3>
+                            </a></article>";
             }
         }else{
             $books .= 'Nothing found!';
@@ -375,13 +375,13 @@ class BookController extends Book{
             foreach($rows as $row){
                 $host = Application::$HOST;
                 $link = Application::$HOST.'/book/'.rawurlencode($row['bookName']);
-                $books .= '<article data-impression-collected=false data-book-category="'.$row['bookCategory'].'" data-book-id="'.$row['bookId'].'">
-                <a href="'.$link.'">
-                <div class="image-container" style="background-image: url('.$host.'/assets/gifs/loading.gif)">
-                    <img loading="lazy" onload="this.style.opacity = 1" src="uploads/books/covers/'.$row['bookCover'].'" alt="'.$row['bookName'].'">
-                </div>
-                <h3 class="name">'.$row["bookName"].'</h3>
-                </a></article>';
+                $books .= "<article data-impression-collected=false data-book-category='{$row['bookCategory']}' data-book-id='{$row['bookId']}'>
+                            <a href='{$link}' title='{$row['bookName']} by {$row['bookWritters']} Pdf Download'>
+                            <div class='image-container' style='background-image: url('.$host.'/assets/gifs/loading.gif)'>
+                                <img loading='lazy' onload='this.style.opacity = 1' src='uploads/books/covers/{$row['bookCover']}' alt='{$row['bookName']} by {$row['bookWritters']} Pdf Cover'>
+                            </div>
+                            <h3 class='name'>{$row["bookName"]}</h3>
+                            </a></article>";
             }
         }else{
             $books .= 'Nothing found!';

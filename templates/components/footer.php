@@ -1,6 +1,8 @@
 <?php
 
+use Core\Application;
 use Core\Services\ResourceLoader;
+$pageUrl = Application::$HOST.$_SERVER['REQUEST_URI'];
 ?>
 <?=ResourceLoader::loadComponentCss('footer')?>
 <footer>
@@ -22,7 +24,7 @@ use Core\Services\ResourceLoader;
             <hr>
             <div class="right">
                 <div class="title">Protected by DMCA</div>
-                <a href="https://www.dmca.com/Protection/Status.aspx?ID=ebc956f3-9020-40ff-a348-2136f89638be" title="DMCA.com Protection Status" class="dmca-badge"> <img loading="lazy" src ="assets/images/backgrounds/dmca-badge.png"  alt="DMCA.com Protection Status" /></a>
+                <a href="https://www.dmca.com/Protection/Status.aspx?ID=ebc956f3-9020-40ff-a348-2136f89638be&refurl=<?=$pageUrl?>" title="DMCA.com Protection Status" class="dmca-badge"> <img loading="lazy" src ="assets/images/backgrounds/dmca-badge.png"  alt="DMCA.com Protection Status" /></a>
             </div>
         </div>
         <div class="copyright max-width center">
