@@ -128,9 +128,6 @@
   width: 95%;
   margin: auto;
   aspect-ratio: 1/1.5;
-  background-size: fill;
-  background-position: center;
-  background-repeat: no-repeat;
   margin-bottom: 1rem;
 }
 
@@ -140,8 +137,6 @@
   object-position: center;
   object-fit: cover;
   border-radius: 1rem;
-  opacity: 0;
-  transition: opacity 1s ease;
 }
 
 .icon {
@@ -232,6 +227,11 @@
   .book-container .left,
   .book-container .right {
     width: 100%;
+  }
+
+  .book-container .left img {
+    min-width: 250px;
+    min-height: 375px;
   }
 
   .book-container .right {

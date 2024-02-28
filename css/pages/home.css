@@ -80,13 +80,11 @@
   border-radius: 1rem;
   margin: 0 auto;
 }
+
 .books-container .books-wrapper article .image-container {
   width: 95%;
   margin: auto;
   aspect-ratio: 1/1.5;
-  background-size: fill;
-  background-position: center;
-  background-repeat: no-repeat;
   margin-bottom: 1rem;
 }
 .books-container .books-wrapper article img {
@@ -95,8 +93,6 @@
   object-position: center;
   object-fit: cover;
   border-radius: 1rem;
-  opacity: 0;
-  transition: opacity 1s ease;
 }
 
 #showMore {

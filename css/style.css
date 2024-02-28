@@ -135,6 +135,18 @@ body::-webkit-scrollbar {
   display: none;
 }
 
+.image-container {
+  background-size: fill;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url(/assets/gifs/loading.gif);
+}
+
+.image-container img {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
 .warning {
   color: var(--danger);
   padding: 0.5rem 0;
