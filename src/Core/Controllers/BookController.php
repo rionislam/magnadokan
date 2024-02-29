@@ -14,6 +14,8 @@ use DateTimeZone;
 
 class BookController extends Book{
 
+    private $bookByName = NULL;
+
     public function loadUrlsForSitemap(){
         
         $booksCount = $this->count();
@@ -52,6 +54,7 @@ class BookController extends Book{
 
     public function getSeoTags($name){
         $row = $this->getByName($name);
+        $this->bookByName = $row;
         $encodedBookName = rawurlencode($row['bookName']);
         $host = Application::$HOST;
         return "<meta property='og:title' content=\"{$row['bookName']} Free Pdf Download.\"/>
@@ -65,8 +68,13 @@ class BookController extends Book{
         <link rel='canonical' href='{$host}/book/{$encodedBookName}'/>";
     }
 
-    public function loadByName($name){
-        $row = $this->getByName($name);
+    public function loadByName($name = NULL){
+        if($name == NULL){
+            $row = $this->bookByName;
+        }else{
+            $row = $this->getByName($name);
+        }
+        
         $logController = new LogController;
         $logController->collectBookLog('click', $row['bookId'], $row['bookCategory']);
 
@@ -101,9 +109,7 @@ class BookController extends Book{
         $decodedDescription = DataConverter::markdownToHtml($row['bookDescription']);
         return "<section class='book-container max-width center'>
                     <div class='left'>
-                        <div class='image-container'>
-                            <img loading='lazy' onload='this.style.opacity = 1' src='{$cover}' alt='{$row['bookName']} by {$row['bookWritters']} Pdf Cover'>
-                        </div>
+                            <img src='{$cover}' alt='{$row['bookName']} by {$row['bookWritters']} Pdf Cover'>
                     </div>
                     <div class='right'>
                         <h1 class='title'>{$row['bookName']}</h1>

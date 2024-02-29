@@ -17,9 +17,6 @@ $bookController = new BookController;
     <link rel="canonical" href="<?=Application::$HOST.'/book/'.$name?>"/>
 </head>
 <body>
-        <!-- Load gtag for google services intrigration -->
-        <?=ResourceLoader::loadGtag()?>
-        
         <!-- Show if there is any user notification -->
         <?=ResourceLoader::loadNotification()?>
 
@@ -31,15 +28,20 @@ $bookController = new BookController;
     <main>
         <!-- Load the header -->
         <?=ResourceLoader::loadComponent('header')?>
-        <?=$bookController->loadByName($name)?>
+        <?=$bookController->loadByName()?>
        
     </main>
     
     <!-- Load the footer -->
     <?=ResourceLoader::loadComponent('footer')?>
+
     <!-- The default javascript -->
     <?=ResourceLoader::loadAppJs()?>
+
     <!-- Javascript for specific page -->
     <?=ResourceLoader::loadPageJs('book')?>
+    
+    <!-- Load gtag for google services intrigration -->
+    <?=ResourceLoader::loadGtag()?>
 </body>
 </html>

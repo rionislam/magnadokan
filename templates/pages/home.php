@@ -17,17 +17,14 @@ use Core\Services\ResourceLoader;
     
 </head>
 <body>
-         <!-- Load gtag for google services intrigration -->
-         <?=ResourceLoader::loadGtag()?>
-        
-        <!-- Show if there is any user notification -->
-        <?=ResourceLoader::loadNotification()?>
+    <!-- Show if there is any user notification -->
+    <?=ResourceLoader::loadNotification()?>
 
-        <!-- Load the fixed login-signup form -->
-        <?=ResourceLoader::loadComponent('login-signup')?>
+    <!-- Load the fixed login-signup form -->
+    <?=ResourceLoader::loadComponent('login-signup')?>
 
-        <!-- Load the downloads left -->
-        <?=ResourceLoader::loadComponent('downloads-left')?>
+    <!-- Load the downloads left -->
+    <?=ResourceLoader::loadComponent('downloads-left')?>
     <main>
         <!-- Load the header -->
         <?=ResourceLoader::loadComponent('header')?>
@@ -95,9 +92,14 @@ use Core\Services\ResourceLoader;
 
     <!-- Load the footer -->
     <?=ResourceLoader::loadComponent('footer')?>
+
     <!-- The javascript for the slider -->
     <?=ResourceLoader::loadUtilityJS('slider')?>
+
     <!-- The default javascript -->
     <?=ResourceLoader::loadAppJs()?>
+
+    <!-- Load gtag for google services intrigration -->
+    <?=ResourceLoader::loadGtag()?>
 </body>
 </html>

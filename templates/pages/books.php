@@ -46,7 +46,9 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
     </main>
         <!-- Load the footer -->
         <?=ResourceLoader::loadComponent('footer')?>
-
+        <!-- Javascript for specific page -->
         <?=ResourceLoader::loadPageJs('books')?>
+        <!-- Load gtag for google services intrigration -->
+        <?=ResourceLoader::loadGtag()?>
 </body>
 </html>

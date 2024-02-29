@@ -18,11 +18,8 @@ if(!SessionService::isLoggedIn()){
         <?=HtmlGenerator::generateHead(HtmlGenerator::generateSeoTags('Book Request'), 'book-request')?>
 </head>
 <body>
-        <!-- Load gtag for google services intrigration -->
-        <?=ResourceLoader::loadGtag()?>
-        
-        <!-- Show if there is any user notification -->
-        <?=ResourceLoader::loadNotification()?>
+    <!-- Show if there is any user notification -->
+    <?=ResourceLoader::loadNotification()?>
     <main>
         <!-- Load the header -->
         <?=ResourceLoader::loadComponent('header')?>
@@ -49,8 +46,14 @@ if(!SessionService::isLoggedIn()){
                 </form>
             </div>
         </section>
-         <!-- Load the footer -->
-        <?=ResourceLoader::loadComponent('footer')?>
     </main>
+    <!-- Load the footer -->
+    <?=ResourceLoader::loadComponent('footer')?>
+
+    <!-- The default javascript -->
+    <?=ResourceLoader::loadAppJs()?>
+
+    <!-- Load gtag for google services intrigration -->
+    <?=ResourceLoader::loadGtag()?>
 </body>
 </html>

@@ -11,14 +11,11 @@ $application = new Application;
 <?=HtmlGenerator::generateHead(HtmlGenerator::generateSeoTags('Sign Up'), 'login-signup', true)?>
 </head>
 <body>
-        <!-- Load gtag for google services intrigration -->
-        <?=ResourceLoader::loadGtag()?>
-        
-        <!-- Show if there is any user notification -->
-        <?=ResourceLoader::loadNotification()?>
+    <!-- Show if there is any user notification -->
+    <?=ResourceLoader::loadNotification()?>
 
-        <!-- Load the fixed login-signup form -->
-        <?=ResourceLoader::loadComponent('login-signup')?>
+    <!-- Load the fixed login-signup form -->
+    <?=ResourceLoader::loadComponent('login-signup')?>
     <main>
         <!-- Load the header -->
         <?=ResourceLoader::loadComponent('header')?>
@@ -65,10 +62,14 @@ $application = new Application;
             </form>
             </div>
         </section>
-        <!-- Load the footer -->
-        <?=ResourceLoader::loadComponent('footer')?>
-        <!-- The default javascript -->
-        <?=ResourceLoader::loadAppJs()?>
     </main>   
+    <!-- Load the footer -->
+    <?=ResourceLoader::loadComponent('footer')?>
+
+    <!-- The default javascript -->
+    <?=ResourceLoader::loadAppJs()?>
+
+    <!-- Load gtag for google services intrigration -->
+    <?=ResourceLoader::loadGtag()?>
 </body>
 </html>

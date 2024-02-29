@@ -13,17 +13,14 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
     <?=HtmlGenerator::generateHead(HtmlGenerator::generateSeoTags('Fair Use'))?>
 </head>
 <body>
-        <!-- Load gtag for google services intrigration -->
-        <?=ResourceLoader::loadGtag()?>
-        
-        <!-- Show if there is any user notification -->
-        <?=ResourceLoader::loadNotification()?>
+    <!-- Show if there is any user notification -->
+    <?=ResourceLoader::loadNotification()?>
 
-        <!-- Load the fixed login-signup form -->
-        <?=ResourceLoader::loadComponent('login-signup')?>
+    <!-- Load the fixed login-signup form -->
+    <?=ResourceLoader::loadComponent('login-signup')?>
 
-        <!-- Load the downloads left -->
-        <?=ResourceLoader::loadComponent('downloads-left')?>
+    <!-- Load the downloads left -->
+    <?=ResourceLoader::loadComponent('downloads-left')?>
     <main>
         <!-- Load the header -->
         <?=ResourceLoader::loadComponent('header')?>
@@ -44,8 +41,13 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
         </article>
         </section>
     </main>
-     <!-- Load the footer -->
-     <?=ResourceLoader::loadComponent('footer')?>
-    <script src="js/app.js"></script>
+    <!-- Load the footer -->
+    <?=ResourceLoader::loadComponent('footer')?>
+
+    <!-- The default javascript -->
+    <?=ResourceLoader::loadAppJs()?>
+    
+    <!-- Load gtag for google services intrigration -->
+    <?=ResourceLoader::loadGtag()?>
 </body>
 </html>
