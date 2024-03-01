@@ -156,7 +156,7 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
                 <div class="icon">
                     <?php
                         $viewsIncreased = $adminLogController->viewsIncreased();
-                        if($downloadsIncreased > 0){
+                        if($viewsIncreased > 0){
                             echo ResourceLoader::loadIcon('increase.svg');
                         }else{
                             echo ResourceLoader::loadIcon('decrease.svg');
