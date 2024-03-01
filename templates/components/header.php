@@ -20,7 +20,9 @@ use Core\Services\SessionService;
                         <?php
                         if(!SessionService::isLoggedIn()){
                             ?>
-                            <button class="login-btn" onclick="showLoginSignup()">Login</button>
+                            <li>
+                                <button class="login-btn" onclick="showLoginSignup()">Login</button>
+                            </li>
                             <?php
                         }else{
                             ?>
