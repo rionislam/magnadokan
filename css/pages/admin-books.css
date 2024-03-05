@@ -24,12 +24,12 @@ main section .row .icon {
 .paginations .pagination {
   padding: 0.3rem 0.5rem;
   margin: 0 0.5rem;
-  color: var(--title-color);
-  border: 1px solid var(--title-color);
+  color: var(--normal-text-color);
+  border: 1px solid var(--normal-text-color);
   border-radius: 3px;
 }
 .paginations .active {
-  background: var(--title-color);
+  background: var(--normal-text-color);
   color: #fff;
 }
 
@@ -91,7 +91,7 @@ main .form-container form .input-wrapper .label {
   font-family: system-ui, sans-serif;
   position: absolute;
   margin: auto;
-  color: var(--dim-text);
+  color: var(--dim-text-color);
   height: 100%;
   width: 100%;
   object-fit: cover;
@@ -144,12 +144,11 @@ main .form-container form .icon img {
   object-position: center;
 }
 
-
 #writtersDropdown,
 #categoriesDropdown {
   position: absolute;
   z-index: 9;
-  background: white;
+  background: var(--light-color);
   width: 100%;
   box-shadow: 0 2px 12px hsla(228, 66%, 45%, 0.1);
   border-radius: 3px;
@@ -191,7 +190,7 @@ main .form-container form .description textarea {
   width: 100%;
   height: 100%;
   border-radius: 3px;
-  border: 1px solid var(--dim-text);
+  border: 1px solid var(--dim-text-color);
   cursor: text;
 }
 
@@ -228,7 +227,7 @@ main .form-container form .description textarea {
   padding: 0.3rem 0.5rem;
   box-shadow: 0px 2px 18px var(--shadow-color);
   border-radius: 3px;
-  color: var(--dim-text);
+  color: var(--dim-text-color);
   display: flex;
   align-items: center;
 }
@@ -254,6 +253,6 @@ main .form-container form .description textarea {
 .writters-container {
   width: 100%;
   border-radius: 3px;
-  border: 1px solid var(--dim-text);
+  border: 1px solid var(--dim-text-color);
   cursor: text;
 }

@@ -1,6 +1,5 @@
 <?php
 
-use Core\Application;
 use Core\Services\ResourceLoader;
 use Core\Services\HtmlGenerator;
 
@@ -27,7 +26,7 @@ require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
         <section class="center max-width">
         <article style="max-width: 65rem; margin: auto;" id="post-2265" class="posts-entry fbox post-2265 page type-page status-publish hentry">
             <header class="entry-header">
-                <h1 style="color: black; margin: 1rem 0;" class="entry-title">Fair Use Act Disclaimer</h1>	
+                <h1 style="color: var(--normal-text-color); margin: 1rem 0;" class="entry-title">Fair Use Act Disclaimer</h1>	
             </header>
 
             <div class="entry-content">

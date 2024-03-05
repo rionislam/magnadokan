@@ -12,10 +12,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  background: var(--title-color);
+  background: var(--normal-text-color);
   padding: 1rem 1.2rem;
   border-radius: 5px;
-  color: white;
+  color: var(--light-color);
   box-shadow: 20px 15px 20px hsla(228, 66%, 45%, 0.1);
 }
 
@@ -28,7 +28,7 @@
   border-radius: 3px;
   margin-top: 1rem;
   margin-bottom: 0.3rem;
-  color: white;
+  color: var(--light-color);
   width: 100%;
   cursor: pointer;
 }

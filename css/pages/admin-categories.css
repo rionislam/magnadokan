@@ -32,7 +32,7 @@ main .form-container form .input-wrapper .label {
   font-family: system-ui, sans-serif;
   position: absolute;
   margin: auto;
-  color: var(--dim-text);
+  color: var(--dim-text-color);
   height: 100%;
   width: 100%;
   object-fit: cover;

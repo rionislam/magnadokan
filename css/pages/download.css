@@ -31,7 +31,7 @@
   font-family: system-ui, sans-serif;
   font-size: 1.2rem;
   background: var(--accent-1);
-  color: white;
+  color: var(--light-color);
   border: none;
   border-radius: 3px;
   text-align: center;
@@ -42,7 +42,7 @@
 }
 
 .book-container .right .download_text span a {
-  color: var(--dim-text);
+  color: var(--dim-text-color);
   text-decoration: underline;
 }
 

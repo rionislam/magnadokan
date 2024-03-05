@@ -43,8 +43,8 @@ main header .right .search-bar {
   display: flex;
   align-items: center;
   border-radius: 3px;
-  background: white;
-  border: 1px solid var(--title-color);
+  background: var(--light-color);
+  border: 1px solid var(--normal-text-color);
 }
 
 main header .right .search-bar input {
@@ -71,7 +71,7 @@ main header .right input[type='image'] {
   padding: 0.3rem 0.5rem;
   border: none;
   border-radius: 3px;
-  color: white;
+  color: var(--light-color);
   font-family: system-ui, sans-serif;
   font-size: 1rem;
   margin: 0 2rem;
@@ -81,7 +81,7 @@ main header .right input[type='image'] {
   display: flex;
   align-items: center;
   background: none;
-  color: var(--title-color);
+  color: var(--normal-text-color);
   padding: 0.3rem 0.5rem;
   border: 1px solid gray;
   border-radius: 3px;
@@ -92,7 +92,7 @@ main header .right input[type='image'] {
 #back svg {
   height: 1em;
   width: 1em;
-  fill: var(--title-color);
+  fill: var(--normal-text-color);
 }
 
 main section .row {

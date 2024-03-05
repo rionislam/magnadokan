@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,11 +9,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&family=system-ui&display=swap" rel="stylesheet">
 </head>
-<body style="background-color: #679bdd1a;">
-    <div style="background-color: white; border-radius:5px; max-width: 40rem; min-width: 30rem; margin: auto; overflow: hidden; padding: 1rem 1.5rem">
+<body style="background-color: #ff7f5005;">
+    <div style="background-color: #f5f5f5; color: #2b2b2b; border-radius:5px; max-width: 40rem; min-width: 30rem; margin: auto; overflow: hidden; padding: 1rem 1.5rem">
         <div style="font-weight: bold; padding: 0.5rem 0; display: flex; align-items: center; font-family: system-ui, sans-serif; font-size: 2rem; height:auto; width: 100%">
             <img style="margin-right: 0.5rem; height:1em; width: 1em;" src="{HOST}/favicon.ico">
-            Magna Do<span style="color: #679bdd;">kan.</span>
+            Magnado<span style="color: #ff7f50;">kan.</span>
         </div>
         <hr style="height: 1px; width:100%; background-color: #679bdd1a; border: none;">
         <div style="font-family: 'Poppins', sans-serif; padding: 0.25rem 0;">
@@ -24,8 +25,8 @@
                 text-decoration: none; 
                 font-family: system-ui, sans-serif; 
                 font-size: 1.2rem; 
-                background-color: #679bdd;
-                color: white;
+                background-color: #ff7f50;
+                color: #f5f5f5;
                 padding: 0.3rem 0.5rem;
                 border-radius: 3px;
                 " href="{HOST}/login">Login</a>
@@ -41,10 +42,10 @@
         </div>
     </div>
     <div style="font-family: system-ui, sans-serif; max-width: 40rem; min-width: 30rem; margin: auto; padding: 0.5rem 0; display: flex; justify-content: space-around">
-    <a style="color: #b5c2d1bf;" href="{HOST}">Home</a>
-    <a style="color: #b5c2d1bf;"  href="{HOST}/books/1">All Books</a>
-    <a style="color: #b5c2d1bf;"  href="{HOST}/about">About Us</a>
-    <a style="color: #b5c2d1bf;"  href="mailto: support@{HOST}">Contact Us</a>
+    <a style="color: #7f8c8d;" href="">Home</a>
+    <a style="color: #7f8c8d;"  href="">All Books</a>
+    <a style="color: #7f8c8d;"  href="">Request Books</a>
+    <a style="color: #7f8c8d;"  href="">About Us</a>
     </div>
 </body>
 </html>

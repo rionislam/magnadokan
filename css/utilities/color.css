@@ -1,11 +1,12 @@
 /** @format */
 
 :root {
-  --title-color: #141f2c;
-  --dark-color: #0f0f0f;
-  --accent-1: #679bdd;
-  --shadow-color: hsla(228, 66%, 45%, 0.1);
-  --dim-text: #91a3b0;
+  --normal-text-color: #2b2b2b;
+  --dark-color: #2b2b2b;
+  --light-color: #f5f5f5;
+  --accent-1: #ff7f50;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --dim-text-color: #7f8c8d;
   --danger: #ff2400;
   --green: #50c878;
 }

@@ -62,7 +62,7 @@
   width: 1em;
 }
 .book-container .right .bottom .add-to-libray-btn {
-  background: var(--title-color);
+  background: var(--normal-text-color);
   margin-right: 1rem;
 }
 .book-container .mid .description-container {
@@ -142,7 +142,7 @@
 .icon {
   display: block;
   border-radius: 50%;
-  stroke: white;
+  stroke: var(--light-color);
   -webkit-animation: bounceIcon 0.17s ease-in-out;
   animation: bounceIcon 0.17s ease-in-out;
   -webkit-animation-delay: 0.25s;

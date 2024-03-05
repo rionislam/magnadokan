@@ -50,12 +50,12 @@
 .paginations .pagination {
   padding: 0.3rem 0.5rem;
   margin: 0 0.5rem;
-  color: var(--title-color);
-  border: 1px solid var(--title-color);
+  color: var(--normal-text-color);
+  border: 1px solid var(--normal-text-color);
   border-radius: 3px;
 }
 .paginations .active {
-  background: var(--title-color);
+  background: var(--normal-text-color);
   color: #fff;
 }
 

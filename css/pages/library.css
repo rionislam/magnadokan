@@ -84,7 +84,7 @@
   background: var(--danger);
   font-family: system-ui, sans-serif;
   font-size: 1.2rem;
-  color: white;
+  color: var(--light-color);
   border: none;
   border-radius: 3px;
   padding: 0.25rem 0.5rem;
@@ -95,7 +95,7 @@
 }
 
 .books-container .book-wrapper .right button svg {
-  fill: white;
+  fill: var(--light-color);
 }
 
 @media (max-width: 900px) {
