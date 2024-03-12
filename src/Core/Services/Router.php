@@ -32,6 +32,18 @@ class Router
         ob_start();
         $method = $_SERVER['REQUEST_METHOD'];
         $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        if ($method === 'POST') {
+            if (!isset($_SERVER['HTTP_REFERER']) || empty($_SERVER['HTTP_REFERER'])) {
+                ErrorHandler::displayErrorPage(403);
+                return;
+            }
+            $referrer = parse_url($_SERVER['HTTP_REFERER']);
+
+            if ($referrer['host'] !== $_SERVER['HTTP_HOST']) {
+                ErrorHandler::displayErrorPage(403);
+                return;
+            }
+        }
         foreach (self::$routes[$method] as $route => $handler) {
             if (self::matchesRoute($path, $route)) {
                 self::callHandler($handler, $route);
@@ -39,7 +51,6 @@ class Router
             }
         }
 
-        // Handle 404 error
         ErrorHandler::displayErrorPage(404);
        
     }
