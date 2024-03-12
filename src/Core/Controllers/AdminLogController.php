@@ -18,10 +18,10 @@ class AdminLogController extends Logger{
         $cacheInstance = $cache->getItem("downloadsCount");
         if(is_null($cacheInstance->get())){
             $sql= "SELECT * FROM `bookLogs` WHERE `event`='download';";
-            $result = $this->getResult($sql);
-            $cacheInstance->set($result->num_rows)->expiresAfter(Timer::timeLeftForNextDay());
+            $rows = $this->getRows($sql);
+            $cacheInstance->set(count($rows))->expiresAfter(Timer::timeLeftForNextDay());
             $cache->save($cacheInstance);
-            return $result->num_rows;
+            return count($rows);
         }else{
             return $cacheInstance->get();
         }
@@ -61,10 +61,10 @@ class AdminLogController extends Logger{
         $cacheInstance = $cache->getItem("viewsCount");
         if(is_null($cacheInstance->get())){
             $sql= "SELECT * FROM `userLogs` WHERE `event`='view';";
-            $result = $this->getResult($sql);
-            $cacheInstance->set($result->num_rows)->expiresAfter(Timer::timeLeftForNextDay());
+            $rows = $this->getRows($sql);
+            $cacheInstance->set(count($rows))->expiresAfter(Timer::timeLeftForNextDay());
             $cache->save($cacheInstance);
-            return $result->num_rows;
+            return count($rows);
         }else{
             return $cacheInstance->get();
         }

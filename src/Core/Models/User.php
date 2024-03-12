@@ -6,18 +6,11 @@ use Core\Services\SessionService;
 
 class User extends Dbh{
 
-    private $dbConn;
-
-    public function __construct()
-    {
-        $this->dbConn = $this->connect();
-    }
-
     //NOTE - Get the number of users
     public function count($condition = NULL){
         $sql= "SELECT * FROM `users` {$condition};";
-        $result = $this->getResult($sql);
-        return $result->num_rows;
+        $rows = $this->getRows($sql);
+        return count($rows);
     }
 
     protected function getAll(){
@@ -28,25 +21,14 @@ class User extends Dbh{
 
     private function check($userName, $userEmail){
         $sql = "SELECT * FROM `users` WHERE userName = ? OR userEmail = ? ;";
-        $stmt = $this->dbConn->stmt_init();
-        if(!$stmt->prepare($sql))
-        {
-            return false;
-            exit();
-        }
-    
-        $stmt->bind_param('ss', $userName, $userEmail);
-        $stmt->execute();
+        $row = $this->executeQuery($sql, [$userName, $userEmail]);
 
-        $result = $stmt->get_result();
-
-        if($row = $result->fetch_assoc()){
-            return $row;
+        if($row != false){
+            return $row[0];
         }
         else{
             return false;
         }
-        $stmt->close();
     }
 
     public function logedIn(){

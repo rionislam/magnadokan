@@ -88,15 +88,16 @@ class BookController extends Book{
         }
 
         $suggestions = '';
-        $suggestionsArray = $this->getFourRelatedsById($row['bookId']);
-        foreach($suggestionsArray as $suggestion){
-            $encodedBookName = rawurlencode($suggestion['bookName']);
-            $suggestions .= "<article data-impression-collected=false data-book-category='{$suggestion['bookCategory']}' data-book-id='{$suggestion['bookId']}'>
+        $relatedBooks = explode(',', $row['relatedBooks']);
+        foreach($relatedBooks as $relatedBook){
+            $book = $this->getById($relatedBook, 'bookName', 'bookCategory', 'bookWritters', 'bookCover');
+            $encodedBookName = rawurlencode($book['bookName']);
+            $suggestions .= "<article data-impression-collected=false data-book-category='{$book['bookCategory']}' data-book-id='{$relatedBook}'>
                                 <a draggable='false' href='{$host}/book/{$encodedBookName}'>
                                     <div class='image-container'>
-                                        <img loading='lazy' onload='this.style.opacity = 1' alt='{$suggestion['bookName']} by {$suggestion['bookWritters']} Pdf' src='uploads/books/covers/{$suggestion['bookCover']}'>
+                                        <img loading='lazy' onload='this.style.opacity = 1' alt='{$book['bookName']} by {$book['bookWritters']} Pdf' src='uploads/books/covers/{$book['bookCover']}'>
                                     </div>
-                                    <h3 class='name'>{$suggestion['bookName']}</h3>
+                                    <h3 class='name'>{$book['bookName']}</h3>
                                 </a>
                             </article>";
         }

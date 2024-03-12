@@ -36,15 +36,15 @@ class Category extends Dbh{
     }
 
     public function get($category){
-        $sql = 'SELECT * FROM `categories` WHERE `category`="'.$category.'";';
-        $row = $this->getRows($sql)[0];
+        $sql = 'SELECT * FROM `categories` WHERE `category`=?;';
+        $row = $this->getRows($sql, [$category])[0];
         return $row;
     }
 
     public function count($condition = NULL){
         $sql= "SELECT * FROM `categories` {$condition};";
-        $result = $this->getResult($sql);
-        return $result->num_rows;
+        $rows = $this->getRows($sql);
+        return count($rows);
     }
 
     public function getAll(){

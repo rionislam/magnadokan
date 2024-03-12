@@ -5,34 +5,16 @@ use Core\Services\AdminAuthHandler;
 
 class Admin extends Dbh{
 
-    private $dbConn;
 
-    public function __construct()
-        {
-            $this->dbConn = $this->connect();
+    private function check($adminUsername, $adminEmail){
+        $sql = "SELECT * FROM `admins` WHERE adminUsername = ? OR adminEmail = ? ;";
+        $row = $this->executeQuery($sql, [$adminUsername, $adminEmail]);
+        if($row != false){
+            return $row[0];
         }
-
-        private function check($adminUsername, $adminEmail){
-            $sql = "SELECT * FROM `admins` WHERE adminUsername = ? OR adminEmail = ? ;";
-            $stmt = $this->dbConn->stmt_init();
-            if(!$stmt->prepare($sql))
-            {
-                return false;
-                exit();
-            }
-        
-            $stmt->bind_param('ss', $adminUsername, $adminEmail);
-            $stmt->execute();
-
-            $result = $stmt->get_result();
-
-            if($row = $result->fetch_assoc()){
-                return $row;
-            }
-            else{
-                return false;
-            }
-            $stmt->close();
+        else{
+            return false;
+        }
     }
 
     public function login($adminLogin, $adminPassword, $remember){

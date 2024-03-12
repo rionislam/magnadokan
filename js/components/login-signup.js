@@ -1,5 +1,5 @@
 /** @format */
-import formUtil from "../utilities/formUtil.js";
+import formUtil from '../utilities/formUtil.js';
 
 let showLoginSignup = () => {
   let loginSignup = document.getElementsByClassName('login-signup')[0];
@@ -54,34 +54,34 @@ fullName.addEventListener('input', () => {
   if (fullName.classList.contains('invalid')) {
     formUtil.validateFullname(fullName);
   }
-})
+});
 
 username.addEventListener('input', () => {
   if (username.classList.contains('invalid')) {
     formUtil.validateUsername(username);
   }
-})
+});
 
 email.addEventListener('input', () => {
   if (email.classList.contains('invalid')) {
     formUtil.validateEmail(email);
   }
-})
+});
 
 password.addEventListener('input', () => {
   if (password.classList.contains('invalid')) {
     formUtil.validatePassword(password);
   }
-})
+});
 
 confirmPassword.addEventListener('input', () => {
   if (confirmPassword.classList.contains('invalid')) {
     formUtil.validateConfirmPassword(confirmPassword, password);
   }
-})
-
+});
 
 let signupForm = document.getElementById('signup-form');
+
 signupBtn.addEventListener('click', (event) => {
   event.preventDefault();
   if (formUtil.validateFullname(fullName)) {
@@ -89,13 +89,13 @@ signupBtn.addEventListener('click', (event) => {
       if (formUtil.validateEmail(email)) {
         if (formUtil.validatePassword(password)) {
           if (formUtil.validateConfirmPassword(confirmPassword, password)) {
-            
+            signupForm.submit();
           }
         }
       }
     }
   }
-})
+});
 // signupForm.addEventListener('submit', (event) => {
 //   event.preventDefault();
 //   formUtil.validateUsername(username);

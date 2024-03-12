@@ -56,8 +56,8 @@ class Book extends Dbh{
         $cache = $cache->config();
         $cacheInstance = $cache->getItem("book?name=".str_replace(array('{', '}', '(', ')', '/','@', ':'), '', $bookName));
         if(is_null($cacheInstance->get())){
-            $sql = "SELECT * FROM `books` WHERE `bookName`='{$bookName}';";
-            $rows = $this->getRows($sql);
+            $sql = "SELECT *  FROM `books` WHERE `bookName`=?;";
+            $rows = $this->getRows($sql, [$bookName]);
             if($rows == false){
                 ErrorHandler::displayErrorPage(606);
                 exit();
@@ -68,6 +68,11 @@ class Book extends Dbh{
             $paras= preg_split('/\s*\n+\s*/', $description, 2, PREG_SPLIT_DELIM_CAPTURE);
             $metaDescription = isset($paras[0]) ? $paras[0] : '';
             $row['metaDescription'] = $metaDescription;
+            if($row['relatedBooks'] == 0){
+                $$row['relatedBooks'] = $this->getFourRelatedsById($row['bookId']);
+                $this->update($row['bookId'], 'relatedBooks', implode(',', $relatedBooks));
+                $row['relatedBooks'] = implode(',', $relatedBooks);
+            }
             $cacheInstance->set($row)->expiresAfter(Timer::timeLeftForNextDay());
             $cache->save($cacheInstance);
         }else{
@@ -78,17 +83,19 @@ class Book extends Dbh{
     }
 
     //NOTE - Get a book's details by it's id
-    public function getById($bookId){
-        $sql = 'SELECT * FROM `books` WHERE `bookId`="'.$bookId.'";';
+    public function getById($bookId, ...$cols){
+        $sql = 'SELECT ';
+        if(count($cols) == 0){
+            $sql .= '*';
+        }else{
+            $sql .= implode(',',$cols);
+        }
+        $sql .= ' FROM `books` WHERE `bookId`="'.$bookId.'";';
         $row = $this->getRows($sql)[0];
         return $row;
     }
 
     protected function getFourRelatedsById($bookId){
-        $cache = new Cache;
-        $cache = $cache->config();
-        $cacheInstance = $cache->getItem("relatedBooks?id={$bookId}");
-        if(is_null($cacheInstance->get())){
             $sql ="(
                 SELECT
                     b.bookId
@@ -123,28 +130,12 @@ class Book extends Dbh{
                 LIMIT 4
             )
             LIMIT 4;";
-            $rows = $this->getRows($sql);
-            $cacheInstance->set($rows)->expiresAfter(Timer::timeLeftForNextMonth());
-            $cache->save($cacheInstance);
-        }else{
-            $rows = $cacheInstance->get();
-        }
-        $books = array();
-        foreach($rows as $row){
-            $cache = new Cache;
-            $cache = $cache->config();
-            $cacheInstance = $cache->getItem("book?id={$row['bookId']}");
-            $book = '';
-            if(is_null($cacheInstance->get())){
-                $book = $this->getById($row['bookId']);
-                $cacheInstance->set($book)->expiresAfter(Timer::timeLeftForNextDay());
-                $cache->save($cacheInstance);
-            }else{
-                $book = $cacheInstance->get();
+            $rows = $this->executeQuery($sql);
+            $relatedBooks = [];
+            foreach($rows as $row){
+                array_push($relatedBooks, $row['bookId']);
             }
-            array_push($books, $book);
-        }
-        return $books;
+            return $relatedBooks;
     }
 
     //NOTE - Get the number of books added to the database
@@ -154,10 +145,10 @@ class Book extends Dbh{
         $cacheInstance = $cache->getItem("booksCount?condition={$condition}");
         if(is_null($cacheInstance->get())){
             $sql= "SELECT * FROM `books` {$condition};";
-            $result = $this->getResult($sql);
-            $cacheInstance->set($result->num_rows)->expiresAfter(Timer::timeLeftForNextDay());
+            $rows = $this->getRows($sql);
+            $cacheInstance->set(count($rows))->expiresAfter(Timer::timeLeftForNextDay());
             $cache->save($cacheInstance);
-            return $result->num_rows;
+            return count($rows);
         }else{
             return $cacheInstance->get();
         }
@@ -181,7 +172,11 @@ class Book extends Dbh{
         $cacheInstance = $cache->getItem("popularBooks?limit={$limit}");
         if(is_null($cacheInstance->get())){
             $sql = "SELECT
-                        b.*,
+                        b.bookName,
+                        b.bookId,
+                        b.bookWritters,
+                        b.bookCover,
+                        b.bookCategory,
                         COALESCE(SUM(CASE 
                                         WHEN bl.event = 'download' THEN 1
                                         ELSE 0 END), 0) AS downloads,
@@ -220,10 +215,14 @@ class Book extends Dbh{
     public function getPopularByLanguage($limit, $language){
         $cache = new Cache;
         $cache = $cache->config();
-        $cacheInstance = $cache->getItem("books?language={$language}&limit={$limit}");
+        $cacheInstance = $cache->getItem("popularBooks?language={$language}&limit={$limit}");
         if(is_null($cacheInstance->get())){
             $sql = "SELECT
-                        b.*,
+                        b.bookName,
+                        b.bookId,
+                        b.bookWritters,
+                        b.bookCover,
+                        b.bookCategory,
                         COALESCE(SUM(CASE 
                                         WHEN bl.event = 'impression' THEN 1 
                                         WHEN bl.event = 'click' THEN 2
@@ -256,21 +255,6 @@ class Book extends Dbh{
        
         return $rows;
     }
-
-   
-
-    //NOTE - Register when a book is clicked the help the algorithms
-    // public function click($bookId, $bookCategory){
-    //     if(!isset($_COOKIE['clicked'])){
-    //         setcookie( 'clicked', 1, time() + 300, $_SERVER['REQUEST_URI'], $_SERVER['HTTP_HOST'], false);
-    //         $clicks = $this->getById($bookId)['clicks']+1;
-    //         $this->updateData('books', ['clicks'], 'i', " WHERE `bookId`='{$bookId}'", $clicks);
-    //         require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
-    //         $log = new Log;
-    //         $log->collectClick($bookId, $bookCategory);
-    //     }
-        
-    // }
 
     //NOTE - Download the pdf file if it's sotred on the server.(But not in use currently cause we store them on google drive)
     public function download($bookName){
