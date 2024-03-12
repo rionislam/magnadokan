@@ -101,5 +101,24 @@ use Core\Services\ResourceLoader;
 
     <!-- Load gtag for google services intrigration -->
     <?=ResourceLoader::loadGtag()?>
+    <!-- Schema Data -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org/",
+            "@type": "WebSite",
+            "name": "Magna Dokan",
+            "alternateName" : "magnadokan",
+            "url": "https://magnadokan.com",
+            "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://magnadokan.com/search/{search_term_string}/1"
+            },
+            "query-input": "required name=search_term_string"
+            }
+        }
+    </script>
+    
 </body>
 </html>
