@@ -137,7 +137,7 @@ class BookController extends Book{
                         <div class='description-container'>
                             <h2 class='title'>Description</h2>
                             <hr>
-                            <p>{$decodedDescription}</p>
+                            <div class='description'>{$decodedDescription}</div>
                             <button onclick='showMore(this)'>Show more...</button>
                         </div>
                         <div class='horizontal-ad-container'>

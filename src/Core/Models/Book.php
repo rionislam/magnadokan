@@ -69,9 +69,9 @@ class Book extends Dbh{
             $metaDescription = isset($paras[0]) ? $paras[0] : '';
             $row['metaDescription'] = $metaDescription;
             if($row['relatedBooks'] == 0){
-                $$row['relatedBooks'] = $this->getFourRelatedsById($row['bookId']);
-                $this->update($row['bookId'], 'relatedBooks', implode(',', $relatedBooks));
-                $row['relatedBooks'] = implode(',', $relatedBooks);
+                $row['relatedBooks'] = $this->getFourRelatedsById($row['bookId']);
+                $this->update($row['bookId'], 'relatedBooks', implode(',', $row['relatedBooks']));
+                $row['relatedBooks'] = implode(',', $row['relatedBooks']);
             }
             $cacheInstance->set($row)->expiresAfter(Timer::timeLeftForNextDay());
             $cache->save($cacheInstance);

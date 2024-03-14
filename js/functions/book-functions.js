@@ -43,10 +43,14 @@ window.download = download;
 let showMore = (e) => {
   if (e.innerHTML == 'Show more...') {
     e.innerHTML = 'Show less...';
-    e.parentElement.getElementsByTagName('p')[0].classList.add('shown');
+    e.parentElement
+      .getElementsByClassName('description')[0]
+      .classList.add('shown');
   } else {
     e.innerHTML = 'Show more...';
-    e.parentElement.getElementsByTagName('p')[0].classList.remove('shown');
+    e.parentElement
+      .getElementsByClassName('description')[0]
+      .classList.remove('shown');
   }
 };
 
