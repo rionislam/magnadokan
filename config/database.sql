@@ -1,9 +1,6 @@
-
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
 
 --
 -- Database: `magnadokan`
@@ -25,10 +22,10 @@ CREATE TABLE `admins` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bookLogs`
+-- Table structure for table `booklogs`
 --
 
-CREATE TABLE `bookLogs` (
+CREATE TABLE `booklogs` (
   `logId` int(11) NOT NULL,
   `userIp` varchar(64) NOT NULL,
   `userLoggedIn` tinyint(1) NOT NULL,
@@ -45,10 +42,10 @@ CREATE TABLE `bookLogs` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bookRequests`
+-- Table structure for table `bookrequests`
 --
 
-CREATE TABLE `bookRequests` (
+CREATE TABLE `bookrequests` (
   `bookName` varchar(64) NOT NULL,
   `bookPublicationYear` year(4) NOT NULL,
   `bookRequestId` int(11) NOT NULL,
@@ -70,13 +67,16 @@ CREATE TABLE `books` (
   `bookWritters` varchar(128) NOT NULL,
   `bookTags` varchar(512) NOT NULL,
   `bookDescription` text NOT NULL,
+  `clicks` int(11) NOT NULL,
+  `downloads` int(11) NOT NULL,
   `bookCover` varchar(128) NOT NULL,
   `bookPdf` varchar(128) NOT NULL,
   `bookLanguage` varchar(16) NOT NULL,
   `bookCategory` varchar(32) NOT NULL,
   `bookBuyingLink` varchar(128) NOT NULL,
   `bookAddedAt` datetime NOT NULL DEFAULT current_timestamp(),
-  `bookUpdatedAt` datetime NOT NULL DEFAULT current_timestamp()
+  `bookUpdatedAt` datetime NOT NULL DEFAULT current_timestamp(),
+  `relatedBooks` varchar(12) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -155,7 +155,7 @@ CREATE TABLE `library` (
 -- Table structure for table `userlogs`
 --
 
-CREATE TABLE `userLogs` (
+CREATE TABLE `userlogs` (
   `logId` int(11) NOT NULL,
   `clientUid` varchar(64) NOT NULL,
   `pageUrl` varchar(128) NOT NULL,
@@ -163,7 +163,7 @@ CREATE TABLE `userLogs` (
   `userCountry` varchar(32) NOT NULL,
   `userId` int(11) NOT NULL DEFAULT 0,
   `event` varchar(32) NOT NULL,
-  `logTime` timestamp NOT NULL DEFAULT current_timestamp()
+  `logTime` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -188,7 +188,7 @@ CREATE TABLE `users` (
 -- Table structure for table `usersessions`
 --
 
-CREATE TABLE `userSessions` (
+CREATE TABLE `usersessions` (
   `sessionId` int(32) NOT NULL,
   `sessionUid` varchar(64) NOT NULL,
   `sessionBrowser` varchar(32) NOT NULL,
@@ -226,15 +226,15 @@ ALTER TABLE `admins`
   ADD PRIMARY KEY (`adminId`);
 
 --
--- Indexes for table `bookLogs`
+-- Indexes for table `booklogs`
 --
-ALTER TABLE `bookLogs`
+ALTER TABLE `booklogs`
   ADD PRIMARY KEY (`logId`);
 
 --
--- Indexes for table `bookRequests`
+-- Indexes for table `bookrequests`
 --
-ALTER TABLE `bookRequests`
+ALTER TABLE `bookrequests`
   ADD PRIMARY KEY (`bookRequestId`);
 
 --
@@ -276,7 +276,7 @@ ALTER TABLE `library`
 --
 -- Indexes for table `userlogs`
 --
-ALTER TABLE `userLogs`
+ALTER TABLE `userlogs`
   ADD PRIMARY KEY (`logId`);
 
 --
@@ -288,7 +288,7 @@ ALTER TABLE `users`
 --
 -- Indexes for table `usersessions`
 --
-ALTER TABLE `userSessions`
+ALTER TABLE `usersessions`
   ADD PRIMARY KEY (`sessionId`);
 
 --
@@ -308,15 +308,15 @@ ALTER TABLE `admins`
   MODIFY `adminId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `bookLogs`
+-- AUTO_INCREMENT for table `booklogs`
 --
-ALTER TABLE `bookLogs`
+ALTER TABLE `booklogs`
   MODIFY `logId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `bookRequests`
+-- AUTO_INCREMENT for table `bookrequests`
 --
-ALTER TABLE `bookRequests`
+ALTER TABLE `bookrequests`
   MODIFY `bookRequestId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -379,10 +379,3 @@ ALTER TABLE `usersessions`
 ALTER TABLE `writters`
   MODIFY `writterId` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
-
-
-INSERT INTO `admins` (`adminId`, `adminUsername`, `adminEmail`, `adminPassword`) VALUES
-(1, 'admin', 'admin@magnadokan.com', '$2y$10$GnfFAVth/JxBzUVI8QXRfe1nxH3FxzMOalUTYrgIqOGVQkLORRqry');
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
