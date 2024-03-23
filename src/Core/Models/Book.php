@@ -146,15 +146,19 @@ class Book extends Dbh{
         if(is_null($cacheInstance->get())){
             $sql= "SELECT * FROM `books` {$condition};";
             $rows = $this->getRows($sql);
-            $cacheInstance->set(count($rows))->expiresAfter(Timer::timeLeftForNextDay());
-            $cache->save($cacheInstance);
-            return count($rows);
+            if($rows){
+                $cacheInstance->set(count($rows))->expiresAfter(Timer::timeLeftForNextDay());
+                $cache->save($cacheInstance);
+                return count($rows);
+            }else{
+                $cacheInstance->set(0)->expiresAfter(Timer::timeLeftForNextDay());
+                $cache->save($cacheInstance);
+                return 0;
+            }
+            
         }else{
             return $cacheInstance->get();
         }
-        
-        
-        
     }
 
     //NOTE - Get a limited list of books

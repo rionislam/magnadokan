@@ -247,6 +247,7 @@ class BookController extends Book{
         $starting = 0 + 12 * ($page-1);
         $limit = 12;
         $keyword = rawurldecode($keyword);
+        $keyword = str_replace(array('{', '}', '(', ')', '/','@', ':'), '', $keyword);
         $search = new Search;
         $condition = $search->createCondition($keyword);
         $order = $search->createOrder($keyword);
@@ -263,9 +264,7 @@ class BookController extends Book{
 
         $books = '';
         if(is_array($rows)){
-            $host = Application::$HOST;
             foreach($rows as $row){
-                $host = Application::$HOST;
                 $link = Application::$HOST.'/book/'.rawurlencode($row['bookName']);
                 $books .= "<article data-impression-collected=false data-book-category='{$row['bookCategory']}' data-book-id='{$row['bookId']}'>
                             <a href='{$link}' title='{$row['bookName']} by {$row['bookWritters']} Pdf Download'>
@@ -276,14 +275,14 @@ class BookController extends Book{
                             </a></article>";
             }
         }else{
-            $books .= 'Nothing found!';
+            $books .= "It seems we can't find what you're looking for.";
         }
         $bookCount = $this->count($condition);
         $htmlGenerator = new HtmlGenerator;
 
         return "<section class='books max-width center'>
                 <header>
-                    <div class='title'>Search result for {$keyword}</div>
+                    <div class='title'>Search result for: {$keyword}</div>
                     <div class='short-by'>
                         <label for='short-by'>Short by:</label>
                         <select name='short-by' id='short-by'>
