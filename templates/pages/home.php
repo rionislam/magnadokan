@@ -119,6 +119,15 @@ use Core\Services\ResourceLoader;
             }
         }
     </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Magna Dokan",
+      "url": "https://magnadokan.com",
+      "logo": "https://magnadokan.com/android-chrome-512x512.png"
+    }
+    </script>
     
 </body>
 </html>

@@ -63,17 +63,17 @@ class PageController{
     }
 
     public function loadBooksByCategory($category, $page){
-        $title = $category." Books";
+        $title = rawurldecode($category)." Books";
         include Application::$ROOT_DIR.'/templates/pages/books.php';
     }
 
     public function loadBooksByKeyword($keyword, $page){
-        $title = "Search result for ".$keyword;
+        $title = "Search result for ".rawurldecode($keyword);
         include Application::$ROOT_DIR.'/templates/pages/books.php';
     }
 
     public function loadBooksByLanguage($language, $page){
-        $title =  $language." Books";
+        $title =  rawurldecode($language)." Books";
         include Application::$ROOT_DIR.'/templates/pages/books.php';
     }
 
