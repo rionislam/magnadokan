@@ -62,7 +62,7 @@ class BookController extends Book{
         <meta property='og:image' content='{$host}/uploads/books/covers/{$row['bookCover']}'/>
         <meta property='og:url' content='{$host}/book/{$name}'/>
         <meta property='og:type' content='book'/>
-        <title>{$row['bookName']} | PDF Download - Magna Dokan</title>
+        <title>{$row['bookName']} - PDF Download</title>
         <meta name='description' content=\"{$row['metaDescription']}\"/>
         <meta name='keywords' content='{$row['bookTags']}'/>
         <link rel='canonical' href='{$host}/book/{$encodedBookName}'/>";
