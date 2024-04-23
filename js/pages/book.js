@@ -12,3 +12,13 @@ articles.forEach((article) => {
     }
   });
 });
+
+let description = document.getElementsByClassName('description')[0];
+let lineHeight = parseFloat(window.getComputedStyle(description).lineHeight);
+let maxLines = parseInt(window.getComputedStyle(description).getPropertyValue('--max-lines'));
+let maxHeight = lineHeight * maxLines;
+if (description.scrollHeight > maxHeight) {
+  showMoreBtn.style.display = 'block'; 
+}
+
+

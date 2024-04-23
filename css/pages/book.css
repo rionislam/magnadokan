@@ -70,11 +70,12 @@
 }
 
 .book-container .mid .description-container .description {
+  --max-lines: 13;
   line-height: 1.5;
   font-size: 1.1rem;
   display: -webkit-box;
-  -webkit-line-clamp: 13;
-  line-clamp: 13;
+  -webkit-line-clamp: var(--max-lines);
+  line-clamp: var(--max-lines);
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -92,6 +93,7 @@
 }
 
 .book-container .mid .description-container button {
+  display: none;
   background: none;
   border: none;
   font-family: system-ui, sans-serif;
