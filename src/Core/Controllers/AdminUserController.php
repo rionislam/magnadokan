@@ -36,15 +36,15 @@ class AdminUserController extends User{
         return $increased;
     }
 
-    public function loadAll(){
+    public function loadAll($page){
         if(!AdminAuthHandler::isLoggedIn()){
             ErrorHandler::displayErrorPage(403);
             exit;
         }
-        $rows = $this->getAll();
+        $rows = $this->getAll($page);
         if($rows !== false){
             foreach($rows as $row){
-                echo "<div class='row''>
+                echo "<div class='row'>
                         <div class='user-name'>".$row['userName']."</div>
                         <div class='user-full-name'>".$row['userFullName']."</div>
                         <div class='user-email'>".$row['userEmail']."</div>

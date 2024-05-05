@@ -9,7 +9,7 @@ echo ResourceLoader::loadComponentCss('admin-nav');
     <hr>
     <ul>
         <li onclick="navigate(this)" data-page="dashboard" class="<?=(pageName=="admin-dashboard")?'active':'';?>"><a href="/admin/dashboard"><?=ResourceLoader::loadIcon('dashboard.svg')?>Dashboard</a></li>
-        <li onclick="navigate(this)" data-page="users" class="<?=(pageName=="admin-users")?'active':'';?>"><a href="/admin/users"><?=ResourceLoader::loadIcon('users.svg')?>Users</a></li>
+        <li onclick="navigate(this)" data-page="users" class="<?=(pageName=="admin-users")?'active':'';?>"><a href="/admin/users/1"><?=ResourceLoader::loadIcon('users.svg')?>Users</a></li>
         <li onclick="navigate(this)" data-page="books" class="<?=(pageName=="admin-books")?'active':'';?>"><a href="/admin/books/1"><?=ResourceLoader::loadIcon('books.svg')?>Books</a></li>
         <li onclick="navigate(this)" data-page="categories" class="<?=(pageName=="admin-categories")?'active':'';?>"><a href="/admin/categories"><?=ResourceLoader::loadIcon('categories.svg')?>Categories</a></li>
         <li onclick="navigate(this)" data-page="writters" class="<?=(pageName=="admin-writters")?'active':'';?>"><a href="/admin/writters"><?=ResourceLoader::loadIcon('writters.svg')?>Writters</a></li>

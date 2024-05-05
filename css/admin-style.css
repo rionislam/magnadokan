@@ -134,3 +134,20 @@ main section hr {
   background: gray;
   height: 1px;
 }
+
+.paginations {
+  display: flex;
+  flex-direction: row;
+  margin: 1rem 0;
+}
+.paginations .pagination {
+  padding: 0.3rem 0.5rem;
+  margin: 0 0.5rem;
+  color: var(--normal-text-color);
+  border: 1px solid var(--normal-text-color);
+  border-radius: 3px;
+}
+.paginations .active {
+  background: var(--normal-text-color);
+  color: #fff;
+}

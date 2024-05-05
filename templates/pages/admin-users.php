@@ -44,9 +44,10 @@ if(!AdminAuthHandler::isLoggedIn()){
         <div class="rows-container">
             <?php
             $adminUserController = new AdminUserController;
-            $adminUserController->loadAll();
+            $adminUserController->loadAll($page);
             ?>
         </div>
+        <?=HtmlGenerator::generatePagination(20, $adminUserController->count(), $page, Application::$HOST."/admin/users/{page}")?>
     </section>
     </main>
 </body>

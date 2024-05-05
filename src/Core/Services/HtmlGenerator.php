@@ -48,7 +48,7 @@ class HtmlGenerator{
         <meta name='description' content=\"{$description}\">";
     }
 
-    public function generatePagination($contentLimit, $contentCount, $activePage, $link){
+    public static function generatePagination($contentLimit, $contentCount, $activePage, $link){
         $pages = $contentCount/$contentLimit;
         if($pages > 1){
             $pagination = '';

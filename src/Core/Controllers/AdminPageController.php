@@ -19,7 +19,7 @@ class AdminPageController{
         include Application::$ROOT_DIR."/templates/pages/admin-dashboard.php";
     }
 
-    public function loadUsers(){
+    public function loadUsers($page){
         if(!AdminAuthHandler::isLoggedIn()){
             header("Location: ".Application::$HOST."/admin/login");
             exit;

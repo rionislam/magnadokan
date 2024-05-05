@@ -13,8 +13,19 @@ class User extends Dbh{
         return count($rows);
     }
 
-    protected function getAll(){
-        $rows = $this->selectAll('users');
+    protected function getAll($page = NULL){
+        if($page == NULL){
+            $rows = $this->selectAll('users');
+        }else{
+            $starting = 0 + 20 * ($page-1);
+            $limit = 20;
+            $sql = "SELECT * FROM
+                    `users` 
+                    LIMIT
+                        {$starting},{$limit};";
+            $rows = $this->getRows($sql);
+        }
+        
         return $rows;
     }
 
