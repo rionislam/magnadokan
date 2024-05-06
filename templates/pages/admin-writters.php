@@ -47,9 +47,10 @@ if(!AdminAuthHandler::isLoggedIn()){
     <div class="rows-container">
         <?php
         $adminWritterController = new AdminWritterController;
-        $adminWritterController->loadAll();
+        $adminWritterController->loadAll($page);
         ?>
     </div>
+    <?=HtmlGenerator::generatePagination(10, $adminWritterController->count(), $page, Application::$HOST."/admin/writters/{page}")?>
 </section>
 </main>
 </body>

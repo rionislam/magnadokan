@@ -77,7 +77,7 @@ Router::get('/admin/categories', 'AdminPageController@loadCategories');
 Router::get('/admin/add-category', 'AdminPageController@loadAddCategory');
 Router::post('/admin/process-add-category', 'AdminCategoryController@addCategory');
 
-Router::get('/admin/writters', 'AdminPageController@loadWritters');
+Router::get('/admin/writters/{page}', 'AdminPageController@loadWritters');
 Router::get('/admin/add-writter', 'AdminPageController@loadAddWritter');
 Router::post('/admin/process-add-writter', 'AdminWritterController@addWritter');
 

@@ -10,12 +10,12 @@ use Core\Services\AdminAuthHandler;
 
 
 class AdminWritterController extends Writter{
-    public function loadAll(){
+    public function loadAll($page){
         if(!AdminAuthHandler::isLoggedIn()){
             ErrorHandler::displayErrorPage(403);
             exit;
         }
-        $rows = $this->getAll();
+        $rows = $this->getAll($page);
         if($rows !== false){
             $detailsLogo = ResourceLoader::loadIcon('details.svg');
             foreach($rows as $row){

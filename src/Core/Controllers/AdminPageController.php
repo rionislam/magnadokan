@@ -67,7 +67,7 @@ class AdminPageController{
         include Application::$ROOT_DIR."/templates/pages/admin-add-category.php";
     }
 
-    public function loadWritters(){
+    public function loadWritters($page){
         if(!AdminAuthHandler::isLoggedIn()){
             header("Location: ".Application::$HOST."/admin/login");
             exit;
