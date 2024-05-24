@@ -17,13 +17,18 @@
 }
 .home .left a {
   background: var(--accent-1);
-  border: none;
   font-family: system-ui, sans-serif;
   font-size: 1.2rem;
-  padding: 0.3rem 0.5rem;
+  padding: 0.35rem 0.5rem;
+  border: none;
+  border-bottom: 2.5px solid var(--accent-1-s-2);
   border-radius: 3px;
   color: #fff;
   cursor: pointer;
+}
+.home .left a:hover{
+  padding: 0.3rem 0.5rem;
+  border-bottom: 3px solid var(--accent-1-s-1);
 }
 .home .right {
   width: 50%;
